@@ -19,6 +19,8 @@
     color:#e9dcc0; font-family:"Gowun Batang","Nanum Myeongjo",serif; min-height:100vh;
     word-break:keep-all; overflow-wrap:break-word;
   }
+  h1,h2{text-wrap:balance;}
+  p,li,.oneline,.tailwind-card .land,.mission .m-d{text-wrap:pretty;}
   .wrap{max-width:780px; margin:0 auto; padding:56px 20px 100px;}
 
   /* hero */
@@ -82,6 +84,15 @@
   .comp:last-child{border-bottom:0;}
   .comp .big{font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:600;color:var(--seal);min-width:108px;}
   .comp .txt{font-size:14px;line-height:1.7;color:var(--ink);}
+
+  .contrast{margin-top:16px;border:1px solid rgba(168,132,63,.45);border-radius:5px;overflow:hidden;}
+  .contrast .row{padding:14px 16px;font-size:14px;line-height:1.75;}
+  .contrast .them{background:rgba(43,38,34,.05);color:var(--ink-soft);}
+  .contrast .us{background:rgba(124,45,42,.07);border-top:1px solid rgba(168,132,63,.3);}
+  .contrast .row .lab{font-family:"Nanum Myeongjo",serif;font-weight:800;font-size:11.5px;letter-spacing:1px;display:block;margin-bottom:4px;}
+  .contrast .them .lab{color:var(--ink-soft);}
+  .contrast .us .lab{color:var(--seal);}
+  .contrast .punch{text-align:center;padding:14px;font-family:"Nanum Myeongjo",serif;font-weight:800;font-size:15.5px;color:var(--gold-deep);background:rgba(168,132,63,.12);border-top:1px solid rgba(168,132,63,.3);}
 
   table.rev{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px;}
   table.rev th,table.rev td{padding:10px 8px;border-bottom:1px solid rgba(168,132,63,.3);text-align:left;color:var(--ink);}
@@ -191,20 +202,25 @@
   <!-- TAILWIND -->
   <div class="tailwind-card">
     <div class="tw-kicker">지금, 시대의 바람</div>
-    <h2>흐름이 우리 쪽으로 붑니다</h2>
-    <p>정부는 <b>AI 교육에 대규모 예산</b>을 편성하고 있고, 서울시는 <b>교육격차 해소에 막대한 예산</b>(서울런 같은 교육복지)을 쏟고 있습니다.</p>
-    <p>그 거대한 흐름의 끝에, '풀이 과정까지 진단하는' 우리의 기술이 정확히 맞물립니다.</p>
-    <div class="land">이 모든 흐름이, <b>니가 교수</b>를 향하고 있습니다.</div>
+    <h2>B2G, 시대가 등을 밀어주는 시장</h2>
+    <p>정부는 <b>AI 교육에 대규모 예산</b>을 편성하고, 서울시는 <b>교육격차 해소에 막대한 예산</b>(서울런 같은 교육복지)을 쏟고 있습니다.</p>
+    <p>이 거대한 공공 예산이 그대로 시장이 됩니다. 풀이 과정까지 들여다보며 약점을 메우는 우리 기술은, 공교육과 교육복지가 정확히 찾던 답입니다.</p>
+    <div class="land"><b>B2G의 문</b>이, 지금 가장 크게 열리고 있습니다.</div>
   </div>
 
   <!-- 05 -->
   <div class="card">
     <div class="no">05</div>
     <h2>이게 얼마나 큰가 · 실제 사례</h2>
-    <p>우리만의 주장이 아닙니다. <b>똑같은 기술 DNA를 가진 회사들이 이미 증명</b>했습니다.</p>
-    <div class="comp"><div class="big">Photomath</div><div class="txt">손글씨 수학 AI(OCR + 단계별 풀이). <b>구글이 인수</b>(2022~23). 추정 인수가 <b>3,300억~7,500억원</b>. 우리와 기술 DNA가 거의 같습니다.</div></div>
-    <div class="comp"><div class="big">콴다 / 매스프레소</div><div class="txt">한국 토종 수학 AI OCR. 누적 투자 약 <b>1,530억원</b>, 유니콘(기업가치 1조) 근접, 50개국 서비스.</div></div>
-    <p class="soft" style="margin-top:14px;">이 카테고리는 <span class="em">이미</span> 수천억~조 단위로 가치가 증명됐습니다. 우리는 거기에 '능동성'이라는 차별점을 더합니다.</p>
+    <p>우리만의 주장이 아닙니다. <b>같은 시장에서 이미 천문학적 가치가 증명</b>됐습니다.</p>
+    <div class="comp"><div class="big">Photomath</div><div class="txt">수학 문제를 인식해 풀이를 보여주는 앱. <b>구글이 인수</b>(2022~23), 추정 <b>3,300억~7,500억원</b>.</div></div>
+    <div class="comp"><div class="big">콴다 / 매스프레소</div><div class="txt">한국 수학 AI 검색 앱. 누적 투자 약 <b>1,530억원</b>, 유니콘 근접, 50개국 서비스.</div></div>
+    <p class="soft" style="margin-top:14px;">시장이 <span class="em">이미</span> 수천억~조 단위로 증명된 겁니다. 그런데 우리는, 이들과 <b>방향이 정반대</b>입니다.</p>
+    <div class="contrast">
+      <div class="row them"><span class="lab">Photomath · 콴다</span>문제를 <b>대신 풀어</b> 답과 풀이를 보여준다. 학생은 받아 본다.</div>
+      <div class="row us"><span class="lab">니가 교수</span>학생이 <b>직접 손으로 푼다.</b> 그 손글씨 사고 과정을 분석하고, 맞은 문제 속 균열까지 짚어 이끈다.</div>
+      <div class="punch">답을 주느냐, 답하게 만드느냐.</div>
+    </div>
   </div>
 
   <!-- 06 -->
