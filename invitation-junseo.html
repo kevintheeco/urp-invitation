@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>URP Corporation · 초대장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#2b2622;
+    --ink-soft:#5c534b;
+    --paper:#f6f0e4;
+    --paper-2:#efe6d3;
+    --line:#cdbf9f;
+    --gold:#a8843f;
+    --gold-deep:#876626;
+    --seal:#7c2d2a;
+    --seal-deep:#5e1f1d;
+    --bg:#1c1814;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 700px at 50% -10%, #322a22 0%, var(--bg) 60%) fixed,
+      var(--bg);
+    color:var(--ink);
+    font-family:"Gowun Batang","Nanum Myeongjo",serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* ---------- ENVELOPE INTRO ---------- */
+  #intro{
+    position:fixed; inset:0; z-index:50;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:radial-gradient(900px 600px at 50% 30%, #2a231c, #16120e);
+    transition:opacity .9s ease, visibility .9s ease;
+  }
+  #intro.hide{opacity:0; visibility:hidden;}
+  .env{
+    position:relative; width:340px; max-width:80vw; aspect-ratio:5/3.2;
+    cursor:pointer; filter:drop-shadow(0 30px 60px rgba(0,0,0,.55));
+    transition:transform .5s ease;
+  }
+  .env:hover{transform:translateY(-6px) scale(1.02);}
+  .env-body{
+    position:absolute; inset:0; border-radius:8px;
+    background:linear-gradient(160deg,#efe5cf,#e3d4b2);
+    border:1px solid #d8c89f;
+  }
+  .env-flap{
+    position:absolute; left:0; right:0; top:0; height:62%;
+    background:linear-gradient(160deg,#e8dcc1,#d8c69f);
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    border-radius:8px 8px 0 0;
+    box-shadow:0 6px 10px rgba(0,0,0,.08) inset;
+  }
+  .seal-group{
+    position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+    width:142px; height:142px;
+  }
+  .seal-ring{
+    position:absolute; inset:0; width:142px; height:142px;
+    animation:spin 44s linear infinite;
+  }
+  .seal-ring .ring-text{
+    font-family:"Cormorant Garamond",serif; font-size:10px; letter-spacing:2px;
+    fill:#cdbb90; text-transform:uppercase;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .seal{
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    width:74px; height:74px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #9a3b37, var(--seal) 55%, var(--seal-deep));
+    box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 0 14px rgba(0,0,0,.35);
+    display:flex; align-items:center; justify-content:center;
+    color:#f3e6c8; font-family:"Cormorant Garamond",serif; font-weight:600;
+    font-size:24px; letter-spacing:1px;
+    border:2px solid rgba(255,255,255,.12);
+  }
+  .intro-hint{
+    margin-top:34px; color:#c9b78f; font-family:"Cormorant Garamond",serif;
+    letter-spacing:3px; font-size:15px; text-transform:uppercase;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  .intro-kr{margin-top:8px; color:#8a7c5e; font-size:13px; letter-spacing:2px;}
+  @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+  /* ---------- STAGE ---------- */
+  #stage{
+    max-width:760px; margin:0 auto; padding:54px 18px 90px;
+    opacity:0; transform:translateY(18px);
+    transition:opacity 1s ease .2s, transform 1s ease .2s;
+  }
+  #stage.show{opacity:1; transform:none;}
+
+  .letter{
+    position:relative;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 37px, rgba(168,132,63,.07) 38px),
+      linear-gradient(180deg,var(--paper),var(--paper-2));
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:64px 56px 72px;
+    box-shadow:0 40px 80px rgba(0,0,0,.5), 0 2px 0 rgba(255,255,255,.4) inset;
+  }
+  .letter::before{
+    content:""; position:absolute; inset:10px;
+    border:1px solid rgba(168,132,63,.35); border-radius:2px; pointer-events:none;
+  }
+  .corner{position:absolute; width:26px; height:26px; border:2px solid var(--gold); opacity:.7;}
+  .corner.tl{top:18px; left:18px; border-right:0; border-bottom:0;}
+  .corner.tr{top:18px; right:18px; border-left:0; border-bottom:0;}
+  .corner.bl{bottom:18px; left:18px; border-right:0; border-top:0;}
+  .corner.br{bottom:18px; right:18px; border-left:0; border-top:0;}
+
+  .brand{
+    text-align:center; font-family:"Cormorant Garamond",serif;
+    letter-spacing:7px; font-size:14px; color:var(--gold-deep);
+    text-transform:uppercase; margin-bottom:6px;
+  }
+  .brand-mean{text-align:center; font-family:"Cormorant Garamond",serif; font-size:13px; letter-spacing:5px; color:var(--gold); margin:3px 0 2px;}
+  .brand-mean i{font-style:italic; color:var(--gold-deep);}
+  .brand-sub{text-align:center; font-size:12px; letter-spacing:4px; color:var(--ink-soft); margin-bottom:30px; margin-top:8px;}
+  .rule{display:flex; align-items:center; gap:12px; justify-content:center; margin:18px 0 30px;}
+  .rule::before,.rule::after{content:""; height:1px; width:70px; background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .rule span{color:var(--gold); font-size:13px;}
+
+  .greet{
+    text-align:center; font-family:"Nanum Myeongjo",serif; font-weight:800;
+    font-size:30px; color:var(--ink); margin:6px 0 4px; letter-spacing:1px;
+  }
+  .greet .name{color:var(--seal); position:relative;}
+  .welcome{text-align:center; color:var(--ink-soft); font-size:15px; margin-bottom:34px;}
+
+  .body p{font-size:16.5px; line-height:2.05; color:var(--ink); margin:0 0 18px; text-align:justify;}
+  .body .lead{text-align:center; font-size:18px;}
+  .invite-line{
+    text-align:center; margin:34px 0; font-family:"Nanum Myeongjo",serif;
+  }
+  .invite-pre,.invite-post{display:block; font-size:16.5px; color:var(--ink); line-height:2;}
+  .invite-pre{margin-bottom:6px;}
+  .invite-post{margin-top:6px;}
+  .appoint{
+    position:relative; display:inline-block; padding:4px 30px; margin:26px auto;
+  }
+  /* top & bottom flourish rules with centered diamond — symmetric around the title */
+  .appoint .flo{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    color:var(--gold); font-size:11px;
+  }
+  .appoint .flo::before,.appoint .flo::after{
+    content:""; height:1px; width:96px;
+    background:linear-gradient(90deg,transparent,var(--gold) 55%,var(--gold-deep));
+  }
+  .appoint .flo::after{background:linear-gradient(90deg,var(--gold-deep),var(--gold) 45%,transparent);}
+  .appoint .flo .dia{display:inline-block; transform:rotate(45deg); width:7px; height:7px; background:var(--gold); box-shadow:0 0 0 3px rgba(168,132,63,.18);}
+  .role-kr{
+    font-weight:800; font-size:38px; line-height:1.15; letter-spacing:6px;
+    color:var(--gold-deep); margin:24px 0 14px; text-indent:6px;
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+  }
+  .role-en{
+    font-family:"Cormorant Garamond",serif; font-size:12.5px; letter-spacing:7px;
+    text-transform:uppercase; color:var(--ink-soft); text-indent:7px; margin-bottom:24px;
+  }
+
+  .section-title{
+    font-family:"Nanum Myeongjo",serif; font-weight:700; font-size:15px; letter-spacing:2px;
+    color:var(--gold-deep); text-align:center; margin:46px 0 22px; position:relative;
+  }
+  .section-title::before,.section-title::after{content:"·"; color:var(--gold); margin:0 10px;}
+
+  /* terms / conditions */
+  .terms{list-style:none; padding:0; margin:0 0 10px;}
+  .terms li{
+    display:flex; gap:14px; padding:15px 16px; margin-bottom:10px;
+    background:rgba(255,255,255,.34);
+    border:1px solid rgba(168,132,63,.3); border-radius:4px;
+  }
+  .terms .no{font-family:"Cormorant Garamond",serif; font-size:20px; color:var(--gold); line-height:1.3; min-width:22px;}
+  .terms .t{font-size:14.5px; line-height:1.75; color:var(--ink);}
+  .terms .t b{color:var(--seal);}
+
+  /* agreement document */
+  .doc{
+    max-height:340px; overflow-y:auto; padding:22px 22px 18px; margin-bottom:14px;
+    background:rgba(255,255,255,.42);
+    border:1px solid rgba(168,132,63,.45); border-radius:4px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);
+  }
+  .doc::-webkit-scrollbar{width:9px;}
+  .doc::-webkit-scrollbar-thumb{background:rgba(168,132,63,.5); border-radius:6px;}
+  .doc::-webkit-scrollbar-track{background:transparent;}
+  .doc .preamble{font-size:13.5px; line-height:1.9; color:var(--ink-soft); margin:0 0 16px; text-align:justify;}
+  .art{margin-bottom:15px;}
+  .art .h{font-family:"Nanum Myeongjo",serif; font-weight:700; font-size:14px; color:var(--gold-deep); margin-bottom:5px;}
+  .art .h .num{color:var(--seal); margin-right:6px;}
+  .art ol{margin:0; padding-left:20px;}
+  .art li, .art .c{font-size:13px; line-height:1.85; color:var(--ink); margin-bottom:3px;}
+  .doc-scrollhint{font-size:11.5px; color:var(--seal); text-align:center; margin:-4px 0 18px; letter-spacing:.5px;}
+  .doc-scrollhint.read{color:var(--ink-soft); opacity:.6;}
+
+  /* pledges (checkbox) */
+  .pledge{
+    display:flex; gap:13px; align-items:flex-start; padding:14px 16px; margin-bottom:10px;
+    border:1px solid rgba(168,132,63,.35); border-radius:4px; cursor:pointer;
+    background:rgba(255,255,255,.28); transition:background .25s, border-color .25s;
+  }
+  .pledge:hover{background:rgba(255,255,255,.5);}
+  .pledge.checked{background:rgba(124,45,42,.08); border-color:var(--seal);}
+  .pledge input{position:absolute; opacity:0; width:0; height:0;}
+  .box{
+    min-width:22px; height:22px; margin-top:1px; border:1.5px solid var(--gold-deep); border-radius:3px;
+    display:flex; align-items:center; justify-content:center; color:var(--seal); font-size:15px;
+    background:#fff; transition:all .2s;
+  }
+  .pledge.checked .box{background:var(--seal); border-color:var(--seal); color:#f3e6c8;}
+  .pledge .label{font-size:14.5px; line-height:1.7; color:var(--ink);}
+  .pledge .label b{color:var(--seal);}
+
+  /* signature */
+  .sign-wrap{margin-top:18px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block; font-size:13px; letter-spacing:1px; color:var(--ink-soft); margin-bottom:7px;}
+  .field input[type=text]{
+    width:100%; padding:11px 13px; font-family:"Gowun Batang",serif; font-size:15px;
+    background:rgba(255,255,255,.55); border:1px solid var(--line); border-radius:4px; color:var(--ink);
+  }
+  .field input:focus{outline:none; border-color:var(--gold); background:#fff;}
+  .sigpad-label{display:flex; justify-content:space-between; align-items:center;}
+  .clear-btn{background:none; border:0; color:var(--gold-deep); font-size:12px; cursor:pointer; text-decoration:underline; font-family:inherit;}
+  canvas#sig{
+    width:100%; height:150px; background:rgba(255,255,255,.7);
+    border:1px dashed var(--gold); border-radius:4px; cursor:crosshair; touch-action:none;
+    display:block;
+  }
+  .sig-hint{font-size:11.5px; color:var(--ink-soft); margin-top:6px; text-align:center;}
+
+  /* first gathering attendance */
+  .gather{
+    border:1px solid rgba(168,132,63,.4); border-radius:4px; padding:22px 20px; margin-bottom:8px;
+    background:rgba(255,255,255,.3); text-align:center;
+  }
+  .gather .g-date{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:19px; color:var(--seal); letter-spacing:.5px;}
+  .gather .g-what{font-size:14px; color:var(--ink); margin-top:6px;}
+  .gather .g-what span{font-family:"Cormorant Garamond",serif; letter-spacing:3px; color:var(--gold-deep); font-size:12px; margin-left:7px; text-transform:uppercase;}
+  .gather .g-note{font-size:13px; color:var(--ink-soft); line-height:1.85; margin:13px 0 18px;}
+  .g-opt{
+    display:flex; align-items:flex-start; gap:12px; text-align:left; padding:13px 15px; margin-bottom:9px;
+    border:1px solid rgba(168,132,63,.35); border-radius:4px; cursor:pointer;
+    background:rgba(255,255,255,.42); transition:background .2s, border-color .2s;
+  }
+  .g-opt:hover{background:rgba(255,255,255,.62);}
+  .g-opt.sel{background:rgba(124,45,42,.08); border-color:var(--seal);}
+  .g-opt input{position:absolute; opacity:0; width:0; height:0;}
+  .g-opt .dot{
+    min-width:20px; height:20px; margin-top:1px; border-radius:50%;
+    border:1.5px solid var(--gold-deep); background:#fff;
+    display:flex; align-items:center; justify-content:center; transition:all .2s;
+  }
+  .g-opt.sel .dot{border-color:var(--seal);}
+  .g-opt.sel .dot::after{content:""; width:10px; height:10px; border-radius:50%; background:var(--seal);}
+  .g-opt .g-label{font-size:14px; line-height:1.7; color:var(--ink);}
+
+  /* deadline */
+  .deadline{
+    margin:40px 0 8px; text-align:center; padding:22px;
+    border:1px solid rgba(124,45,42,.35); border-radius:4px; background:rgba(124,45,42,.05);
+  }
+  .deadline .dl-title{font-size:13px; letter-spacing:2px; color:var(--seal); margin-bottom:10px;}
+  .deadline .dl-date{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:20px; color:var(--ink);}
+  .countdown{display:flex; gap:18px; justify-content:center; margin-top:16px;}
+  .cd{min-width:58px;}
+  .cd .num{font-family:"Cormorant Garamond",serif; font-size:30px; font-weight:600; color:var(--seal); line-height:1;}
+  .cd .lab{font-size:11px; letter-spacing:1px; color:var(--ink-soft); margin-top:4px;}
+
+  .submit{
+    display:block; width:100%; margin-top:30px; padding:17px;
+    font-family:"Nanum Myeongjo",serif; font-weight:700; font-size:16px; letter-spacing:3px;
+    color:#f4e8cc; cursor:pointer; border:0; border-radius:4px;
+    background:linear-gradient(160deg,#9a3b37,var(--seal) 60%,var(--seal-deep));
+    box-shadow:0 12px 26px rgba(124,45,42,.4); transition:transform .2s, box-shadow .2s, opacity .2s;
+  }
+  .submit:hover{transform:translateY(-2px); box-shadow:0 16px 32px rgba(124,45,42,.5);}
+  .submit:disabled{opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; filter:grayscale(.4);}
+  .submit-note{text-align:center; font-size:12px; color:var(--ink-soft); margin-top:12px;}
+
+  .closing{margin-top:40px; text-align:right;}
+  .closing .from{font-size:14px; color:var(--ink-soft); margin-bottom:4px;}
+  .closing .org{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:18px; color:var(--ink);}
+  .closing .date-issue{font-size:13px; color:var(--ink-soft); margin-top:6px;}
+
+  /* scripture verse (faint) */
+  .verse{text-align:center; margin:48px auto 6px; max-width:520px; opacity:.5;}
+  .verse .v-rule{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px; color:var(--gold);}
+  .verse .v-rule::before,.verse .v-rule::after{content:""; height:1px; width:46px; background:linear-gradient(90deg,transparent,var(--gold));}
+  .verse .v-rule::after{background:linear-gradient(90deg,var(--gold),transparent);}
+  .verse .v-en{font-family:"Cormorant Garamond",serif; font-style:italic; font-size:15px; line-height:1.7; color:var(--ink-soft); margin:0 0 7px;}
+  .verse .v-kr{font-size:13.5px; line-height:1.85; color:var(--ink-soft); margin:0 0 9px;}
+  .verse .v-ref{font-family:"Cormorant Garamond",serif; font-size:11.5px; letter-spacing:3px; color:var(--gold-deep);}
+
+  /* confirmation overlay */
+  #done{
+    position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
+    background:radial-gradient(900px 600px at 50% 30%, rgba(28,24,18,.92), rgba(16,12,8,.97));
+    backdrop-filter:blur(3px);
+  }
+  #done.show{display:flex;}
+  .done-card{
+    width:420px; max-width:86vw; text-align:center; padding:46px 36px;
+    background:linear-gradient(180deg,var(--paper),var(--paper-2));
+    border:1px solid var(--line); border-radius:6px; box-shadow:0 30px 70px rgba(0,0,0,.6);
+    animation:rise .7s ease;
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(24px) scale(.97)}to{opacity:1; transform:none}}
+  .done-seal{
+    width:84px; height:84px; margin:0 auto 22px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #9a3b37, var(--seal) 55%, var(--seal-deep));
+    display:flex; align-items:center; justify-content:center; color:#f3e6c8;
+    font-family:"Cormorant Garamond",serif; font-size:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.4), inset 0 0 16px rgba(0,0,0,.35);
+  }
+  .done-card h2{font-family:"Nanum Myeongjo",serif; font-size:23px; color:var(--ink); margin:0 0 12px;}
+  .done-card p{font-size:14.5px; line-height:1.9; color:var(--ink-soft); margin:0 0 8px;}
+  .done-card .accent{color:var(--seal); font-weight:700;}
+
+  /* decline path */
+  .decline-row{text-align:center; margin-top:16px;}
+  .decline-link{
+    background:none; border:0; cursor:pointer; font-family:inherit;
+    font-size:13px; color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px;
+    transition:color .2s;
+  }
+  .decline-link:hover{color:var(--seal);}
+  #decline{
+    position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
+    background:radial-gradient(900px 600px at 50% 30%, rgba(28,24,18,.92), rgba(16,12,8,.97));
+    backdrop-filter:blur(3px); padding:20px;
+  }
+  #decline.show{display:flex;}
+  .decline-card{
+    width:470px; max-width:88vw; padding:42px 34px;
+    background:linear-gradient(180deg,var(--paper),var(--paper-2));
+    border:1px solid var(--line); border-radius:6px; box-shadow:0 30px 70px rgba(0,0,0,.6);
+    animation:rise .6s ease; max-height:90vh; overflow-y:auto;
+  }
+  .decline-card .d-orn{text-align:center; color:var(--gold); font-size:18px; margin-bottom:10px;}
+  .decline-card h2{font-family:"Nanum Myeongjo",serif; font-size:22px; color:var(--ink); margin:0 0 14px; text-align:center;}
+  .decline-card p.intro{font-size:14px; line-height:1.95; color:var(--ink-soft); margin:0 0 22px; text-align:justify;}
+  .decline-card textarea{
+    width:100%; padding:11px 13px; font-family:"Gowun Batang",serif; font-size:14px; line-height:1.7;
+    background:rgba(255,255,255,.6); border:1px solid var(--line); border-radius:4px; color:var(--ink); resize:vertical;
+  }
+  .decline-card textarea:focus{outline:none; border-color:var(--gold); background:#fff;}
+  .ghost-btn{
+    display:block; width:100%; margin-top:10px; padding:12px; cursor:pointer;
+    font-family:"Nanum Myeongjo",serif; font-size:13px; letter-spacing:1px; color:var(--ink-soft);
+    background:none; border:1px solid var(--line); border-radius:4px; transition:all .2s;
+  }
+  .ghost-btn:hover{border-color:var(--gold); color:var(--ink);}
+
+  @media(max-width:600px){
+    .letter{padding:48px 24px 56px;}
+    .greet{font-size:24px;}
+    .body p{font-size:15px;}
+    .countdown{gap:12px;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <div class="env" id="env">
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="seal-group">
+        <svg class="seal-ring" viewBox="0 0 142 142" aria-hidden="true">
+          <defs>
+            <path id="ringpath" d="M71,71 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/>
+          </defs>
+          <text class="ring-text"><textPath href="#ringpath" startOffset="0">U &#183; R &#183; PROFESSOR &#10022; U &#183; R &#183; PROFESSOR &#10022; </textPath></text>
+        </svg>
+        <div class="seal">URP</div>
+      </div>
+    </div>
+    <div class="intro-hint">Click to open</div>
+    <div class="intro-kr" id="introName">정주은 님께 도착한 초대장</div>
+  </div>
+
+  <!-- LETTER -->
+  <main id="stage">
+    <div class="letter">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+
+      <div class="brand">URP Corporation</div>
+      <div class="brand-mean"><i>U</i> R <i>P</i>rofessor</div>
+      <div class="brand-sub">SCOUTING INVITATION · 동행 제안서</div>
+      <div class="rule"><span>✦</span></div>
+
+      <h1 class="greet"><span class="name" id="greetName">정주은</span> 님, 환영합니다</h1>
+      <p class="welcome">— 귀하만을 위해 준비한 한 통의 편지를 펼칩니다 —</p>
+
+      <div class="body">
+        <p class="lead">귀하의 이름 석 자를 오래 떠올린 끝에, 이 편지를 씁니다.</p>
+        <p>저희는 친분으로 사람을 모으지 않습니다. 개인적인 우정과 공적인 동행은 분명히 다른 영역이라 믿기 때문입니다. 그럼에도 불구하고 귀하께 손을 내미는 이유는 단 하나, 우리가 빚어가는 몸을 함께 짊어질 사람으로서 귀하를 신뢰하기 때문입니다.</p>
+
+        <div class="invite-line">
+          <span class="invite-pre">이에 귀하를 URP Corporation의</span>
+          <div class="appoint">
+            <div class="flo"><span class="dia"></span></div>
+            <div class="role-kr" id="roleKr">운영 총괄</div>
+            <div class="role-en" id="roleEn">Chief Operating Officer · COO</div>
+            <div class="flo"><span class="dia"></span></div>
+          </div>
+          <span class="invite-post">담당자로 정중히 초대합니다.</span>
+        </div>
+
+        <p>이 자리는 직함이 아니라 무게입니다. 회사의 실행과 조직, 그리고 매일의 결정이 귀하의 손을 거쳐 현실이 됩니다. 누군가의 지시를 기다리는 자리가 아니라, 주인으로서 길을 내는 자리입니다.</p>
+        <p>그래서 우리는 정중히, 그러나 도전적으로 묻습니다. <b style="color:var(--seal)">정말 이 사업에 뛰어들 각오가 되어 있습니까?</b> 편안함이 아니라 책임을, 구경이 아니라 헌신을 택할 자신이 있습니까. 만약 그 답이 망설임이라면, 이 편지는 여기서 접으셔도 좋습니다. 그러나 가슴이 뛰었다면 — 아래의 약속을 읽고, 귀하의 이름으로 서명해 주십시오.</p>
+      </div>
+
+      <!-- CONDITIONS -->
+      <div class="section-title">제안의 조건</div>
+      <ul class="terms">
+        <li><span class="no">Ⅰ</span><span class="t"><b>사명</b> · 우리는 이윤 추구를 넘어, 하나님의 청지기로서 이 땅에 하나님의 나라를 확장할 사명을 맡은 공동체입니다.</span></li>
+        <li><span class="no">Ⅱ</span><span class="t"><b>직책</b> · URP Corporation <span id="condRole">운영 총괄(COO)</span>로서 사업 운영·조직·실행 전반을 책임집니다.</span></li>
+        <li><span class="no">Ⅲ</span><span class="t"><b>헌신</b> · 본 직책은 취미가 아니라 삶의 우선순위로서, 가용 시간의 절반 이상을 사업에 드립니다.</span></li>
+        <li><span class="no">Ⅳ</span><span class="t"><b>지분·보상</b> · 구체적 지분 및 보상 조건은 본 초대 수락 후 별도 합의서를 통해 정식으로 확정합니다.</span></li>
+        <li><span class="no">Ⅴ</span><span class="t"><b>회신</b> · 본 초대에 대한 회신은 아래 명시된 마감 시한까지 서명으로써 의사를 표시합니다.</span></li>
+      </ul>
+
+      <!-- AGREEMENT DOCUMENT -->
+      <div class="section-title">동의 약관</div>
+      <div class="doc" id="doc">
+        <p class="preamble">본 약관은 URP Corporation(이하 "회사" 또는 "공동체")과 위 초대를 수락하는 <span id="preRole">운영 총괄(COO)</span> 후보자(이하 "본인") 사이의 동행에 관한 합의이다. 우리는 단순히 이윤을 추구하는 기업이 아니라, 하나님의 청지기로서 이 땅에 하나님의 나라를 확장할 사명을 맡은 자들이며, 우리 공동체는 그리스도의 몸 된 경제공동체이자 교회임을 고백한다. 본인은 아래 각 조항을 충분히 읽고 그 무게를 이해하였음을 전제로 이에 동의한다.</p>
+
+        <div class="art">
+          <div class="h"><span class="num">제1조</span>사명과 정체성</div>
+          <ol>
+            <li>회사는 이윤 추구를 넘어, 하나님의 청지기로서 맡겨진 사업과 영향력이 닿는 모든 영역에 하나님의 나라를 확장하는 것을 사명으로 한다.</li>
+            <li>본인은 이 공동체가 그리스도의 몸 된 경제공동체이자 교회임을 기억하며 직무에 임한다.</li>
+          </ol>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제2조</span>지위와 역할</div>
+          <div class="c">본인은 회사의 <span id="artRole">운영 총괄(COO)</span>로서 사업 운영·조직·실행 전반을 책임지며, 지시를 수행하는 피고용인이 아니라 회사의 성패를 함께 짊어지는 주체로서 임한다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제3조</span>기도</div>
+          <div class="c">본인은 회사와, 회사의 영향력이 닿는 모든 영역을 위하여 매일 기도하며, 모든 일의 시작과 끝에 하나님을 구한다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제4조</span>헌신과 우선순위</div>
+          <ol>
+            <li>본인은 본 사업을 잠깐의 취미나, 하루 이틀에 한 번 지켜보는 부업으로 여기지 아니한다.</li>
+            <li>본인은 자신의 삶과 가용 시간의 절반 이상을 본 사업에 드릴 것을 다짐한다. (예: 하루 5시간이 주어진다면 최소 2시간 이상을 회사를 위해 쓴다.)</li>
+            <li>회사가 본인의 모든 시간을 요구하지는 아니하나, 본 사업이 본인의 우선순위가 되어야 함에 합의한다.</li>
+          </ol>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제5조</span>관계와 권위</div>
+          <ol>
+            <li>본인은 모든 관계 속에서 사랑과 겸손으로 행한다.</li>
+            <li>본인은 공동체에 주어진 수직적·수평적 권위를 기쁨과 사랑으로 받아들이며, 서로를 그리스도의 몸의 지체로 섬긴다.</li>
+          </ol>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제6조</span>겸업의 제한</div>
+          <div class="c">본인은 다른 동아리, 공모전, 대외활동 등을 병행함으로써 본 사업의 우선순위와 실행에 지장을 주지 아니한다. 부득이한 경우 사전에 공동체와 협의한다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제7조</span>주인의식과 충실</div>
+          <div class="c">본인은 회사의 목표 달성을 위하여 성실하고 적극적으로 직무를 수행하며, 어려움 앞에서 변명보다 해결을 먼저 택한다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제8조</span>지분 및 보상</div>
+          <div class="c">본인에게 부여되는 지분·보상·권한의 구체적 조건은 본 초대 수락 이후 별도의 정식 계약서를 통해 협의·확정하며, 본 약관은 그 협의의 전제가 된다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제9조</span>지식재산의 귀속</div>
+          <div class="c">본인이 직무와 관련하여 창출한 결과물 및 지식재산권은 별도의 합의가 없는 한 회사에 귀속된다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제10조</span>중도 이탈</div>
+          <div class="c">본인은 정당한 사유 없이 직무를 중도에 포기하지 아니하며, 부득이한 경우 공동체와 사전에 협의하여 인수인계 등 책임을 다한다.</div>
+        </div>
+        <div class="art">
+          <div class="h"><span class="num">제11조</span>자유로운 의사와 효력</div>
+          <div class="c">본인은 어떠한 강요도 없이 충분히 고민한 끝에 자유로운 의사로 본 약관에 동의하며, 본 약관은 본인의 동의 및 서명으로써 의사표시로서 효력이 발생한다. 구체적 권리·의무는 후속 정식 계약서에 따른다.</div>
+        </div>
+      </div>
+      <p class="doc-scrollhint" id="scrollhint">⌄ 약관을 끝까지 읽어주세요 (스크롤)</p>
+
+      <!-- CONSENT CHECKS -->
+      <div class="section-title">동의 사항</div>
+      <p style="text-align:center; font-size:13.5px; color:var(--ink-soft); margin:-6px 0 18px;">아래 항목에 동의하신다면 직접 체크해 주십시오. 모든 항목에 동의해야 서명할 수 있습니다.</p>
+
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 위 <b>동의 약관(사명과 정체성 포함, 제1조~제11조)을 모두 읽고 이해</b>하였으며, 그 내용에 동의합니다.</span></label>
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 회사와, 그 <b>영향력이 닿는 모든 영역을 위하여 매일 기도</b>할 것을 다짐합니다.</span></label>
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 이 사업을 취미가 아닌 <b>삶의 우선순위로 삼아, 가용 시간의 절반 이상</b>을 드릴 것을 다짐합니다.</span></label>
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 모든 관계에서 <b>사랑과 겸손</b>으로 행하며, 공동체에 주어진 <b>수직적·수평적 권위에 기쁨과 사랑</b>으로 임하겠습니다.</span></label>
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 <b>다른 동아리·공모전·대외활동으로 본 사업에 지장</b>을 주지 않겠습니다.</span></label>
+      <label class="pledge"><input type="checkbox" class="pl" /><span class="box">✓</span>
+        <span class="label">나는 충분히 고민한 끝에, 자유로운 의지로 이 도전에 <b>뛰어들 각오</b>가 되어 있음을 선언합니다.</span></label>
+
+      <!-- SIGNATURE -->
+      <div class="section-title">서명</div>
+      <div class="sign-wrap">
+        <div class="field">
+          <label>성명 (자필로 입력)</label>
+          <input type="text" id="signName" placeholder="정주은" autocomplete="off" />
+        </div>
+        <div class="field">
+          <div class="sigpad-label">
+            <label>자필 서명</label>
+            <button class="clear-btn" id="clearSig" type="button">지우기</button>
+          </div>
+          <canvas id="sig"></canvas>
+          <div class="sig-hint">위 칸에 마우스 또는 손가락으로 서명해 주세요</div>
+        </div>
+      </div>
+
+      <!-- FIRST GATHERING -->
+      <div class="section-title">첫 모임 · 출범식</div>
+      <div class="gather">
+        <div class="g-date">2026년 7월 1일 (수) · 저녁 6시 30분</div>
+        <div class="g-what">비전 선포식 &amp; 출범식 <span>Founding Day</span></div>
+        <p class="g-note">우리의 항해가 시작되는 날입니다. 부디 이 시간을 <b>미리 비워 두시고</b>, 첫 모임 참석 가능 여부를 알려 주십시오.</p>
+        <label class="g-opt"><input type="radio" name="attend" value="가능" /><span class="dot"></span><span class="g-label">네, 가능합니다 — <b>이미 이 시간을 비워 두겠습니다.</b></span></label>
+        <label class="g-opt"><input type="radio" name="attend" value="조정요청" /><span class="dot"></span><span class="g-label">꼭 함께하고 싶으나, 일정 조정이 필요합니다.</span></label>
+      </div>
+
+      <!-- DEADLINE -->
+      <div class="deadline">
+        <div class="dl-title">◆ 회신 마감 ◆</div>
+        <div class="dl-date">2026년 6월 29일 (월) 오후 6시까지</div>
+        <div class="countdown" id="countdown">
+          <div class="cd"><div class="num" id="cd-d">–</div><div class="lab">DAYS</div></div>
+          <div class="cd"><div class="num" id="cd-h">–</div><div class="lab">HOURS</div></div>
+          <div class="cd"><div class="num" id="cd-m">–</div><div class="lab">MIN</div></div>
+          <div class="cd"><div class="num" id="cd-s">–</div><div class="lab">SEC</div></div>
+        </div>
+      </div>
+
+      <button class="submit" id="submit" disabled>이 초대를 수락하고 서명합니다</button>
+      <div class="submit-note" id="note">동의 항목 · 첫 모임 참석 · 성명 · 자필 서명을 완료하면 활성화됩니다.</div>
+      <div class="decline-row">
+        <button type="button" class="decline-link" id="declineBtn">지금은 함께하기 어렵습니다 — 정중히 회신하기</button>
+      </div>
+
+      <div class="verse">
+        <div class="v-rule"><span>✦</span></div>
+        <p class="v-en">"My grace is sufficient for you, for my power is made perfect in weakness."</p>
+        <p class="v-kr">"내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라"</p>
+        <p class="v-ref">2 Corinthians 12:9 · 고린도후서 12장 9절</p>
+      </div>
+
+      <div class="closing">
+        <div class="from">— 귀하의 동행을 기다리며,</div>
+        <div class="org">URP Corporation</div>
+        <div class="date-issue" id="issueDate">발행일 · 2026년 6월 22일</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- DONE -->
+  <div id="done">
+    <div class="done-card">
+      <div class="done-seal">URP</div>
+      <h2>서명이 완료되었습니다</h2>
+      <p><span class="accent" id="doneName">정주은</span> 님,<br/>귀하의 각오를 확인했습니다.</p>
+      <p>이제 우리는 친분이 아닌 <span class="accent">공적 동행</span>으로 이어집니다.<br/>곧 다음 단계로 찾아뵙겠습니다.</p>
+      <p style="margin-top:18px; font-size:12.5px;" id="doneStamp"></p>
+    </div>
+  </div>
+
+  <!-- DECLINE -->
+  <div id="decline">
+    <div class="decline-card">
+      <div id="declineInner">
+        <div class="d-orn">✦</div>
+        <h2>정중한 회신</h2>
+        <p class="intro">마음을 다해 고민해 주신 것만으로 충분합니다. 지금은 함께하기 어렵다는 답도 똑같이 귀한 회신입니다. 거절은 결코 관계의 끝이 아니며, 보내는 이도 받는 이도 평안하기를 바랍니다. 부담 없이, 솔직하게 전해 주세요.</p>
+        <div class="field"><label>성함</label><input type="text" id="declineName" autocomplete="off" /></div>
+        <div class="field"><label>전하고 싶은 말 (선택)</label><textarea id="declineMsg" rows="4" placeholder="짧은 한마디도 좋고, 비워 두셔도 괜찮습니다."></textarea></div>
+        <button type="button" id="declineSend" class="submit">정중히 회신 보내기</button>
+        <button type="button" id="declineCancel" class="ghost-btn">다시 초대장으로 돌아가기</button>
+        <p id="declineStatus" class="submit-note"></p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ---- recipient personalization ---- */
+  const DEFAULTS = {name:"임준서", role:"재무 총괄", roleEn:"Chief Financial Officer · CFO", roleAbbr:"CFO"};
+  const RECIPIENT = (function applyRecipient(){
+    const p = new URLSearchParams(location.search);
+    const R = {
+      name: p.get('name') || DEFAULTS.name,
+      role: p.get('role') || DEFAULTS.role,
+      roleEn: p.get('roleEn') || DEFAULTS.roleEn,
+      roleAbbr: p.get('roleAbbr') || DEFAULTS.roleAbbr
+    };
+    const set = (id,t)=>{const el=document.getElementById(id); if(el) el.textContent=t;};
+    const paren = R.role + "(" + R.roleAbbr + ")";
+    set('introName', R.name + " 님께 도착한 초대장");
+    set('greetName', R.name);
+    set('roleKr', R.role);
+    set('roleEn', R.roleEn);
+    set('condRole', paren);
+    set('preRole', paren);
+    set('artRole', paren);
+    set('doneName', R.name);
+    const sn = document.getElementById('signName'); if(sn) sn.placeholder = R.name;
+    document.title = "URP Corporation · " + R.name + " 초대장";
+    return R;
+  })();
+
+  /* ---- intro open ---- */
+  const intro = document.getElementById('intro');
+  const stage = document.getElementById('stage');
+  function openLetter(){
+    intro.classList.add('hide');
+    setTimeout(()=>{ intro.style.display='none'; stage.classList.add('show'); }, 600);
+  }
+  document.getElementById('env').addEventListener('click', openLetter);
+
+  /* ---- agreement scroll ---- */
+  const doc = document.getElementById('doc');
+  const scrollhint = document.getElementById('scrollhint');
+  doc.addEventListener('scroll', ()=>{
+    if(doc.scrollTop + doc.clientHeight >= doc.scrollHeight - 8){
+      scrollhint.textContent='✓ 약관을 끝까지 확인했습니다';
+      scrollhint.classList.add('read');
+    }
+  });
+
+  /* ---- pledges ---- */
+  const pledges = [...document.querySelectorAll('.pl')];
+  pledges.forEach(p=>{
+    p.addEventListener('change', ()=>{
+      p.closest('.pledge').classList.toggle('checked', p.checked);
+      validate();
+    });
+  });
+
+  /* ---- first-gathering attendance ---- */
+  const attendRadios = [...document.querySelectorAll('input[name="attend"]')];
+  attendRadios.forEach(r=>{
+    r.addEventListener('change', ()=>{
+      document.querySelectorAll('.g-opt').forEach(o=>o.classList.remove('sel'));
+      r.closest('.g-opt').classList.add('sel');
+      validate();
+    });
+  });
+  function getAttend(){ const c = attendRadios.find(r=>r.checked); return c ? c.value : ''; }
+
+  /* ---- signature pad ---- */
+  const canvas = document.getElementById('sig');
+  const ctx = canvas.getContext('2d');
+  let drawing=false, hasSig=false;
+  function resizeCanvas(){
+    const r = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio||1;
+    canvas.width = r.width*dpr; canvas.height = r.height*dpr;
+    ctx.scale(dpr,dpr);
+    ctx.lineWidth=2.2; ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#2b2622';
+  }
+  function pos(e){
+    const r=canvas.getBoundingClientRect();
+    const t = e.touches?e.touches[0]:e;
+    return {x:t.clientX-r.left, y:t.clientY-r.top};
+  }
+  function start(e){drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault();}
+  function move(e){if(!drawing)return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; e.preventDefault();}
+  function end(){drawing=false; validate();}
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',move);
+  window.addEventListener('mouseup',end);
+  canvas.addEventListener('touchstart',start,{passive:false});
+  canvas.addEventListener('touchmove',move,{passive:false});
+  canvas.addEventListener('touchend',end);
+  document.getElementById('clearSig').addEventListener('click',()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; validate();
+  });
+
+  /* ---- name ---- */
+  const nameInput = document.getElementById('signName');
+  nameInput.addEventListener('input', validate);
+
+  /* ---- validate ---- */
+  const submitBtn = document.getElementById('submit');
+  const note = document.getElementById('note');
+  function validate(){
+    const allPledged = pledges.every(p=>p.checked);
+    const hasName = nameInput.value.trim().length>0;
+    const attend = getAttend();
+    const ok = allPledged && hasName && hasSig && attend;
+    submitBtn.disabled = !ok;
+    if(ok){ note.textContent='준비되었습니다. 버튼을 눌러 초대를 수락하세요.'; }
+    else{
+      const need=[];
+      if(!allPledged) need.push('동의 항목 전체 체크');
+      if(!attend) need.push('첫 모임 참석 여부 선택');
+      if(!hasName) need.push('성명 입력');
+      if(!hasSig) need.push('자필 서명');
+      note.textContent='남은 항목 · '+need.join(' / ');
+    }
+  }
+
+  /* ---- countdown ---- */
+  const deadline = new Date('2026-06-29T18:00:00+09:00').getTime();
+  function tick(){
+    const now=Date.now();
+    let diff=Math.max(0, deadline-now);
+    const d=Math.floor(diff/86400000); diff-=d*86400000;
+    const h=Math.floor(diff/3600000); diff-=h*3600000;
+    const m=Math.floor(diff/60000); diff-=m*60000;
+    const s=Math.floor(diff/1000);
+    document.getElementById('cd-d').textContent=d;
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  setInterval(tick,1000); tick();
+
+  /* ---- submit ---- */
+  const done = document.getElementById('done');
+  /* 서명 시 이 메일로 수락 회신이 전송됩니다 (FormSubmit, 별도 서버 불필요) */
+  const FORM_ENDPOINT = "https://formsubmit.co/ajax/soomin020114@gmail.com";
+  submitBtn.addEventListener('click', ()=>{
+    if(submitBtn.disabled) return;
+    const nm = nameInput.value.trim();
+    document.getElementById('doneName').textContent = nm || RECIPIENT.name;
+    const now = new Date();
+    const stamp = now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
+      String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+' 서명 완료';
+    const stampEl = document.getElementById('doneStamp');
+    stampEl.textContent = stamp + ' · 회신 전송 중…';
+    done.classList.add('show');
+    submitBtn.disabled = true;
+
+    let sig = '';
+    try { sig = canvas.toDataURL('image/png'); } catch(e){}
+    fetch(FORM_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        _subject: '[URP 초대 수락] ' + nm + ' 님 — ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
+        _captcha: 'false',
+        이름: nm,
+        직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
+        수락시각: stamp,
+        동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함',
+        첫모임_참석: getAttend() === '가능' ? '참석 가능 — 7/1(수) 18:30 시간 비워둠' : '참석 희망 — 일정 조정 필요',
+        서명이미지_dataURL: sig
+      })
+    }).then(r=>r.json()).then(()=>{
+      stampEl.textContent = stamp + ' · 회신이 전송되었습니다';
+    }).catch(()=>{
+      stampEl.textContent = stamp + ' · (자동 전송 보류 — 인터넷 연결을 확인해 주세요)';
+    });
+  });
+
+  /* ---- decline path ---- */
+  const decline = document.getElementById('decline');
+  const declineNameInput = document.getElementById('declineName');
+  if(declineNameInput) declineNameInput.value = RECIPIENT.name;
+  document.getElementById('declineBtn').addEventListener('click', ()=> decline.classList.add('show'));
+  document.getElementById('declineCancel').addEventListener('click', ()=> decline.classList.remove('show'));
+  document.getElementById('declineSend').addEventListener('click', ()=>{
+    const nm = (declineNameInput.value.trim() || RECIPIENT.name);
+    const msg = document.getElementById('declineMsg').value.trim();
+    const btn = document.getElementById('declineSend');
+    const st = document.getElementById('declineStatus');
+    btn.disabled = true;
+    st.textContent = '회신 전송 중…';
+    fetch(FORM_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        _subject: '[URP 회신] ' + nm + ' 님 — 정중한 고사',
+        _captcha: 'false',
+        이름: nm,
+        회신: '정중히 고사 (이번에는 함께하지 않음)',
+        제안직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
+        남긴말: msg || '(남긴 말 없음)'
+      })
+    }).then(r=>r.json()).then(()=>{
+      document.getElementById('declineInner').innerHTML =
+        '<div class="d-orn">✦</div>' +
+        '<h2>회신해 주셔서 감사합니다</h2>' +
+        '<p class="intro" style="text-align:center;">' + nm + ' 님의 솔직한 마음을 존중합니다. 이 답은 결코 관계의 끝이 아닙니다. 길은 다시 만날 수 있고, 우리의 인연은 이 일과 무관하게 소중합니다. 평안하시길 진심으로 바랍니다.</p>';
+    }).catch(()=>{
+      st.textContent = '(전송 보류 — 인터넷 연결을 확인해 주세요)';
+      btn.disabled = false;
+    });
+  });
+
+  /* init */
+  window.addEventListener('load', ()=>{ resizeCanvas(); });
+  window.addEventListener('resize', ()=>{ /* keep drawing on resize: skip clearing for simplicity */ });
+</script>
+</body>
+</html>
