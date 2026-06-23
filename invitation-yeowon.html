@@ -547,6 +547,10 @@
           <input type="text" id="signName" placeholder="정주은" autocomplete="off" />
         </div>
         <div class="field">
+          <label>본인 이메일 (Gmail) · 이 주소로 수락 사본이 발송됩니다</label>
+          <input type="email" id="signEmail" placeholder="yourname@gmail.com" autocomplete="off" />
+        </div>
+        <div class="field">
           <div class="sigpad-label">
             <label>자필 서명</label>
             <button class="clear-btn" id="clearSig" type="button">지우기</button>
@@ -579,7 +583,7 @@
       </div>
 
       <button class="submit" id="submit" disabled>이 초대를 수락하고 서명합니다</button>
-      <div class="submit-note" id="note">동의 항목 · 첫 모임 참석 · 성명 · 자필 서명을 완료하면 활성화됩니다.</div>
+      <div class="submit-note" id="note">동의 항목 · 첫 모임 참석 · 성명 · 이메일 · 자필 서명을 완료하면 활성화됩니다.</div>
       <div class="decline-row">
         <button type="button" class="decline-link" id="declineBtn">지금은 함께하기 어렵습니다 — 정중히 회신하기</button>
       </div>
@@ -720,9 +724,11 @@
     ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; validate();
   });
 
-  /* ---- name ---- */
+  /* ---- name & email ---- */
   const nameInput = document.getElementById('signName');
+  const emailInput = document.getElementById('signEmail');
   nameInput.addEventListener('input', validate);
+  emailInput.addEventListener('input', validate);
 
   /* ---- validate ---- */
   const submitBtn = document.getElementById('submit');
@@ -730,8 +736,9 @@
   function validate(){
     const allPledged = pledges.every(p=>p.checked);
     const hasName = nameInput.value.trim().length>0;
+    const hasEmail = /\S+@\S+\.\S+/.test(emailInput.value.trim());
     const attend = getAttend();
-    const ok = allPledged && hasName && hasSig && attend;
+    const ok = allPledged && hasName && hasEmail && hasSig && attend;
     submitBtn.disabled = !ok;
     if(ok){ note.textContent='준비되었습니다. 버튼을 눌러 초대를 수락하세요.'; }
     else{
@@ -739,6 +746,7 @@
       if(!allPledged) need.push('동의 항목 전체 체크');
       if(!attend) need.push('첫 모임 참석 여부 선택');
       if(!hasName) need.push('성명 입력');
+      if(!hasEmail) need.push('이메일 입력');
       if(!hasSig) need.push('자필 서명');
       note.textContent='남은 항목 · '+need.join(' / ');
     }
@@ -785,7 +793,9 @@
       body: JSON.stringify({
         _subject: '[URP 초대 수락] ' + nm + ' 님 — ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
         _captcha: 'false',
+        _cc: emailInput.value.trim(),
         이름: nm,
+        이메일: emailInput.value.trim(),
         직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
         수락시각: stamp,
         동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함',
