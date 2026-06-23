@@ -628,7 +628,7 @@
 
 <script>
   /* ---- recipient personalization ---- */
-  const DEFAULTS = {name:"김은우", role:"마케팅 · 그로스", roleEn:"Marketing & Growth", roleAbbr:"12월 합류"};
+  const DEFAULTS = {name:"김은우", role:"마케팅 · 그로스", roleEn:"Marketing & Growth", roleAbbr:"12월 합류", key:"eunwoo"};
   const RECIPIENT = (function applyRecipient(){
     const p = new URLSearchParams(location.search);
     const R = {
@@ -767,7 +767,7 @@
     if(submitBtn.disabled) return;
     const nm = nameInput.value.trim();
     document.getElementById('doneName').textContent = nm || RECIPIENT.name;
-    const wl = document.getElementById('welcomeLink'); if(wl) wl.href = 'welcome.html?name=' + encodeURIComponent(nm || RECIPIENT.name);
+    const wl = document.getElementById('welcomeLink'); if(wl) wl.href = 'welcome.html?name=' + encodeURIComponent(nm || RECIPIENT.name) + '&who=' + encodeURIComponent(DEFAULTS.key || '');
     const now = new Date();
     const stamp = now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
       String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+' 서명 완료';
