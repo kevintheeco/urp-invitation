@@ -340,6 +340,13 @@
   .done-card h2{font-family:"Nanum Myeongjo",serif; font-size:23px; color:var(--ink); margin:0 0 12px;}
   .done-card p{font-size:14.5px; line-height:1.9; color:var(--ink-soft); margin:0 0 8px;}
   .done-card .accent{color:var(--seal); font-weight:700;}
+  .welcome-link{
+    display:inline-block; margin-top:22px; padding:13px 28px; border-radius:4px;
+    background:linear-gradient(160deg,#9a3b37,var(--seal) 60%,var(--seal-deep));
+    color:#f4e8cc; text-decoration:none; font-family:"Nanum Myeongjo",serif; font-weight:700;
+    font-size:15px; letter-spacing:2px; box-shadow:0 12px 26px rgba(124,45,42,.4); transition:transform .2s, box-shadow .2s;
+  }
+  .welcome-link:hover{transform:translateY(-2px); box-shadow:0 16px 32px rgba(124,45,42,.5);}
 
   /* decline path */
   .decline-row{text-align:center; margin-top:16px;}
@@ -598,8 +605,9 @@
       <div class="done-seal">URP</div>
       <h2>서명이 완료되었습니다</h2>
       <p><span class="accent" id="doneName">정주은</span> 님,<br/>귀하의 각오를 확인했습니다.</p>
-      <p>이제 우리는 친분이 아닌 <span class="accent">공적 동행</span>으로 이어집니다.<br/>곧 다음 단계로 찾아뵙겠습니다.</p>
+      <p>이제 우리는 친분이 아닌 <span class="accent">공적 동행</span>으로 이어집니다.<br/>당신을 위한 환영이 준비되어 있습니다.</p>
       <p style="margin-top:18px; font-size:12.5px;" id="doneStamp"></p>
+      <a id="welcomeLink" class="welcome-link" href="welcome.html" target="_blank" rel="noopener">환영 편지 열기 →</a>
     </div>
   </div>
 
@@ -760,6 +768,7 @@
     if(submitBtn.disabled) return;
     const nm = nameInput.value.trim();
     document.getElementById('doneName').textContent = nm || RECIPIENT.name;
+    const wl = document.getElementById('welcomeLink'); if(wl) wl.href = 'welcome.html?name=' + encodeURIComponent(nm || RECIPIENT.name);
     const now = new Date();
     const stamp = now.getFullYear()+'년 '+(now.getMonth()+1)+'월 '+now.getDate()+'일 '+
       String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+' 서명 완료';

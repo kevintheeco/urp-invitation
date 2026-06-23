@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>URP Corporation · 환영합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#2b2622; --paper:#f6f0e4; --line:#cdbf9f;
+    --gold:#a8843f; --gold-soft:#cdbb90; --gold-bright:#e7cd92; --seal:#7c2d2a; --bg:#14110d;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1100px 760px at 50% -8%, #2e261d 0%, var(--bg) 58%) fixed, var(--bg);
+    color:#e9dcc0; font-family:"Gowun Batang","Nanum Myeongjo",serif; min-height:100vh;
+    word-break:keep-all; overflow-wrap:break-word; overflow-x:hidden;
+  }
+  h1,h2{text-wrap:balance;}
+  p{text-wrap:pretty;}
+
+  /* soft drifting gold glow */
+  .glow{position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(420px 420px at 50% 18%, rgba(168,132,63,.16), transparent 70%);
+    animation:breathe 7s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+
+  .wrap{position:relative; z-index:1; max-width:640px; margin:0 auto; padding:72px 22px 96px; text-align:center;}
+
+  /* entrance */
+  .rise{opacity:0; transform:translateY(20px); animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes rise{to{opacity:1; transform:none;}}
+
+  /* crest */
+  .crest{
+    width:96px; height:96px; border-radius:50%; margin:0 auto 30px;
+    background:radial-gradient(circle at 35% 30%, #9a3b37, var(--seal) 55%, #561c1a);
+    display:flex; align-items:center; justify-content:center; color:#f3e6c8;
+    font-family:"Cormorant Garamond",serif; font-size:30px; letter-spacing:1px;
+    box-shadow:0 12px 30px rgba(0,0,0,.55), inset 0 0 18px rgba(0,0,0,.4);
+    opacity:0; transform:scale(.6); animation:stampIn 1.1s cubic-bezier(.2,1.3,.3,1) .15s forwards;
+  }
+  @keyframes stampIn{0%{opacity:0; transform:scale(.6)} 60%{opacity:1; transform:scale(1.06)} 100%{opacity:1; transform:scale(1)}}
+  .crest::after{content:""; position:absolute; width:120px; height:120px; border-radius:50%;
+    border:1px solid rgba(168,132,63,.4); animation:ring 2.6s ease-out .5s infinite;}
+  @keyframes ring{0%{opacity:.7; transform:scale(.85)} 100%{opacity:0; transform:scale(1.25)}}
+
+  .kicker{font-family:"Cormorant Garamond",serif; letter-spacing:7px; font-size:12px; color:var(--gold);
+    text-transform:uppercase; margin-bottom:14px; animation-delay:.35s;}
+  h1{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:46px; margin:0; color:#f3ead0;
+    letter-spacing:2px; animation-delay:.5s;}
+  .name-line{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:26px; margin-top:14px;
+    animation-delay:.7s;}
+  .name-line .who{
+    color:var(--gold-bright);
+    background:linear-gradient(90deg,var(--gold) 0%,var(--gold-bright) 50%,var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .sub{font-size:15px; color:#bdae8e; margin-top:20px; line-height:1.9; animation-delay:.9s;}
+
+  .divider{display:flex; align-items:center; justify-content:center; gap:14px; margin:54px 0; animation-delay:1s;}
+  .divider::before,.divider::after{content:""; height:1px; width:90px; background:linear-gradient(90deg,transparent,var(--gold));}
+  .divider::after{background:linear-gradient(90deg,var(--gold),transparent);}
+  .divider span{color:var(--gold); font-size:13px;}
+
+  .block{margin:0 auto 44px; max-width:540px; animation-delay:1.1s;}
+  .block h2{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:22px; color:#f1e6cd; margin:0 0 16px;}
+  .block p{font-size:16px; line-height:2; color:#d6c7a4; margin:0;}
+  .block p u{text-decoration:underline; text-decoration-color:var(--gold); text-underline-offset:4px; color:#f1e6cd;}
+  .block p b{color:var(--gold-bright);}
+
+  /* next / 출범식 */
+  .next{
+    border:1px solid rgba(168,132,63,.4); border-radius:8px; padding:34px 28px;
+    background:linear-gradient(180deg, rgba(168,132,63,.08), rgba(0,0,0,.18));
+  }
+  .next .nk{font-family:"Cormorant Garamond",serif; letter-spacing:5px; font-size:12px; color:var(--gold); text-transform:uppercase; margin-bottom:8px;}
+  .next h2{margin:0 0 12px;}
+  .next .when{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:20px; color:#f3ead0; margin-bottom:14px;}
+  .next p{font-size:14.5px; color:#c8b994;}
+  .countdown{display:flex; gap:20px; justify-content:center; margin-top:22px;}
+  .cd .num{font-family:"Cormorant Garamond",serif; font-size:32px; font-weight:600; color:var(--gold-bright); line-height:1;}
+  .cd .lab{font-size:10.5px; letter-spacing:2px; color:#9c8d6c; margin-top:6px;}
+
+  .verse{margin:54px auto 30px; max-width:540px; opacity:.78; animation-delay:1.2s;}
+  .verse .v-en{font-family:"Cormorant Garamond",serif; font-style:italic; font-size:17px; line-height:1.7; color:var(--gold-soft); margin:0 0 9px;}
+  .verse .v-kr{font-size:14px; line-height:1.9; color:#b6a884; margin:0 0 10px;}
+  .verse .v-ref{font-family:"Cormorant Garamond",serif; font-size:11.5px; letter-spacing:3px; color:var(--gold);}
+
+  .bless{margin-top:46px; animation-delay:1.3s;}
+  .bless p{font-family:"Nanum Myeongjo",serif; font-weight:700; font-size:18px; line-height:1.8; color:#f1e6cd; margin:0 0 18px;}
+  .bless .org{font-family:"Cormorant Garamond",serif; letter-spacing:4px; font-size:13px; color:var(--gold); text-transform:uppercase;}
+  .bless .with{font-size:13px; color:#9c8d6c; margin-top:6px; letter-spacing:1px;}
+
+  @media(max-width:560px){
+    h1{font-size:36px;}
+    .countdown{gap:14px;}
+    .wrap{padding:56px 18px 80px;}
+  }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <main class="wrap">
+
+    <div class="crest">URP</div>
+    <div class="kicker rise">You Are Welcomed</div>
+    <h1 class="rise">환영합니다</h1>
+    <div class="name-line rise"><span class="who" id="who">동역자</span> 님</div>
+    <p class="sub rise">당신의 이름이, 우리의 명단에 새겨졌습니다.</p>
+
+    <div class="divider rise"><span>✦</span></div>
+
+    <section class="block rise">
+      <h2>이제, 언약입니다</h2>
+      <p>우리는 친분으로 모이지 않았습니다. 오늘 당신의 '예'로, 우리는 친분을 넘어 <u>언약</u>으로 이어졌습니다. 한 사람의 결심이 아니라, 그리스도의 몸 된 <b>한 공동체</b>로.</p>
+    </section>
+
+    <section class="block rise">
+      <h2>당신의 '예'를, 가볍게 듣지 않았습니다</h2>
+      <p>우리는 각오를 물었고, 당신은 답했습니다. 그 무게를 우리는 압니다. 그리고 약속합니다. 이제 그 무게를 혼자 지지 않습니다. <b>함께 집니다.</b></p>
+    </section>
+
+    <section class="block next rise">
+      <div class="nk">다음 걸음</div>
+      <h2>우리의 첫 모임 · 출범식</h2>
+      <div class="when">2026년 7월 1일 (수) · 저녁 6시 30분</div>
+      <p>그날, 우리는 비로소 한 자리에 모입니다. 비전을 선포하고, 함께 항해를 시작합니다. 부디 이 시간을 비워 두세요.</p>
+      <div class="countdown" id="countdown">
+        <div class="cd"><div class="num" id="cd-d">–</div><div class="lab">DAYS</div></div>
+        <div class="cd"><div class="num" id="cd-h">–</div><div class="lab">HOURS</div></div>
+        <div class="cd"><div class="num" id="cd-m">–</div><div class="lab">MIN</div></div>
+      </div>
+    </section>
+
+    <div class="verse rise">
+      <p class="v-en">"Two are better than one. A threefold cord is not quickly broken."</p>
+      <p class="v-kr">"두 사람이 한 사람보다 나으며, 세 겹 줄은 쉽게 끊어지지 아니하느니라"</p>
+      <p class="v-ref">Ecclesiastes 4:9, 12 · 전도서 4장 9, 12절</p>
+    </div>
+
+    <div class="bless rise">
+      <p>당신의 합류를 축복합니다.<br/>선한 일을 시작하신 이가, 끝까지 이루실 것입니다.</p>
+      <div class="org">URP Corporation</div>
+      <div class="with">함께, 끝까지. 당신의 동행자들 드림</div>
+    </div>
+
+  </main>
+
+<script>
+  (function(){
+    var p = new URLSearchParams(location.search);
+    var name = p.get('name');
+    if(name){
+      document.getElementById('who').textContent = name;
+      document.title = "URP Corporation · " + name + " 님 환영합니다";
+    }
+  })();
+
+  var deadline = new Date('2026-07-01T18:30:00+09:00').getTime();
+  function tick(){
+    var diff = Math.max(0, deadline - Date.now());
+    var d = Math.floor(diff/86400000); diff -= d*86400000;
+    var h = Math.floor(diff/3600000); diff -= h*3600000;
+    var m = Math.floor(diff/60000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  }
+  setInterval(tick, 1000); tick();
+</script>
+</body>
+</html>
