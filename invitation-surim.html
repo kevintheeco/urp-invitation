@@ -456,7 +456,7 @@
       </div>
 
       <a class="briefing-cta" href="briefing.html" target="_blank" rel="noopener">
-        ✦ 결정에 앞서 — <b>우리 사업이 무엇이고 어디로 가는지</b>
+        ✦ 결정에 앞서 · <b>우리 사업이 무엇이고 어디로 가는지</b>
         <span class="sub">사업 브리핑 보기 · 새 창에서 열림 →</span>
       </a>
 
@@ -602,7 +602,7 @@
       <button class="submit" id="submit" disabled>이 초대를 수락하고 서명합니다</button>
       <div class="submit-note" id="note">동의 항목 · 성명 · 이메일 · 자필 서명을 완료하면 활성화됩니다.</div>
       <div class="decline-row">
-        <button type="button" class="decline-link" id="declineBtn">지금은 함께하기 어렵습니다 — 정중히 회신하기</button>
+        <button type="button" class="decline-link" id="declineBtn">지금은 함께하기 어렵습니다 · 정중히 회신하기</button>
       </div>
 
       <div class="verse">
@@ -807,7 +807,7 @@
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({
-        _subject: '[URP 초대 수락] ' + nm + ' 님 — ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
+        _subject: '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
         _captcha: 'false',
         _cc: emailInput.value.trim(),
         이름: nm,
@@ -820,7 +820,7 @@
     }).then(r=>r.json()).then(()=>{
       stampEl.textContent = stamp + ' · 회신이 전송되었습니다';
     }).catch(()=>{
-      stampEl.textContent = stamp + ' · (자동 전송 보류 — 인터넷 연결을 확인해 주세요)';
+      stampEl.textContent = stamp + ' · (자동 전송 보류 · 인터넷 연결을 확인해 주세요)';
     });
   });
 
@@ -841,7 +841,7 @@
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({
-        _subject: '[URP 회신] ' + nm + ' 님 — 정중한 고사',
+        _subject: '[URP 회신] ' + nm + ' 님 · 정중한 고사',
         _captcha: 'false',
         이름: nm,
         회신: '정중히 고사 (이번에는 함께하지 않음)',
@@ -854,7 +854,7 @@
         '<h2>회신해 주셔서 감사합니다</h2>' +
         '<p class="intro" style="text-align:center;">' + nm + ' 님의 솔직한 마음을 존중합니다. 이 답은 결코 관계의 끝이 아닙니다. 길은 다시 만날 수 있고, 우리의 인연은 이 일과 무관하게 소중합니다. 평안하시길 진심으로 바랍니다.</p>';
     }).catch(()=>{
-      st.textContent = '(전송 보류 — 인터넷 연결을 확인해 주세요)';
+      st.textContent = '(전송 보류 · 인터넷 연결을 확인해 주세요)';
       btn.disabled = false;
     });
   });
