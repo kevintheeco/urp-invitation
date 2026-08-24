@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 <style>
   :root{
     --ink:#2b2622;
@@ -802,26 +803,101 @@
     done.classList.add('show');
     submitBtn.disabled = true;
 
-    let sig = '';
-    try { sig = canvas.toDataURL('image/png'); } catch(e){}
+    /* 서약 확인서 PDF — 화면 서체로 캔버스에 그려 한 장짜리 이미지 PDF로 만든다 */
+    function buildPledgePdf(nm, stamp){
+      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if(!jsPDFCtor) return null;
+      var W=1240, H=1754;
+      var c=document.createElement('canvas'); c.width=W; c.height=H;
+      var x=c.getContext('2d');
+      x.fillStyle='#f6f0e4'; x.fillRect(0,0,W,H);
+      x.strokeStyle='#a8843f'; x.lineWidth=3; x.strokeRect(40,40,W-80,H-80);
+      x.strokeStyle='rgba(168,132,63,.45)'; x.lineWidth=1; x.strokeRect(58,58,W-116,H-116);
+      x.textAlign='center';
+      x.fillStyle='#876626'; x.font='600 32px "Cormorant Garamond", serif';
+      x.fillText('U R P   C O R P O R A T I O N', W/2, 168);
+      x.fillStyle='#2b2622'; x.font='800 62px "Nanum Myeongjo", serif';
+      x.fillText('동행 서약 확인서', W/2, 268);
+      x.strokeStyle='#a8843f'; x.lineWidth=1.5;
+      x.beginPath(); x.moveTo(W/2-140,306); x.lineTo(W/2+140,306); x.stroke();
+      x.fillStyle='#2b2622'; x.font='700 42px "Gowun Batang", serif';
+      x.fillText(nm+' 님', W/2, 404);
+      x.fillStyle='#5c534b'; x.font='400 27px "Gowun Batang", serif';
+      x.fillText(RECIPIENT.role+' · '+RECIPIENT.roleEn, W/2, 452);
+      var lines=[
+        '위 사람은 URP Corporation의 초대에 응하여,',
+        '동의 약관(제1조부터 제11조까지)과 모든 동의 항목을 읽고 이해한 뒤',
+        '자유로운 의사로 이에 동의하고 아래와 같이 자필 서명하였습니다.'
+      ];
+      x.fillStyle='#2b2622'; x.font='400 29px "Gowun Batang", serif';
+      for(var i=0;i<lines.length;i++){ x.fillText(lines[i], W/2, 566+i*54); }
+      x.fillStyle='#5c534b'; x.font='400 26px "Gowun Batang", serif';
+      x.fillText(stamp, W/2, 764);
+      var bw=640, bh=300, bx=(W-bw)/2, by=846;
+      x.fillStyle='#ffffff'; x.fillRect(bx,by,bw,bh);
+      x.strokeStyle='#a8843f'; x.setLineDash([8,6]); x.strokeRect(bx,by,bw,bh); x.setLineDash([]);
+      try{
+        var ratio=Math.min(bw/canvas.width, bh/canvas.height);
+        var sw=canvas.width*ratio, sh=canvas.height*ratio;
+        x.drawImage(canvas, bx+(bw-sw)/2, by+(bh-sh)/2, sw, sh);
+      }catch(e){}
+      x.fillStyle='#5c534b'; x.font='400 24px "Gowun Batang", serif';
+      x.fillText('자필 서명', W/2, by+bh+46);
+      var sy=by+bh+170;
+      x.beginPath(); x.arc(W/2, sy, 54, 0, Math.PI*2);
+      x.fillStyle='#7c2d2a'; x.fill();
+      x.fillStyle='#f3e6c8'; x.font='600 32px "Cormorant Garamond", serif';
+      x.fillText('URP', W/2, sy+11);
+      x.fillStyle='#5c534b'; x.font='400 24px "Gowun Batang", serif';
+      x.fillText('URP Corporation', W/2, H-142);
+      x.fillStyle='#8a7c5e'; x.font='400 20px "Gowun Batang", serif';
+      x.fillText('이 문서는 서명 시각에 자동 생성되어 회사와 서명인에게 발송되었습니다.', W/2, H-102);
+      var img=c.toDataURL('image/jpeg', 0.92);
+      var pdf=new jsPDFCtor({unit:'mm', format:'a4'});
+      pdf.addImage(img,'JPEG',0,0,210,297);
+      return pdf.output('blob');
+    }
+
+    var fd = new FormData();
+    fd.append('_subject', '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')');
+    fd.append('_captcha', 'false');
+    fd.append('_template', 'table');
+    fd.append('_cc', emailInput.value.trim());
+    fd.append('이름', nm);
+    fd.append('이메일', emailInput.value.trim());
+    fd.append('직책', RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')');
+    fd.append('수락시각', stamp);
+    fd.append('동의', '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함. 서명 원본은 첨부 PDF 참조.');
+    try{
+      var pdfBlob = buildPledgePdf(nm, stamp);
+      if(pdfBlob) fd.append('attachment', pdfBlob, 'URP_동행서약_' + nm + '.pdf');
+    }catch(e){}
     fetch(FORM_ENDPOINT, {
       method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        _subject: '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
-        _captcha: 'false',
-        _cc: emailInput.value.trim(),
-        이름: nm,
-        이메일: emailInput.value.trim(),
-        직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
-        수락시각: stamp,
-        동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함',
-        서명이미지_dataURL: sig
-      })
+      headers:{'Accept':'application/json'},
+      body: fd
     }).then(r=>r.json()).then(()=>{
       stampEl.textContent = stamp + ' · 회신이 전송되었습니다';
     }).catch(()=>{
-      stampEl.textContent = stamp + ' · (자동 전송 보류 · 인터넷 연결을 확인해 주세요)';
+      /* 첨부 전송이 막히면 최소 정보라도 보낸다 */
+      fetch(FORM_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({
+          _subject: '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
+          _captcha: 'false',
+          _cc: emailInput.value.trim(),
+          이름: nm,
+          이메일: emailInput.value.trim(),
+          직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
+          수락시각: stamp,
+          동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함 (서약서 PDF 첨부는 전송 실패)'
+        })
+      }).then(r=>r.json()).then(()=>{
+        stampEl.textContent = stamp + ' · 회신이 전송되었습니다';
+      }).catch(()=>{
+        stampEl.textContent = stamp + ' · (자동 전송 보류 · 인터넷 연결을 확인해 주세요)';
+      });
     });
   });
 
