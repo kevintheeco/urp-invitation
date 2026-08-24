@@ -127,6 +127,17 @@
   .shot img{width:100%;display:block;}
   .shot .cap{padding:8px 11px;font-size:12px;color:var(--ink-soft);line-height:1.55;background:var(--paper-2);}
   .shot .cap b{color:var(--seal);}
+  .chat{padding:20px 22px 8px;background:#fff;}
+  .chat .tl{display:flex;align-items:center;gap:9px;font-weight:800;color:var(--seal);font-size:13.5px;margin-bottom:16px;}
+  .chat .tl .dot{width:27px;height:27px;border-radius:50%;background:var(--wine-tint);
+    display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .chat p.t{margin:0 0 12px;font-size:15.5px;line-height:1.75;color:var(--ink);}
+  .chat .chip{display:block;width:fit-content;margin:2px 0 16px auto;padding:8px 20px;
+    border:1.5px solid var(--seal);border-radius:999px;color:var(--seal);font-weight:700;
+    font-size:14px;background:#fff;}
+  .chat hr{border:0;border-top:1px solid var(--line-2);margin:4px 0 16px;}
+  .mth{font-family:var(--en);font-style:italic;letter-spacing:.02em;}
+
   .shot-pair{display:grid;gap:8px;margin:14px 0 4px;align-items:center;}
   @media(min-width:600px){ .shot-pair{grid-template-columns:1fr auto 1fr;} }
   .pair-arrow{text-align:center;color:var(--seal);font-size:30px;line-height:1;padding:0 2px;
@@ -377,8 +388,20 @@
       </div>
     </div>
 
-    <div class="shot" style="max-width:480px;margin:10px auto 4px;">
-      <img src="assets/app/chat_long.png" alt="답 대신 알겠어 모르겠어를 되묻고, 모르겠다고 하면 한 걸음만 채워 다시 학생에게 넘기는 대화 화면" loading="lazy" />
+    <div class="shot" style="margin-top:10px;">
+      <div class="chat">
+        <div class="tl"><span class="dot">🎓</span>선생님의 도움</div>
+        <p class="t"><span class="mth">f(0) = 2f(2)</span> 까지는 나왔어?</p>
+        <span class="chip">그건 알겠어</span>
+        <p class="t">그러면 0이랑 2가 극점인 것도 알겠어?</p>
+        <span class="chip">모르겠어</span>
+        <hr/>
+        <p class="t">극점은 기울기가 0이 되는 곳이야.<br/>
+        <span class="mth">f(x)</span>를 미분하면 <span class="mth">3x(x−2)</span> 니까, <b style="color:var(--seal)"><span class="mth">x = 0</span> 과 <span class="mth">x = 2</span></b> 에서 0이 돼.<br/>
+        그래서 그 두 곳이 극점이야.</p>
+        <p class="t">그럼 이제 그래프로 그려볼래?</p>
+        <span class="chip">해볼게</span>
+      </div>
       <div class="cap"><b>상호작용</b> · 답 대신 되묻고, 모르면 한 걸음만 채워 다시 학생에게 넘기는 대화</div>
     </div>
 
