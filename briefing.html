@@ -122,6 +122,52 @@
   .future-box .h{font-family:var(--kr);font-weight:800;font-size:16px;color:var(--seal);margin-bottom:8px;}
   .future-box .d{font-size:13.5px;line-height:1.75;color:var(--ink);}
 
+  /* 팀 */
+  .lead-mem{display:grid;gap:0;border:1px solid rgba(138,28,43,.4);border-radius:6px;overflow:hidden;
+    background:rgba(255,255,255,.5);margin-top:10px;}
+  @media(min-width:640px){ .lead-mem{grid-template-columns:210px 1fr;} }
+  .lead-mem .ph{background:var(--paper-2);min-height:230px;}
+  .lead-mem .ph img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;}
+  @media(max-width:639px){ .lead-mem .ph{aspect-ratio:4/5;} }
+  .lead-mem .bd{padding:20px 20px 18px;}
+  .lead-mem .nm{font-family:var(--kr);font-weight:800;font-size:20px;color:var(--ink);}
+  .lead-mem .ro{display:inline-block;margin-top:7px;font-size:11.5px;font-weight:700;
+    padding:4px 11px;border-radius:999px;background:var(--wine-tint);color:var(--seal);}
+  .lead-mem .sch{margin-top:8px;font-size:12.5px;color:var(--muted);}
+  .pts{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px;}
+  .pts li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:13px;line-height:1.65;}
+  .pts .pk{font-weight:800;color:var(--seal);white-space:nowrap;}
+  .pts .pd{color:var(--ink-soft);}
+  @media(max-width:520px){ .pts li{grid-template-columns:1fr;gap:1px;} }
+  .team{display:grid;gap:10px;margin-top:10px;}
+  @media(min-width:640px){ .team{grid-template-columns:1fr 1fr;} }
+  .mem{border:1px solid rgba(138,28,43,.4);border-radius:5px;padding:16px 15px;background:rgba(255,255,255,.4);}
+  .mem .hd{display:flex;align-items:center;gap:12px;}
+  .mem .av{width:52px;height:52px;border-radius:12px;overflow:hidden;flex:0 0 auto;
+    box-shadow:inset 0 0 0 1.5px var(--seal);background:var(--paper-2);}
+  .mem .av img{width:100%;height:100%;object-fit:cover;display:block;}
+  .mem .nm{font-family:var(--kr);font-weight:800;font-size:15px;color:var(--ink);}
+  .mem .ro{margin-top:2px;font-size:12px;font-weight:700;color:var(--seal);}
+  .mem .sch{margin-top:1px;font-size:11.5px;color:var(--muted);}
+  .mem .pts{margin-top:12px;gap:7px;}
+  .mem .pts li{font-size:12.5px;line-height:1.6;}
+  .advisor{margin-top:10px;padding:18px 18px 16px;border-radius:5px;background:var(--paper-2);
+    border:1px solid var(--line);border-left:3px solid var(--seal);}
+  .advisor .hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .advisor .av{width:86px;aspect-ratio:246/316;border-radius:12px;overflow:hidden;flex:0 0 auto;
+    box-shadow:inset 0 0 0 1.5px var(--seal);background:var(--paper-2);}
+  .advisor .av img{width:100%;height:100%;object-fit:cover;display:block;}
+  .advisor .lb{font-family:var(--en);font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--seal);}
+  .advisor .nm{margin-top:3px;font-family:var(--kr);font-weight:800;font-size:16px;}
+  .advisor .sch{margin-top:2px;font-size:12px;color:var(--muted);}
+  .advisor .hl{margin-left:auto;text-align:right;}
+  .advisor .hl .t{font-weight:800;font-size:13.5px;color:var(--ink);}
+  .advisor .hl .s{margin-top:2px;font-size:11.5px;color:var(--muted);}
+  .seat{margin-top:10px;padding:16px 15px;border:1px dashed var(--seal);border-radius:5px;
+    background:rgba(138,28,43,.05);}
+  .seat .t{font-family:var(--kr);font-weight:800;font-size:15px;color:var(--seal);}
+  .seat .d{margin-top:5px;font-size:13px;line-height:1.7;color:var(--ink);}
+
   /* mission dark band */
   .mission{
     text-align:center; margin:34px 0 8px; padding:40px 30px;
@@ -249,24 +295,18 @@
   <!-- 04 MOAT -->
   <div class="card">
     <div class="no">06</div>
-    <h2>우리의 해자 · 세 개의 층</h2>
-    <p class="soft" style="margin-top:-4px;">한국에서만 생산되는 양질의 압도적인 손글씨 데이터를 기반으로 파인튜닝된 모델과, 진짜 교육.</p>
+    <h2>우리의 해자 · 두 개의 층</h2>
+    <p class="soft" style="margin-top:-4px;">한국에서만 생산되는 양질의 압도적인 손글씨 데이터로 파인튜닝된 자체 수학 모델과, 진짜 교육.</p>
 
     <div class="pill" style="margin-top:14px;">
-      <div class="t">① 데이터 · 세계에서 가장 조밀한 손글씨 수학 스트림</div>
-      <div class="d">한국 고교생 자습 <b>125분/일</b>, 미국 <b>45분/일</b>. <b>2.8배</b>입니다. <span class="soft">(2024 KOSIS 생활시간조사 / U.S. BLS American Time Use Survey에서 유도)</span><br/>
-      핵심은 양이 아니라 <b>형태</b>입니다. 사진이 아니라 <b>획·지움·멈춤을 벡터로</b> 잡습니다. 최종 답은 이미 상품화됐지만, <span class="em">학생이 밟은 경로</span>는 아직 아무도 소유하지 않았습니다.<br/>
-      <span class="soft">현재 상태 · <b>축적 중</b>. 앱에서 데이터가 실제로 쌓이고 있습니다.</span></div>
+      <div class="t">① 모델 · 대한민국의 데이터로 길러낸 자체 수학 모델</div>
+      <div class="d">우리가 목표로 하는 것은 범용 모델을 빌려 쓰는 것이 아니라, <b>대한민국이라는 압도적인 양질의 데이터로 파인튜닝된 자체 수학 모델</b>입니다.<br/>
+      한국 고교생은 하루 <b>125분</b>을 자습에 씁니다. 미국은 <b>45분</b>, <b>2.8배</b>입니다. <span class="soft">(2024 KOSIS 생활시간조사 / U.S. BLS American Time Use Survey에서 유도)</span> 핵심은 양이 아니라 <b>형태</b>입니다. 사진이 아니라 <b>획·지움·멈춤을 벡터로</b> 잡습니다. 최종 답은 이미 상품화됐지만, <span class="em">학생이 밟은 경로</span>는 아직 아무도 소유하지 않았습니다. 이 데이터 위에서만 나오는 <b>원가와 정확도</b>가 범용 API를 부르는 회사와 우리를 가릅니다.<br/>
+      <span class="soft">현재 상태 · 데이터는 <b>쌓이는 중</b>, 모델은 <b>학습 전</b>입니다. 완료가 아니라 목표입니다.</span></div>
     </div>
 
     <div class="pill" style="margin-top:10px;">
-      <div class="t">② 모델 · API 래퍼가 아닌 수학 특화 스택</div>
-      <div class="d">축적한 데이터로 손글씨 추론에 파인튜닝해, 범용 API 호출자가 맞출 수 없는 <b>원가·정확도 구조</b>를 만듭니다. "우리는 GPT 래퍼가 아니다"에 대한 진짜 답입니다.<br/>
-      <span class="soft">현재 상태 · <b>아직 학습 전</b>. 데이터는 모으고 있으나 파인튜닝은 시작 전입니다.</span></div>
-    </div>
-
-    <div class="pill" style="margin-top:10px;">
-      <div class="t">③ 교육 · 언제 개입하고 언제 침묵할 것인가 <span class="soft">(설계·운영 중)</span></div>
+      <div class="t">② 교육 · 언제 개입하고 언제 침묵할 것인가 <span class="soft">(설계·운영 중)</span></div>
       <div class="d">기술도, 데이터 자체도 아닙니다. 데이터에서 배우는 것, 곧 <b>인간이 수학을 배우는 방식</b>입니다. 어디서 멈추고, 무엇을 지우고, 언제 전략을 바꾸는지. 그래서 교육의 근본 질문을 연구할 수 있습니다. <span class="em">AI 선생님은 언제 개입하고, 언제 침묵해야 하는가.</span></div>
     </div>
 
@@ -362,30 +402,114 @@
     </ul>
   </div>
 
-  <!-- 11 -->
-  <div class="card">
-    <div class="no">12</div>
-    <h2>두 개의 미래 · 어느 쪽이든 이긴다</h2>
-    <div class="two-future">
-      <div class="future-box"><div class="h">① EXIT</div><div class="d">증명한다 → 더 큰 기업이 전략적 가치를 인정한다 → 회사를 넘기고 각자 더 큰 세상으로 도약한다. 돈이 목적이 아니라 <b>도약의 발판</b>.</div></div>
-      <div class="future-box"><div class="h">② Go Global</div><div class="d">능동학습은 전 세계 교육의 공통 과제. 수학·과학은 언어 의존도가 낮고, 앱은 이미 한·영을 자동 감지합니다. 직접 세계로.</div></div>
-    </div>
-    <p style="margin-top:16px;" class="soft">둘 중 하나를 고르는 게 아닙니다. <b style="color:var(--seal)">글로벌 확장성이 곧 EXIT 가치를 키우는 무기</b>가 됩니다. 팔 때 더 비싸지니까요.</p>
-  </div>
-
   <!-- 08 -->
   <div class="card">
-    <div class="no">13</div>
-    <h2>왜 지금, 왜 우리 · 네 개의 엔진</h2>
-    <ul class="clean">
-      <li><b>프로덕트·테크</b>: 앱 · AI 채점 · 백엔드 · 데이터 인프라</li>
-      <li><b>사업·재무</b>: 수익모델 · 단위경제 · 시장조사 · 계약</li>
-      <li><b>브랜드·그로스</b>: 브랜드 전략 · 유저 인사이트 · 해외 채널</li>
-      <li><b style="color:var(--seal)">수학·학습과학</b>: 문제 제작 · 커리큘럼 · 개입 판단 기준 <span class="soft">(지금 채우는 중)</span></li>
-    </ul>
-    <p style="margin-top:16px;">앞의 세 엔진은 이미 돌고 있습니다. <b>네 번째가 붙는 순간</b> 우리는 파운데이션 모델에 기대는 회사에서, 스스로 수학적 기준을 세우는 회사가 됩니다.</p>
-    <p class="soft" style="margin-top:12px;">그리고 첫 고객의 문은 차가운 영업이 아니라 <b>신뢰</b>에서 열렸습니다. 교회에서 맺은 신뢰 위에 만난 학원 파트너가 우리의 첫 무대가 되어 주었습니다.</p>
-    <p class="soft" style="margin-top:12px;">단위경제·요금제·지분과 보상 등 구체적 숫자는 이 문서에 담지 않았습니다. <b>정직한 숫자로 1:1에서 직접 말씀드리겠습니다.</b></p>
+    <div class="no">12</div>
+    <h2>팀 · 이 문제를 직접 겪은 사람들</h2>
+    <p class="soft" style="margin-top:-4px;">LLM 수학 추론을 연구하는 NeurIPS 2025 공동 제1저자가 기술 자문으로 함께합니다.</p>
+
+    <div class="lead-mem">
+      <div class="ph"><img src="assets/team/sm-full.jpg" alt="김수민 창립자" /></div>
+      <div class="bd">
+        <div class="nm">김수민</div>
+        <span class="ro">CEO · 창립자</span>
+        <div class="sch">서강대학교 경제학 · 공공인재학</div>
+        <ul class="pts">
+          <li><span class="pk">교육 현장</span><span class="pd">대형 수학학원 강사 · 한미 중고생 과외 · 청소년 멘토링, 약 5년</span></li>
+          <li><span class="pk">채점 로직 설계</span><span class="pd">계량경제학 · 수리통계학 기반</span></li>
+          <li><span class="pk">AI Product Builder</span><span class="pd">자신을 첫 사용자로 MVP 전 과정을 직접 구현·고도화</span></li>
+          <li><span class="pk">AI 연구</span><span class="pd">서강대 AI금융 'Hermes Agent' 연구·설계</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="team">
+      <div class="mem">
+        <div class="hd">
+          <span class="av"><img src="assets/team/jm.jpg" alt="최지민" loading="lazy" /></span>
+          <div><div class="nm">최지민</div><div class="ro">CTO</div><div class="sch">인하대학교 경제학 · 소프트웨어융합공학</div></div>
+        </div>
+        <ul class="pts">
+          <li><span class="pk">B2B 개발</span><span class="pd">중기부 예비창업패키지 선정 서비스 프론트엔드</span></li>
+          <li><span class="pk">SaaS 개발</span><span class="pd">TIPS 선정 스타트업 버티컬 SaaS 엔지니어</span></li>
+          <li><span class="pk">B2C AI 리드</span><span class="pd">AI 서비스 개발 총괄 · 모두의창업 및 AI Rookie 진출</span></li>
+          <li><span class="pk">AI 연구</span><span class="pd">AI 3D 생성 연구 제1저자 · KSCI 우수논문상</span></li>
+        </ul>
+      </div>
+
+      <div class="mem">
+        <div class="hd">
+          <span class="av"><img src="assets/team/jb.jpg" alt="손정범" loading="lazy" /></span>
+          <div><div class="nm">손정범</div><div class="ro">Head of Backend &amp; Data</div><div class="sch">홍익대학교 컴퓨터공학</div></div>
+        </div>
+        <ul class="pts">
+          <li><span class="pk">산학협력</span><span class="pd">365mc병원 캐뉼라 팁 좌표 추적기 개발</span></li>
+          <li><span class="pk">AI 연구</span><span class="pd">U-Net + ViViT 기반 이상 탐지 모델 설계·구현</span></li>
+          <li><span class="pk">교육 현장</span><span class="pd">해외 거주 초중고생 과외 6개월</span></li>
+        </ul>
+      </div>
+
+      <div class="mem">
+        <div class="hd">
+          <span class="av"><img src="assets/team/ew.jpg" alt="김은우" loading="lazy" /></span>
+          <div><div class="nm">김은우</div><div class="ro">해외 마케팅 총괄</div><div class="sch">이화여자대학교 융합전자반도체공학부</div></div>
+        </div>
+        <ul class="pts">
+          <li><span class="pk">글로벌 역량</span><span class="pd">영국·베트남 10년 거주 · 영국 중등교육 전 과정 · 영어 네이티브</span></li>
+          <li><span class="pk">SNS 성과</span><span class="pd">이화여대 스키팀 릴스 10편 누적 52만 회</span></li>
+          <li><span class="pk">글로벌 브랜드</span><span class="pd">에센허브 글로벌 앰버서더 · 릴스 기획·제작·운영</span></li>
+          <li><span class="pk">수학 교육</span><span class="pd">영국 현지 멘토링 1년 6개월 · UKMT Gold 3회 · 교내 1위</span></li>
+        </ul>
+      </div>
+
+      <div class="mem">
+        <div class="hd">
+          <span class="av"><img src="assets/team/sb.jpg" alt="윤세빈" loading="lazy" /></span>
+          <div><div class="nm">윤세빈</div><div class="ro">Head of Brand Strategy</div><div class="sch">서강대학교 경영학</div></div>
+        </div>
+        <ul class="pts">
+          <li><span class="pk">국제 교류</span><span class="pd">치앙마이대학교(CMU) 교류 프로그램 학생대표</span></li>
+          <li><span class="pk">미디어 콘텐츠</span><span class="pd">서강대 학생기자 · 누적 조회수 700만</span></li>
+          <li><span class="pk">리더십·기획</span><span class="pd">몽골 교육봉사 총괄·기획팀장</span></li>
+          <li><span class="pk">교육 멘토링</span><span class="pd">입학처 고교 멘토링 · 한국장학재단 수학 멘토링</span></li>
+        </ul>
+      </div>
+
+      <div class="mem">
+        <div class="hd">
+          <span class="av"><img src="assets/team/js.jpg" alt="임준서" loading="lazy" /></span>
+          <div><div class="nm">임준서</div><div class="ro">시장 · 경제 리서치</div><div class="sch">서강대학교 경제학</div></div>
+        </div>
+        <ul class="pts">
+          <li><span class="pk">학업 성취</span><span class="pd">Dean's List 2회 · 서강대학교 총장상</span></li>
+          <li><span class="pk">금융 리서치</span><span class="pd">서강대학교 금융투자학회 SRS 수료</span></li>
+          <li><span class="pk">리서치 성과</span><span class="pd">5개 대학 연합 KEYSS 리서치 대회 우승</span></li>
+          <li><span class="pk">교육 현장</span><span class="pd">중·고등학생 수학·영어 과외 2년</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="advisor">
+      <div class="hd">
+        <span class="av"><img src="assets/team/kt.jpg" alt="김근태" loading="lazy" /></span>
+        <div>
+          <div class="lb">AI Technical Advisor</div>
+          <div class="nm">김근태</div>
+          <div class="sch">한양대학교 컴퓨터공학 박사과정 · LLM 수학 추론 연구</div>
+        </div>
+        <div class="hl">
+          <div class="t">NeurIPS 2025 공동 제1저자</div>
+          <div class="s">AI·ML 세계 최고 권위 학회 · 2025 채택률 24.52%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seat">
+      <div class="t">아직 비어 있는 자리 · 수학 · 학습과학</div>
+      <div class="d">문제 제작, 커리큘럼, 그리고 언제 개입할지의 판단 기준. 이 자리가 채워지는 순간 우리는 파운데이션 모델에 기대는 회사에서, <b>스스로 수학적 기준을 세우는 회사</b>가 됩니다.</div>
+    </div>
+
+    <p class="soft" style="margin-top:16px;">단위경제·요금제·지분과 보상 등 구체적 숫자는 이 문서에 담지 않았습니다. <b>정직한 숫자로 1:1에서 직접 말씀드리겠습니다.</b></p>
   </div>
 
   <!-- 09 mission -->
