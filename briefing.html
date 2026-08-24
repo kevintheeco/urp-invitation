@@ -127,8 +127,11 @@
   .shot img{width:100%;display:block;}
   .shot .cap{padding:8px 11px;font-size:12px;color:var(--ink-soft);line-height:1.55;background:var(--paper-2);}
   .shot .cap b{color:var(--seal);}
-  .shot-pair{display:grid;gap:10px;margin:14px 0 4px;}
-  @media(min-width:600px){ .shot-pair{grid-template-columns:1fr 1fr;} }
+  .shot-pair{display:grid;gap:8px;margin:14px 0 4px;align-items:center;}
+  @media(min-width:600px){ .shot-pair{grid-template-columns:1fr auto 1fr;} }
+  .pair-arrow{text-align:center;color:var(--seal);font-size:30px;line-height:1;padding:0 2px;
+    text-shadow:0 1px 0 rgba(255,255,255,.6);}
+  @media(max-width:599px){ .pair-arrow{transform:rotate(90deg);padding:2px 0;} }
 
   /* 접었다 펴는 블록 */
   details.fold{border:1px solid rgba(138,28,43,.35);border-radius:5px;
@@ -338,6 +341,7 @@
         <img src="assets/app/c2_student.png" alt="학생이 손으로 그린 f(x)와 2f(x) 그래프" loading="lazy" />
         <div class="cap"><b>학생이 그린 그래프</b> · 근 하나를 잘못 센 풀이</div>
       </div>
+      <div class="pair-arrow" aria-hidden="true">⟶</div>
       <div class="shot">
         <img src="assets/app/recog.png" alt="앱이 학생의 곡선을 회색으로 그대로 살리고, x=1에서 갈라져야 하는 곡선과 실제 근 2개를 버건디로 짚어 준 화면" loading="lazy" />
         <div class="cap"><b>앱이 읽은 화면</b> · 학생의 곡선을 그대로 살려둔 채, x=1에서 갈라져야 한다는 것과 실제 근 2개를 짚는 모습</div>
