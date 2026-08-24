@@ -804,10 +804,8 @@
     done.classList.add('show');
     submitBtn.disabled = true;
 
-    /* 서약 확인서 PDF — 화면 서체로 캔버스에 그려 한 장짜리 이미지 PDF로 만든다 */
-    function buildPledgePdf(nm, stamp){
-      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
-      if(!jsPDFCtor) return null;
+    /* 서약 확인서 — 화면 서체로 캔버스에 그려 JPG와 한 장짜리 PDF를 함께 만든다 */
+    function buildPledgeDocs(nm, stamp){
       var W=1240, H=1754;
       var c=document.createElement('canvas'); c.width=W; c.height=H;
       var x=c.getContext('2d');
@@ -854,16 +852,21 @@
       x.fillStyle='#8a7c5e'; x.font='400 20px "Gowun Batang", serif';
       x.fillText('이 문서는 서명 시각에 자동 생성되어 회사와 서명인에게 발송되었습니다.', W/2, H-102);
       var img=c.toDataURL('image/jpeg', 0.92);
-      var pdf=new jsPDFCtor({unit:'mm', format:'a4'});
-      pdf.addImage(img,'JPEG',0,0,210,297);
-      return pdf.output('blob');
+      var pdfBlob=null;
+      var jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
+      if(jsPDFCtor){
+        var pdf=new jsPDFCtor({unit:'mm', format:'a4'});
+        pdf.addImage(img,'JPEG',0,0,210,297);
+        pdfBlob=pdf.output('blob');
+      }
+      return { pdfBlob: pdfBlob, jpgDataURL: img };
     }
 
-    /* 서약서 PDF는 서명 즉시 서명인 기기에 저장한다 (메일 서비스가 첨부를 지원하지 않음) */
-    var pdfBlob = null;
-    try{ pdfBlob = buildPledgePdf(nm, stamp); }catch(e){}
-    if(pdfBlob){
-      var pdfUrl = URL.createObjectURL(pdfBlob);
+    /* 서약서: 회사 클라우드에 JPG 영구 보관 + 서명인 기기에 PDF 저장 */
+    var docs = null;
+    try{ docs = buildPledgeDocs(nm, stamp); }catch(e){}
+    if(docs && docs.pdfBlob){
+      var pdfUrl = URL.createObjectURL(docs.pdfBlob);
       var pdfName = 'URP_동행서약_' + nm + '.pdf';
       var saveLink = document.getElementById('pdfSave');
       if(saveLink){ saveLink.style.display='inline-block'; saveLink.href=pdfUrl; saveLink.download=pdfName; }
@@ -871,20 +874,39 @@
       auto.href = pdfUrl; auto.download = pdfName;
       document.body.appendChild(auto); auto.click(); auto.remove();
     }
-    fetch(FORM_ENDPOINT, {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        _subject: '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
-        _captcha: 'false',
-        _template: 'table',
-        _cc: emailInput.value.trim(),
-        이름: nm,
-        이메일: emailInput.value.trim(),
-        직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
-        수락시각: stamp,
-        동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함. 서약서 PDF는 서명 즉시 서명인의 기기에 저장됨.'
-      })
+    var PLEDGE_BUCKET = 'https://firebasestorage.googleapis.com/v0/b/yourprofessor-94a2d.firebasestorage.app/o';
+    var uploadPromise = Promise.resolve('');
+    if(docs && docs.jpgDataURL){
+      try{
+        var bin = atob(docs.jpgDataURL.split(',')[1]);
+        var arr = new Uint8Array(bin.length);
+        for(var bi=0; bi<bin.length; bi++) arr[bi] = bin.charCodeAt(bi);
+        var objName = 'pledges/' + (DEFAULTS.key || 'guest') + '-' + Date.now() + '.jpg';
+        uploadPromise = fetch(PLEDGE_BUCKET + '?name=' + encodeURIComponent(objName), {
+          method:'POST', headers:{'Content-Type':'image/jpeg'}, body: arr
+        }).then(function(r){ return r.json(); }).then(function(j){
+          var tok = (j.downloadTokens || '').split(',')[0];
+          return tok ? PLEDGE_BUCKET + '/' + encodeURIComponent(objName) + '?alt=media&token=' + tok : '';
+        }).catch(function(){ return ''; });
+      }catch(e){}
+    }
+    uploadPromise.then(function(pledgeLink){
+      return fetch(FORM_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({
+          _subject: '[URP 초대 수락] ' + nm + ' 님 · ' + RECIPIENT.role + '(' + RECIPIENT.roleAbbr + ')',
+          _captcha: 'false',
+          _template: 'table',
+          _cc: emailInput.value.trim(),
+          이름: nm,
+          이메일: emailInput.value.trim(),
+          직책: RECIPIENT.role + ' (' + RECIPIENT.roleAbbr + ')',
+          수락시각: stamp,
+          서약서: pledgeLink || '(클라우드 저장 실패 · 서명인 기기에 PDF 보관)',
+          동의: '동의 약관(제1조~제11조) 및 모든 동의 항목에 체크한 뒤 자필 서명함.'
+        })
+      });
     }).then(r=>r.json()).then(()=>{
       stampEl.textContent = stamp + ' · 회신이 전송되었습니다';
     }).catch(()=>{
