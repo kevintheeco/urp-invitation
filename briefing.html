@@ -122,6 +122,23 @@
   .future-box .h{font-family:var(--kr);font-weight:800;font-size:16px;color:var(--seal);margin-bottom:8px;}
   .future-box .d{font-size:13.5px;line-height:1.75;color:var(--ink);}
 
+  /* 접었다 펴는 블록 */
+  details.fold{border:1px solid rgba(138,28,43,.35);border-radius:5px;
+    background:rgba(255,255,255,.3);margin-top:12px;}
+  details.fold>summary{list-style:none;cursor:pointer;padding:13px 15px;
+    font-family:var(--kr);font-weight:800;font-size:14.5px;color:var(--gold-deep);
+    display:flex;align-items:center;gap:9px;border-radius:5px;transition:background .2s;}
+  details.fold>summary::-webkit-details-marker{display:none;}
+  details.fold>summary::before{content:"+";color:var(--seal);font-size:15px;
+    font-weight:800;width:13px;text-align:center;flex:0 0 auto;}
+  details.fold[open]>summary::before{content:"−";}
+  details.fold>summary:hover{background:rgba(255,255,255,.55);}
+  details.fold .hint{margin-left:auto;font-family:var(--f);font-weight:400;
+    font-size:11.5px;color:var(--muted);white-space:nowrap;}
+  details.fold .fold-in{padding:0 14px 14px;}
+  details.fold .fold-in .pill{background:rgba(255,255,255,.55);}
+  details.fold .fold-in>.pill:first-child{margin-top:0;}
+
   /* 지나온 걸음 */
   .ms-lab{font-family:var(--kr);font-weight:800;font-size:13.5px;color:var(--gold-deep);
     letter-spacing:1px;margin:18px 0 8px;}
@@ -133,6 +150,12 @@
   ul.done li::before{content:"✓";position:absolute;left:2px;top:11px;color:var(--seal);
     font-size:13px;font-weight:800;}
   ul.done .when{color:var(--muted);font-size:12.5px;margin-left:6px;}
+  .ms-shots{display:grid;gap:10px;margin:12px 0 4px;}
+  @media(min-width:600px){ .ms-shots{grid-template-columns:1fr 1fr;} }
+  .ms-shot{border:1px solid rgba(138,28,43,.3);border-radius:5px;overflow:hidden;background:var(--paper-2);}
+  .ms-shot img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+  .ms-shot .cap{padding:8px 11px;font-size:12px;color:var(--ink-soft);line-height:1.55;}
+  .ms-shot .cap b{color:var(--seal);}
 
   /* 시험기간 패스 */
   ul.pass{list-style:none;padding:0;margin:11px 0 0;display:grid;gap:6px;}
@@ -252,7 +275,7 @@
   <!-- 02 -->
   <div class="card">
     <div class="no">02</div>
-    <h2>문제 인식 ① · 답은 주는데, 학생을 보지는 못한다</h2>
+    <h2>문제 인식 ① · 손글씨도, 나도 읽지 못하는 기존 학습도구들</h2>
     <p>학생들이 기대는 그 AI도 수학 앞에서는 <b>답까지만</b>입니다. 학생이 어떻게 풀었는지, 무엇을 알고 무엇을 모르는지는 보지 못합니다.</p>
     <ul class="clean">
       <li><b>손글씨</b> · 손으로 푼 풀이를 매번 사진으로 찍어 올려야 하고, 수식에서 그래프와 도형으로 갈수록 인식 오류가 크게 늘어납니다. 2z를 22로 읽고도 확신에 찬 목소리로 설명합니다.</li>
@@ -344,6 +367,9 @@
       <div class="pill"><div class="t">B2C · 글로벌</div><div class="d">전 세계 수학 학습자. <span style="color:var(--gold-deep)">우리의 메인 타깃층.</span> 수학은 말보다 기호로 통해서, 쓰던 엔진을 그대로 씁니다.</div></div>
       <div class="pill"><div class="t">B2G · 미군</div><div class="d">주둔지·파병지 어디서든 같은 품질의 수학 교육이 필요한 <b>미군과 그 가족</b>. 미국 진출의 교두보.</div></div>
     </div>
+    <details class="fold">
+      <summary>미군 시장을 왜, 어떻게 보는지 자세히<span class="hint">눌러서 펼치기</span></summary>
+      <div class="fold-in">
     <div class="pill" style="margin-top:12px;">
       <div class="t">왜 미군인가 · 학비 때문에 입대하고, 대학으로 돌아간다</div>
       <div class="d">미국에서 군 복무는 <b>대학 학비를 마련하는 길</b>입니다. Post-9/11 GI Bill은 <b>36개월(3년) 복무</b>를 채우면 공립대 주(州) 내 등록금 <b>전액</b>과 월 주거비, 연 1,000달러의 교재비까지 지원합니다. 그래서 많은 장병이 전역과 함께 학교로 돌아갑니다.<br/>
@@ -369,6 +395,8 @@
       <div class="d">창립자 김수민은 미 육군 <b>411th Contracting Support Brigade</b>에서 근무하며 사령관 비서를 맡았습니다. <b>계약 담당자들과 쌓은 친분과, 그들이 실제로 어떻게 일하는지에 대한 경험</b>이 남아 있습니다. 대부분의 스타트업이 몇 년을 들여 겨우 문을 두드리는 자리에서, 우리는 사람을 알고 절차를 압니다.<br/>
       <span class="soft">다만 이 관계는 <b>사용자 인터뷰와 공개된 절차를 이해하는 데에만</b> 씁니다. 비공개 조달정보나 특혜를 구하지 않는다는 것을 문서로 정해 두었습니다.</span></div>
     </div>
+      </div>
+    </details>
     <p class="soft" style="margin-top:14px;">2차 베타(목회자·선교사 자녀 200명)는 <b>10월 초 개시</b>, <b>법인 설립은 11월 전</b>, <b>정식 출시는 11월</b>이 목표입니다. 미국 진출 준비가 함께 굴러가고 있습니다.</p>
   </div>
 
@@ -400,22 +428,27 @@
   <!-- 08 VALIDATION -->
   <div class="card">
     <div class="no">09</div>
-    <h2>검증 결과</h2>
-    <p class="soft" style="margin-top:-4px;">사전 수요 설문 105명 (2026년 7월, 온라인)</p>
-    <div class="grid3" style="grid-template-columns:1fr 1fr;">
-      <div class="pill"><div class="t">84%</div><div class="d">중·고등학생 "쓰겠다"</div></div>
-      <div class="pill"><div class="t">93%</div><div class="d">AI로 공부해 본 대학생 "쓰겠다"</div></div>
-      <div class="pill"><div class="t">91%</div><div class="d">대학생 "고교 때 있었다면 썼다"</div></div>
-      <div class="pill"><div class="t">66%</div><div class="d">필요 기능 1위 · <b>손풀이 과정 분석</b></div></div>
-      <div class="pill" style="grid-column:1/-1;"><div class="t">61%</div><div class="d">"Provee가 사라지면 매우 실망스럽다"는 응답. 프로덕트 마켓 핏의 기준선(Sean Ellis)인 <b>40%를 웃도는</b> 수치입니다.</div></div>
-    </div>
-    <p class="soft" style="margin-top:18px;">MVP 실사용 18명 (대구 화원고 2학년 포함, 2026년 7월)</p>
+    <h2>1차 MVP</h2>
+    <p class="soft" style="margin-top:-4px;">실사용 18명 (대구 화원고 2학년 포함, 2026년 7월)</p>
     <div class="grid3" style="grid-template-columns:1fr 1fr;">
       <div class="pill"><div class="t">4.7 / 5</div><div class="d">만족도</div></div>
       <div class="pill"><div class="t">94%</div><div class="d">재사용 의향</div></div>
       <div class="pill"><div class="t">월 5만원</div><div class="d">개인 평균 지불 의향</div></div>
       <div class="pill"><div class="t">104원</div><div class="d">문제당 실측 API 원가 <span class="soft">(표본 4명 구간)</span></div></div>
     </div>
+    <details class="fold">
+      <summary>앞서 물어본 것 · 사전 수요 설문 105명<span class="hint">눌러서 펼치기</span></summary>
+      <div class="fold-in">
+        <p class="soft" style="margin:2px 0 8px;">2026년 7월, 온라인</p>
+        <div class="grid3" style="grid-template-columns:1fr 1fr;">
+          <div class="pill"><div class="t">84%</div><div class="d">중·고등학생 "쓰겠다"</div></div>
+          <div class="pill"><div class="t">93%</div><div class="d">AI로 공부해 본 대학생 "쓰겠다"</div></div>
+          <div class="pill"><div class="t">91%</div><div class="d">대학생 "고교 때 있었다면 썼다"</div></div>
+          <div class="pill"><div class="t">66%</div><div class="d">필요 기능 1위 · <b>손풀이 과정 분석</b></div></div>
+          <div class="pill" style="grid-column:1/-1;"><div class="t">61%</div><div class="d">"Provee가 사라지면 매우 실망스럽다"는 응답. 프로덕트 마켓 핏의 기준선(Sean Ellis)인 <b>40%를 웃도는</b> 수치입니다.</div></div>
+        </div>
+      </div>
+    </details>
     <div class="contrast" style="margin-top:20px;">
       <div class="row us"><span class="lab">대구 화원고등학교 2학년</span>"수학이 어려워 낮은 점수를 받을 때가 많았는데, 정작 내 문제점이 무엇인지 몰라 늘 답답했다. Provee를 쓰면서, 처음으로 그게 나아질 수 있겠다는 희망을 봤다."</div>
       <div class="row us"><span class="lab">고등학교 1학년</span>"내가 모르는걸 단지 설명만으로 알려주기 보단 내가 풀이를 적는 과정을 함께 보면서 잘못된 점을 짚어주고 상세하게 설명해주면 좋을것 같다."</div>
@@ -455,6 +488,16 @@
     <h2>Milestone</h2>
 
     <div class="ms-lab">지나온 걸음</div>
+    <div class="ms-shots">
+      <div class="ms-shot">
+        <img src="assets/milestone/hana.jpg" alt="하나은행 소셜벤처 본선 발표 현장" loading="lazy" />
+        <div class="cap"><b>하나은행 소셜벤처 본선</b> · 발표 화면은 학생이 그린 그래프를 읽어 다시 그려 주는 손글씨 기능</div>
+      </div>
+      <div class="ms-shot">
+        <img src="assets/milestone/pnp.jpg" alt="미국 Plug and Play 무대에서 피칭하는 모습" loading="lazy" />
+        <div class="cap"><b>Plug and Play</b> · 미국 무대에서 영어로 피칭</div>
+      </div>
+    </div>
     <ul class="done">
       <li><b>하나은행 소셜벤처 본선 진출</b><span class="when">2026년 7월</span><br/>서류를 넘어 심사대 앞에 섰습니다. 처음으로 회사 바깥이 우리를 들여다본 자리였습니다.</li>
       <li><b>Plug and Play IR 발표</b><span class="when">2026년 8월 · 미국</span><br/>세계 최대 액셀러레이터 앞에서 직접 피칭했습니다. 칭찬만 듣고 오지는 않았고, 그날 받은 지적으로 지금 이 자료를 다시 쓰고 있습니다.</li>
