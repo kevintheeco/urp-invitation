@@ -6,6 +6,9 @@
 <title>서강 예수전도단 홈커밍</title>
 <meta name="description" content="주의 나라의 기쁨을 나누어 가지게 하사 주의 유산을 자랑하게 하소서 (시 106:5) · 2026년 11월 14일 토요일 오후 3시–8시" />
 <meta name="theme-color" content="#faf6ee" />
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="서강 예수전도단 홈커밍 · 11월 14일 토요일" />
 <meta property="og:description" content="주의 나라의 기쁨을 나누어 가지게 하사 주의 유산을 자랑하게 하소서 (시 106:5)" />
@@ -850,14 +853,17 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
     cx.save(); cx.translate(l.x + Math.sin(l.ph)*l.sway, l.y); cx.rotate(l.r); cx.scale(Math.cos(l.flip), 1);
     cx.globalAlpha = l.a; cx.fillStyle = l.c; cx.strokeStyle = l.c; cx.lineWidth = .9; cx.beginPath();
     var s = l.s;
-    if(l.g){
+    if(l.g){ // ginkgo: a fan with a centre notch, faint veins and a curved stem
       cx.moveTo(0, 0);
-      cx.quadraticCurveTo(-s*1.1, -s*.2, -s*.9, -s*.95);
-      cx.quadraticCurveTo(-s*.4, -s*1.25, -s*.05, -s*.9);
-      cx.lineTo(0, -s*.55); cx.lineTo(s*.05, -s*.9);
-      cx.quadraticCurveTo(s*.4, -s*1.25, s*.9, -s*.95);
-      cx.quadraticCurveTo(s*1.1, -s*.2, 0, 0);
-      cx.fill(); cx.beginPath(); cx.moveTo(0,0); cx.lineTo(0, s*.9); cx.stroke();
+      cx.lineTo(-s*.92, -s*.62);
+      cx.quadraticCurveTo(-s*.72, -s*1.12, -s*.12, -s*1.02);
+      cx.lineTo(0, -s*.74); cx.lineTo(s*.12, -s*1.02);
+      cx.quadraticCurveTo(s*.72, -s*1.12, s*.92, -s*.62);
+      cx.closePath(); cx.fill();
+      var ga = cx.globalAlpha; cx.globalAlpha = ga * .3; cx.strokeStyle = '#7a5a1c'; cx.lineWidth = Math.max(.5, s*.035);
+      for(var va=-.75; va<=.751; va+=.25){ cx.beginPath(); cx.moveTo(0,0); cx.lineTo(Math.sin(va)*s*.95, -Math.cos(va)*s*.9); cx.stroke(); }
+      cx.globalAlpha = ga; cx.strokeStyle = l.c; cx.lineWidth = Math.max(.9, s*.1); cx.lineCap = 'round';
+      cx.beginPath(); cx.moveTo(0, -s*.05); cx.quadraticCurveTo(s*.08, s*.45, -s*.05, s*.9); cx.stroke();
     } else {
       cx.moveTo(MAPLE[0][0]*s, MAPLE[0][1]*s);
       for(var i=1;i<MAPLE.length;i++) cx.lineTo(MAPLE[i][0]*s, MAPLE[i][1]*s);
