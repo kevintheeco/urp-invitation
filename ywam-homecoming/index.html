@@ -272,6 +272,9 @@ html:not(.js) mark,.letter.in mark{background-size:100% 100%}
 .part.talk .part-no{color:#fffaf2;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
 .part.talk::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,0) 40%);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .part-name{font-family:var(--f-display);font-weight:700;font-size:19px;color:var(--champagne);line-height:1.4;word-break:keep-all}
+.part-name .hl{color:var(--wine-deep);padding:0 5px;margin-left:2px;border-radius:3px;white-space:nowrap;background:linear-gradient(100deg,#f6d565,#f0c850) no-repeat 0 0/100% 100%;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.js .part-name .hl{background-size:0% 100%;color:var(--champagne);transition:background-size 1.1s cubic-bezier(.6,.1,.2,1) .5s,color .4s ease 1s}
+.js .part.in .part-name .hl{background-size:100% 100%;color:var(--wine-deep)}
 .part-time{margin-left:auto;font-family:var(--f-latin);font-weight:600;font-size:17px;color:var(--t-time);opacity:.75;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 
 .flow{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:20px;--p:1;--tc:84px}
@@ -279,15 +282,16 @@ html:not(.js) mark,.letter.in mark{background-size:100% 100%}
 .flow::before,.flow::after{content:"";position:absolute;left:calc(var(--tc) + 13px);top:10px;height:var(--lh,calc(100% - 20px));width:2px;border-radius:2px}
 .flow::before{background:var(--track)}
 .flow::after{background:var(--fill);transform-origin:top;transform:scaleY(var(--p))}
-.flow li{position:relative;display:grid;grid-template-columns:var(--tc) 1fr;gap:0 30px;align-items:start}
-.flow li::before{content:"";position:absolute;left:calc(var(--tc) + 7px);top:6px;width:14px;height:14px;border-radius:50%;background:var(--dot-bg);border:2px solid var(--dot-ring);transition:all .5s ease;z-index:1;box-sizing:border-box}
-.js .flow li{opacity:.4;transition:opacity .6s ease}
-.js .flow li.lit{opacity:1}
-.flow li.lit::before{background:var(--dot);border-color:var(--dot);box-shadow:0 0 0 5px color-mix(in srgb,var(--dot) 22%,transparent)}
+.flow > li{position:relative;display:grid;grid-template-columns:var(--tc) 1fr;gap:0 30px;align-items:start}
+.flow > li::before{content:"";position:absolute;left:calc(var(--tc) + 7px);top:6px;width:14px;height:14px;border-radius:50%;background:var(--dot-bg);border:2px solid var(--dot-ring);transition:all .5s ease;z-index:1;box-sizing:border-box}
+.js .flow > li{opacity:.4;transition:opacity .6s ease}
+.js .flow > li.lit{opacity:1}
+.flow > li.lit::before{background:var(--dot);border-color:var(--dot);box-shadow:0 0 0 5px color-mix(in srgb,var(--dot) 22%,transparent)}
 .flow time{font-family:var(--f-latin);font-weight:600;font-size:17px;line-height:1.5;color:var(--t-time);text-align:right;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 .flow b{display:block;font-family:var(--f-display);font-weight:700;font-size:17.5px;line-height:1.5;color:var(--t-title);word-break:keep-all;min-width:0}
-.flow b i{font-style:normal;color:var(--t-num);margin-right:5px}
-.flow p{grid-column:2;margin:4px 0 0;font-size:15px;line-height:1.75;color:var(--t-note);word-break:keep-all}
+.flow .sub{grid-column:2;list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.flow .sub li{position:relative;padding-left:14px;font-size:15px;line-height:1.7;color:var(--t-note);word-break:keep-all}
+.flow .sub li::before{content:"";position:absolute;left:1px;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--t-num)}
 
 /* ───────── details ───────── */
 .details{padding-block:60px 30px}
@@ -491,12 +495,12 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
         </ol>
       </div>
       <div class="part talk reveal">
-        <div class="part-head"><span class="part-no">2부</span><span class="part-name">서강 YWAM의 유산 토크쇼</span><span class="part-time">5:30 – 8:00</span></div>
+        <div class="part-head"><span class="part-no">2부</span><span class="part-name">서강 YWAM의 <span class="hl">유산 토크쇼</span></span><span class="part-time">5:30 – 8:00</span></div>
         <ol class="flow">
-          <li><time>5:30 – 5:50</time><b><i>1</i>재학생들의 걸음들</b></li>
-          <li><time>5:50 – 6:20</time><b><i>2</i>졸업생들의 유산</b></li>
-          <li><time>6:20 – 7:00</time><b><i>3</i>영역별 식사교제</b><p>같은 영역·전공끼리 둘러앉아 교제하고, 재학생 멘토링도 나눠요</p></li>
-          <li><time>7:00 – 7:40</time><b><i>4</i>함께하는 디저트 교제</b></li>
+          <li><time>5:30 – 5:50</time><b>재학생들의 걸음들</b></li>
+          <li><time>5:50 – 6:20</time><b>졸업생들의 유산</b></li>
+          <li><time>6:20 – 7:00</time><b>영역별 식사교제</b><ul class="sub"><li>같은 영역·전공끼리의 교제</li><li>졸업생들의 고민 상담과 진로 멘토링</li></ul></li>
+          <li><time>7:00 – 7:40</time><b>함께하는 디저트 교제</b></li>
           <li><time>7:40 – 8:00</time><b>광고와 마무리</b></li>
         </ol>
       </div>
