@@ -12,7 +12,8 @@
 const ADMIN_KEY = 'change-me-123';
 
 const SHEET_NAME = '응답';
-const HEADERS = ['접수시각', '이름', '전화번호', '전공', '학번', '참석여부', '도착예정', '남긴 말', '수정시각'];
+// 직무·영역은 나중에 추가된 열이라 맨 뒤(J열)에 둡니다. 이미 쌓인 답장의 열 순서가 바뀌지 않게요.
+const HEADERS = ['접수시각', '이름', '전화번호', '전공', '학번', '참석여부', '도착예정', '남긴 말', '수정시각', '직무·영역'];
 const STATUSES = ['참석 가능', '늦참', '고민해보겠음', '불가능'];
 
 function doPost(e) {
@@ -32,6 +33,7 @@ function doPost(e) {
     }
     const arrive = status === '늦참' ? clean_(d.arrive, 20) : '';
     const message = clean_(d.message, 500);
+    const work = clean_(d.work, 80);
     const now = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
 
     const sh = sheet_();
@@ -45,10 +47,10 @@ function doPost(e) {
     }
     if (row > 0) {
       const created = sh.getRange(row, 1).getValue();
-      sh.getRange(row, 1, 1, HEADERS.length).setValues([[created, name, phone, major, year, status, arrive, message, now]]);
+      sh.getRange(row, 1, 1, HEADERS.length).setValues([[created, name, phone, major, year, status, arrive, message, now, work]]);
       return json_({ ok: true, updated: true });
     }
-    sh.appendRow([now, name, phone, major, year, status, arrive, message, '']);
+    sh.appendRow([now, name, phone, major, year, status, arrive, message, '', work]);
     return json_({ ok: true, updated: false });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
@@ -70,7 +72,7 @@ function doGet(e) {
     fetchedAt: Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'),
     rows: rows.map(function (r) {
       r = r.map(function (c) { return String(c).replace(/^'/, ''); });
-      return { createdAt: r[0], name: r[1], phone: r[2], major: r[3], year: r[4], status: r[5], arrive: r[6], message: r[7], updatedAt: r[8] };
+      return { createdAt: r[0], name: r[1], phone: r[2], major: r[3], year: r[4], status: r[5], arrive: r[6], message: r[7], updatedAt: r[8], work: r[9] };
     })
   });
 }
@@ -80,10 +82,14 @@ function sheet_() {
   let sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
     sh = ss.insertSheet(SHEET_NAME);
-    sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold').setBackground('#f7eddc');
     sh.setFrozenRows(1);
-    sh.getRange('A:I').setNumberFormat('@'); // 학번 05, 전화번호 010 앞자리 0이 사라지지 않게
     sh.setColumnWidth(8, 320);
+  }
+  // 새 시트이거나, 예전 버전 시트에 직무·영역 열이 없으면 머리글을 채웁니다
+  if (sh.getRange(1, HEADERS.length).getValue() !== HEADERS[HEADERS.length - 1]) {
+    sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold').setBackground('#f7eddc');
+    sh.getRange('A:J').setNumberFormat('@'); // 학번 05, 전화번호 010 앞자리 0이 사라지지 않게
+    sh.setColumnWidth(10, 220);
   }
   return sh;
 }

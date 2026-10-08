@@ -14,9 +14,9 @@
 <meta property="og:image:height" content="630" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/sogang-autumn.jpg" />
-<script>document.documentElement.className += ' js';</script>
+<script>document.documentElement.className += ' js fonts-wait';setTimeout(function(){var r=document.documentElement;if(!window.__hcReady){r.classList.remove('fonts-wait');r.classList.add('opened');}},4000);</script>
 <script src="config.js"></script>
 <style>
 /* Layout: an envelope opens onto the campus at dusk; one narrow reading column floats over the fixed photo, which darkens as you read. */
@@ -39,7 +39,6 @@
   --f-display:"Gowun Batang","Nanum Myeongjo","Apple SD Gothic Neo",serif;
   --f-body:"Gowun Batang","Nanum Myeongjo",serif;
   --f-ui:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  --f-hand:"Nanum Pen Script","Gowun Dodum",cursive;
   --f-latin:"Cormorant Garamond","Gowun Batang",serif;
 
   --veil:0;
@@ -53,6 +52,8 @@ body{
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 html.intro-on,html.intro-on body{overflow:hidden;height:100%}
+/* hold the first paint until the web fonts are in, so nothing swaps typeface mid-animation */
+.js.fonts-wait .intro *,.js.fonts-wait .intro{animation-play-state:paused!important}
 img{max-width:100%}
 [hidden]{display:none!important}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -117,9 +118,9 @@ main{position:relative;z-index:2}
   background:linear-gradient(180deg,#e9d2ab,var(--kraft));
   clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%);
 }
-.env-front .to,.env-front .from{position:absolute;color:var(--ink);font-family:var(--f-hand);line-height:1.1}
-.env-front .to{left:8%;bottom:17%;font-size:clamp(22px,6.4vw,28px)}
-.env-front .from{right:8%;bottom:6%;font-size:clamp(17px,4.8vw,21px);color:var(--ink-soft)}
+.env-front .to,.env-front .from{position:absolute;color:var(--ink);font-family:var(--f-display);line-height:1.3;white-space:nowrap}
+.env-front .to{left:8%;bottom:19%;font-weight:700;font-size:clamp(15px,4.4vw,19px)}
+.env-front .from{right:8%;bottom:7%;font-size:clamp(12.5px,3.5vw,15px);color:var(--ink-soft)}
 .env-flap{
   left:0;right:0;top:0;height:56%;z-index:4;transform-origin:50% 0;
   background:linear-gradient(180deg,#dcc196,#e5cda5);
@@ -146,10 +147,10 @@ main{position:relative;z-index:2}
 .hero-top{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-latin);font-weight:600;letter-spacing:.32em;font-size:12px;color:var(--cream-soft);text-transform:uppercase}
 .hero-main{padding-top:18vh}
 .kicker{
-  display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:7px 18px 5px 14px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:8px 18px 8px 14px;border-radius:999px;
   background:rgba(24,16,11,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border:1px solid rgba(236,197,94,.4);text-shadow:none;
-  font-family:var(--f-hand);font-size:27px;line-height:1.2;color:#f6d77e;
+  font-family:var(--f-display);font-weight:700;font-size:16.5px;letter-spacing:.04em;line-height:1.4;color:#f6d77e;
 }
 .kicker svg{width:18px;flex:none;transform:translateY(-1px)}
 h1{margin:0;font-weight:400}
@@ -210,7 +211,7 @@ h2{font-family:var(--f-display);font-weight:700;font-size:clamp(25px,6.6vw,30px)
 .js .postmark{opacity:0}
 .letter.in .postmark{animation:stamp .55s 1.1s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes stamp{from{opacity:0;transform:rotate(-10deg) scale(1.7)}to{opacity:.85;transform:rotate(-10deg) scale(1)}}
-.salute{font-family:var(--f-hand);font-size:31px;line-height:1.3;margin:0 0 24px;padding-right:100px;color:var(--ink);word-break:keep-all}
+.salute{font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.6;margin:0 0 26px;padding-right:104px;color:var(--ink);word-break:keep-all}
 .para{margin:0 0 20px;font-size:17px;line-height:2;word-break:keep-all}
 .js .para{opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
 .letter.in .para{opacity:1;transform:none}
@@ -226,8 +227,8 @@ html:not(.js) mark,.letter.in mark{background-size:100% 100%}
 .letter.in .para:nth-of-type(4) mark{transition-delay:2.1s}
 .letter.in .para:nth-of-type(5) mark{transition-delay:2.6s}
 .para.ask{font-weight:700}
-.sign{margin:30px 0 0;text-align:right;font-family:var(--f-hand);font-size:25px;line-height:1.35;color:var(--ink-soft)}
-.sign b{font-weight:400;color:var(--ink);font-size:29px}
+.sign{margin:32px 0 0;text-align:right;font-family:var(--f-display);font-size:15.5px;line-height:1.8;color:var(--ink-soft)}
+.sign b{font-weight:700;color:var(--ink);font-size:18px}
 
 /* ───────── heritage (theme) ───────── */
 .heritage{padding-block:100px 40px}
@@ -255,31 +256,29 @@ html:not(.js) mark,.letter.in mark{background-size:100% 100%}
 .heritage .lead{margin-top:34px}
 .heritage .lead b{color:#f6d77e;font-weight:700}
 
-.pillars{display:grid;gap:12px;margin-top:30px}
-.pillar{background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px}
-.pillar .from{display:inline-block;font-family:var(--f-ui);font-size:13px;color:var(--dusk);background:var(--ginkgo);border-radius:6px;padding:1px 9px 0}
-.pillar h3{font-family:var(--f-display);font-weight:700;font-size:23px;line-height:1.4;margin:10px 0 6px}
-.pillar p{margin:0;font-size:16px;line-height:1.85;color:var(--cream-soft);word-break:keep-all}
-.js .pillar{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
-.pillars.in .pillar{opacity:1;transform:none}
-.pillars.in .pillar:nth-child(2){transition-delay:.25s}
+.prog-h{margin:70px 0 10px}
+.program{display:grid;gap:14px;margin-top:24px}
+.part{position:relative;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;padding:20px 18px 22px}
+.part.talk{border-color:rgba(236,197,94,.45);box-shadow:0 0 0 1px rgba(236,197,94,.12),0 20px 50px -24px rgba(234,164,91,.45)}
+.part-head{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding-bottom:16px;margin-bottom:18px;border-bottom:1px dashed var(--line)}
+.part-no{font-family:var(--f-display);font-weight:700;font-size:15px;color:var(--dusk);background:var(--ginkgo);border-radius:8px;padding:2px 10px}
+.part-name{font-family:var(--f-display);font-weight:700;font-size:19px;color:#f6d77e;line-height:1.4;word-break:keep-all}
+.part-time{margin-left:auto;font-family:var(--f-latin);font-weight:600;font-size:17px;color:var(--cream-mute);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 
-.flow-h{margin:62px 0 0}
-.flow{list-style:none;margin:26px 0 0;padding:0 0 0 36px;position:relative;display:grid;gap:30px;--p:1}
+.flow{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:20px;--p:1;--tc:84px}
 .js .flow{--p:0}
-.flow::before,.flow::after{content:"";position:absolute;left:10px;top:12px;height:var(--lh,calc(100% - 24px));width:2px;border-radius:2px}
+.flow::before,.flow::after{content:"";position:absolute;left:calc(var(--tc) + 13px);top:10px;height:var(--lh,calc(100% - 20px));width:2px;border-radius:2px}
 .flow::before{background:var(--line)}
 .flow::after{background:linear-gradient(var(--maple),var(--amber) 55%,var(--ginkgo));transform-origin:top;transform:scaleY(var(--p))}
-.flow li{position:relative}
-.flow li::before{content:"";position:absolute;left:-32px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--dusk);border:2px solid rgba(253,245,232,.4);transition:all .5s ease;z-index:1}
-.js .flow li{opacity:.4;transition:opacity .6s ease}
+.flow li{position:relative;display:grid;grid-template-columns:var(--tc) 1fr;gap:0 30px;align-items:start}
+.flow li::before{content:"";position:absolute;left:calc(var(--tc) + 7px);top:6px;width:14px;height:14px;border-radius:50%;background:var(--dusk);border:2px solid rgba(253,245,232,.45);transition:all .5s ease;z-index:1;box-sizing:border-box}
+.js .flow li{opacity:.42;transition:opacity .6s ease}
 .js .flow li.lit{opacity:1}
-.flow li.lit::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 5px rgba(234,164,91,.18)}
-.flow .when2{font-family:var(--f-ui);font-size:13.5px;letter-spacing:.12em;color:var(--ginkgo)}
-.flow b{display:block;font-family:var(--f-display);font-weight:700;font-size:20.5px;line-height:1.45;margin:2px 0 4px}
-.flow p{margin:0;font-size:16px;line-height:1.8;color:var(--cream-soft);word-break:keep-all}
-.flow li.now b{font-size:24px;color:#f6d77e}
-.flow li.now.lit::before{width:18px;height:18px;left:-34px;top:6px;background:var(--ginkgo);border-color:#fff4d6;box-shadow:0 0 0 6px rgba(236,197,94,.22),0 0 24px rgba(236,197,94,.8)}
+.flow li.lit::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 5px rgba(234,164,91,.2)}
+.flow time{font-family:var(--f-latin);font-weight:600;font-size:17px;line-height:1.5;color:var(--cream);text-align:right;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.flow b{display:block;font-family:var(--f-display);font-weight:700;font-size:17.5px;line-height:1.5;word-break:keep-all;min-width:0}
+.flow b i{font-style:normal;color:var(--ginkgo);margin-right:4px}
+.flow p{grid-column:2;margin:4px 0 0;font-size:15px;line-height:1.75;color:var(--cream-soft);word-break:keep-all}
 
 /* ───────── details ───────── */
 .details{padding-block:60px 30px}
@@ -295,16 +294,19 @@ html:not(.js) mark,.letter.in mark{background-size:100% 100%}
 .btn:active{transform:scale(.97)}
 .btn.ghost{border-color:rgba(253,245,232,.35);color:var(--cream);background:rgba(253,245,232,.08)}
 .btn.ghost:hover{background:rgba(253,245,232,.16)}
-.copy{margin-left:6px;font-family:var(--f-ui);font-size:12.5px;border:1px solid var(--line);background:transparent;border-radius:999px;padding:2px 10px;cursor:pointer;color:var(--cream-soft)}
+.copy{margin-left:6px;font-family:var(--f-ui);font-size:13px;border:1px solid rgba(253,245,232,.4);background:rgba(253,245,232,.08);border-radius:999px;padding:3px 12px;cursor:pointer;color:var(--cream);vertical-align:1px}
+.acct{display:block;margin-top:2px}
+.copy.light{margin:6px 0 0;border-color:rgba(103,81,63,.35);background:#fff;color:var(--ink)}
 
 /* ───────── rsvp ───────── */
 .rsvp{padding-block:60px 30px}
 .rsvp .lead{margin:-6px 0 24px}
-.card{position:relative;color:var(--ink);border-radius:18px;padding:28px 22px 26px;background:linear-gradient(175deg,var(--paper),var(--paper-edge));box-shadow:0 30px 60px -24px rgba(0,0,0,.7)}
+.card{position:relative;color:var(--ink);border-radius:18px;padding:28px 18px 26px;background:linear-gradient(175deg,var(--paper),var(--paper-edge));box-shadow:0 30px 60px -24px rgba(0,0,0,.7)}
 .field{display:grid;gap:8px;margin-bottom:20px}
 .field label,.legend{font-family:var(--f-ui);font-size:15px;color:var(--ink);letter-spacing:.01em}
 .field label em,.legend em{font-style:normal;color:var(--maple);margin-left:2px}
-.opt{color:var(--ink-soft);font-size:13px;margin-left:4px}
+.opt{color:var(--ink-soft);font-size:13px;margin-left:6px;padding:1px 8px;border-radius:999px;background:rgba(103,81,63,.1)}
+.hint{margin:0;font-family:var(--f-ui);font-size:13.5px;line-height:1.65;color:var(--ink-soft);word-break:keep-all}
 .input{
   width:100%;min-height:52px;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(103,81,63,.28);
   background:#fffdf8;color:var(--ink);font-family:var(--f-ui);font-size:17px;
@@ -317,13 +319,13 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 textarea.input{min-height:100px;resize:vertical;line-height:1.7}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .two .field{min-width:0}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 20px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 20px}
 .choice{position:relative;min-width:0}
 .choice input{position:absolute;opacity:0;inset:0;pointer-events:none}
-.choice label{display:flex;flex-direction:column;gap:4px;height:100%;padding:15px 14px 14px;border-radius:14px;cursor:pointer;border:1.5px solid rgba(103,81,63,.22);background:#fffdf8;transition:all .25s}
-.choice b{font-family:var(--f-display);font-weight:700;font-size:17.5px;color:var(--ink);display:flex;align-items:center;gap:9px}
-.choice b::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid var(--dot);flex:none;transition:all .25s;box-sizing:border-box}
-.choice small{font-family:var(--f-ui);font-size:13.5px;line-height:1.5;color:var(--ink-soft);padding-left:25px}
+.choice label{display:flex;flex-direction:column;gap:4px;height:100%;padding:15px 12px 14px;border-radius:14px;cursor:pointer;border:1.5px solid rgba(103,81,63,.22);background:#fffdf8;transition:all .25s}
+.choice b{font-family:var(--f-display);font-weight:700;font-size:16.5px;color:var(--ink);display:flex;align-items:center;gap:7px;word-break:keep-all;white-space:nowrap}
+.choice b::before{content:"";width:15px;height:15px;border-radius:50%;border:2px solid var(--dot);flex:none;transition:all .25s;box-sizing:border-box}
+.choice small{font-family:var(--f-ui);font-size:13.5px;line-height:1.5;color:var(--ink-soft);padding-left:22px;word-break:keep-all}
 .choice input:checked + label{border-color:var(--dot);background:color-mix(in srgb,var(--dot) 9%,#fff);box-shadow:0 0 0 1.5px var(--dot) inset,0 10px 20px -12px var(--dot)}
 .choice input:checked + label b::before{background:var(--dot);box-shadow:inset 0 0 0 3px #fff}
 .choice input:focus-visible + label{outline:2px solid var(--maple);outline-offset:2px}
@@ -363,7 +365,7 @@ textarea.input{min-height:100px;resize:vertical;line-height:1.7}
 .done .btn{margin-top:18px;border-color:rgba(103,81,63,.35);color:var(--ink);background:transparent;animation:rise .7s 2.6s both}
 
 footer{padding-block:60px calc(70px + env(safe-area-inset-bottom,0px));text-align:center}
-footer .hand{font-family:var(--f-hand);font-size:30px;color:var(--cream);margin:0}
+footer .hand{font-family:var(--f-display);font-weight:700;font-size:19px;color:var(--cream);margin:0}
 footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);margin:8px 0 0;letter-spacing:.06em}
 
 /* sticky reply bar */
@@ -379,7 +381,6 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
 .cta-bar span b{display:block;font-family:var(--f-latin);font-weight:600;font-size:19px;color:var(--cream)}
 .cta-bar strong{font-family:var(--f-ui);font-weight:400;font-size:15.5px;background:var(--maple);color:#fff8ee;padding:12px 16px;border-radius:12px;white-space:nowrap}
 
-@media (min-width:560px){ .pillars{grid-template-columns:1fr 1fr} }
 @media (min-width:720px){ .letter{padding:72px 48px 48px} .hero-main{padding-top:22vh} }
 @media (max-width:360px){ .choices,.two{grid-template-columns:1fr} .salute{padding-right:0;padding-top:70px} }
 @media (prefers-reduced-motion:reduce){
@@ -467,26 +468,30 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
 
     <p class="lead reveal">아브라함에서 이삭으로, 이삭에서 야곱으로 믿음이 이어졌듯이, 50년 넘게 서강 예수전도단에 부어 주신 은혜가 우리가 물려받은 <b>주의 유산</b>입니다. 이번 홈커밍에서 그 유산을 함께 나누고 자랑하려 합니다.</p>
 
-    <div class="pillars reveal" id="pillars">
-      <div class="pillar">
-        <span class="from">나누어 가지게 하사</span>
-        <h3>은혜를 나눕니다</h3>
-        <p>졸업생이 그 시절 하나님의 일하심과 고난, 은혜를 재학생에게 들려줍니다.</p>
+    <p class="eyebrow prog-h reveal">PROGRAM · 11.14 SAT</p>
+    <h2 class="reveal">그날의 순서</h2>
+    <div class="program">
+      <div class="part reveal">
+        <div class="part-head"><span class="part-no">1부</span><span class="part-time">3:00 – 5:30</span></div>
+        <ol class="flow">
+          <li><time>3:00 – 3:30</time><b>아이스브레이킹 &amp; 가벼운 나눔</b></li>
+          <li><time>3:30 – 4:00</time><b>소그룹 나눔</b></li>
+          <li><time>4:00 – 4:30</time><b>찬양</b></li>
+          <li><time>4:30 – 5:00</time><b>말씀</b></li>
+          <li><time>5:00 – 5:30</time><b>기도와 축복</b></li>
+        </ol>
       </div>
-      <div class="pillar">
-        <span class="from">자랑하게 하소서</span>
-        <h3>함께 찬양합니다</h3>
-        <p>여러 세대가 한자리에 모여 지금까지 일하신 하나님을 자랑하고 찬양합니다.</p>
+      <div class="part talk reveal">
+        <div class="part-head"><span class="part-no">2부</span><span class="part-name">서강 YWAM의 유산 토크쇼</span><span class="part-time">5:30 – 8:00</span></div>
+        <ol class="flow">
+          <li><time>5:30 – 5:50</time><b><i>1</i>재학생들의 이야기</b></li>
+          <li><time>5:50 – 6:20</time><b><i>2</i>졸업생들의 이야기</b></li>
+          <li><time>6:20 – 7:00</time><b><i>3</i>영역별 식사교제</b><p>같은 영역·전공끼리 둘러앉아 교제하고, 재학생 멘토링도 나눠요</p></li>
+          <li><time>7:00 – 7:40</time><b><i>4</i>함께하는 디저트 교제</b></li>
+          <li><time>7:40 – 8:00</time><b>광고와 마무리</b></li>
+        </ol>
       </div>
     </div>
-
-    <h2 class="flow-h reveal">주의 유산이 흘러온 길</h2>
-    <ol class="flow" id="flow">
-      <li><span class="when2">믿음의 조상</span><b>아브라함 · 이삭 · 야곱</b><p>대대로 전해 내려온 믿음</p></li>
-      <li><span class="when2">1970년대</span><b>서강 예수전도단의 시작</b><p>선배들이 캠퍼스에 심은 기도의 씨앗</p></li>
-      <li><span class="when2">50여 년</span><b>71학번부터 26학번까지</b><p>엠마오관 123호 캐비닛에 쌓인 역사와 기도의 향기</p></li>
-      <li class="now"><span class="when2">2026. 11. 14 토요일</span><b>다시, 한자리에</b><p>졸업생과 재학생이 주의 유산을 함께 자랑하는 날</p></li>
-    </ol>
   </section>
 
   <!-- ═════ DETAILS ═════ -->
@@ -519,7 +524,7 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
         <div class="field"><label for="f-name">이름<em>*</em></label><input class="input" id="f-name" name="name" autocomplete="name" placeholder="홍길동" maxlength="30" required /></div>
         <div class="field"><label for="f-phone">전화번호<em>*</em></label><input class="input" id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" maxlength="13" required /></div>
         <div class="two">
-          <div class="field"><label for="f-major">전공<em>*</em></label><input class="input" id="f-major" name="major" placeholder="예) 신학, 경영" maxlength="40" required /></div>
+          <div class="field"><label for="f-major">전공<em>*</em></label><input class="input" id="f-major" name="major" placeholder="예) 사학, 경제학" maxlength="40" required /></div>
           <div class="field"><label for="f-year">학번<em>*</em></label><select class="input" id="f-year" name="year" required><option value="">선택</option></select></div>
         </div>
 
@@ -537,6 +542,12 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
             <option value="">잘 모르겠어요</option>
             <option>오후 4시쯤</option><option>오후 5시쯤</option><option>오후 6시쯤</option><option>오후 7시 이후</option>
           </select>
+        </div>
+
+        <div class="field">
+          <label for="f-work">현재 하시는 직무와 영역<span class="opt">선택</span></label>
+          <input class="input" id="f-work" name="work" maxlength="80" placeholder="예) 고등학교 교사 · 교육, 개발자 · IT" />
+          <p class="hint">2부에 영역·전공별 교제와 나눔 시간이 있어요. 비슷한 길을 걷는 분들과 한 식탁에 앉도록, 재학생 멘토링을 연결할 때 참고할게요.</p>
         </div>
 
         <div class="field">
@@ -593,11 +604,25 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
   function $(id){ return document.getElementById(id); }
 
   /* ── intro envelope ── */
+  window.__hcReady = true;
+  var fontsReady = new Promise(function(done){
+    var finish = function(){ root.classList.remove('fonts-wait'); done(); };
+    if(!document.fonts || !document.fonts.load){ return finish(); }
+    var cap = setTimeout(finish, 2500);
+    void document.body.offsetHeight; // lay out once so every face on the page starts loading
+    Promise.all([
+      document.fonts.load('700 20px "Gowun Batang"', '서강 예수전도단에서 편지가 도착했어요 To. 보고 싶은 얼굴들에게 주의 유산을 자랑하게 하소서'),
+      document.fonts.load('400 20px "Gowun Batang"', '주의 나라의 기쁨을 나누어 가지게 하사 From. 엠마오관 123호'),
+      document.fonts.load('400 16px "Gowun Dodum"', '봉투를 눌러 열어 보세요 토요일 오후 3시 8시 2026 홈커밍 주제 시편'),
+      document.fonts.load('italic 500 40px "Cormorant Garamond"', 'Homecoming'),
+      document.fonts.load('600 16px "Cormorant Garamond"', 'SOGANG YWAM SINCE 1970s 11.14')
+    ]).then(function(){ return document.fonts.ready; }).then(function(){ clearTimeout(cap); finish(); }, function(){ clearTimeout(cap); finish(); });
+  });
   var intro = $('intro'), seen = false;
   try{ seen = sessionStorage.getItem('ywam-opened') === '1'; }catch(e){}
   function opened(){ root.classList.add('opened'); root.classList.remove('intro-on'); }
   if(reduce || seen || location.hash){
-    opened();
+    fontsReady.then(opened);
   } else {
     intro.hidden = false; root.classList.add('intro-on');
     var openEnv = function(){
@@ -622,18 +647,20 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
 
   /* ── scroll-linked: photo veil, heritage line, reply bar ── */
-  var flow = $('flow'), items = flow.querySelectorAll('li'), rsvp = $('rsvp'), bar = $('ctaBar'), doneEl = $('done');
+  var flows = [].slice.call(document.querySelectorAll('.flow')), rsvp = $('rsvp'), bar = $('ctaBar'), doneEl = $('done');
   var ticking = false;
   function onScroll(){
     var h = window.innerHeight || 1, y = window.scrollY;
     root.style.setProperty('--veil', Math.min(1, Math.max(0, (y - h*0.3) / (h*0.8))).toFixed(3));
-    var r = flow.getBoundingClientRect(), lh = items[items.length-1].offsetTop;
-    flow.style.setProperty('--lh', lh + 'px');
-    var p = reduce ? 1 : Math.min(1, Math.max(0, (h*0.6 - r.top - 12) / lh));
-    flow.style.setProperty('--p', p.toFixed(3));
-    items.forEach(function(li){ li.classList.toggle('lit', li.offsetTop <= lh * p + 2); });
+    flows.forEach(function(flow){
+      var items = flow.children, r = flow.getBoundingClientRect(), lh = items[items.length-1].offsetTop;
+      flow.style.setProperty('--lh', lh + 'px');
+      var p = reduce ? 1 : Math.min(1, Math.max(0, (h*0.62 - r.top - 10) / (lh || 1)));
+      flow.style.setProperty('--p', p.toFixed(3));
+      for(var i=0;i<items.length;i++) items[i].classList.toggle('lit', items[i].offsetTop <= lh * p + 2);
+    });
     var rr = rsvp.getBoundingClientRect();
-    var show = y > h*0.9 && rr.top > h*0.8 && doneEl.hidden;
+    var show = $('heritage').getBoundingClientRect().top < h*0.5 && rr.top > h*0.8 && doneEl.hidden; // stay out of the way while the letter is read
     bar.classList.toggle('show', show); bar.setAttribute('aria-hidden', show ? 'false' : 'true'); bar.tabIndex = show ? 0 : -1;
     ticking = false;
   }
@@ -647,13 +674,19 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
   $('placeVal').innerHTML = esc(place) + '<small>' + esc(C.placeDetail || '세부 장소는 신청해 주신 분들께 따로 안내드려요') + '</small>';
   var fee = (C.fee || 30000).toLocaleString('ko-KR') + '원';
   var feeHtml = esc(fee);
-  if(C.account){ feeHtml += '<small>' + esc(C.account) + ' <button type="button" class="copy" data-copy="' + esc(C.account) + '">복사</button></small>'; }
+  if(C.account){ feeHtml += '<small>' + esc(C.account) + ' <button type="button" class="copy" data-copy="' + esc(C.account) + '">계좌 복사</button></small>'; }
   $('feeVal').innerHTML = feeHtml;
   if(C.contact){ $('contactRow').hidden = false; $('contactVal').textContent = C.contact; }
   document.addEventListener('click', function(e){
     var b = e.target.closest && e.target.closest('[data-copy]'); if(!b) return;
-    var ok = function(){ b.textContent = '복사됨'; setTimeout(function(){ b.textContent = '복사'; }, 1600); };
-    if(navigator.clipboard){ navigator.clipboard.writeText(b.getAttribute('data-copy')).then(ok, function(){}); }
+    var txt = b.getAttribute('data-copy'), label = b.textContent;
+    var ok = function(){ b.textContent = '복사했어요'; setTimeout(function(){ b.textContent = label; }, 1600); };
+    var legacy = function(){
+      var t = document.createElement('textarea'); t.value = txt; t.setAttribute('readonly',''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select(); var done = false; try{ done = document.execCommand('copy'); }catch(e){} t.remove();
+      if(done) ok();
+    };
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(ok, legacy); } else { legacy(); }
   });
 
   /* ── D-day (KST) ── */
@@ -700,7 +733,7 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
   function fill(d){
     if(!d) return;
     form.name.value = d.name || ''; phone.value = d.phone || ''; form.major.value = d.major || '';
-    sel.value = d.year || ''; form.message.value = d.message || ''; form.arrive.value = d.arrive || '';
+    sel.value = d.year || ''; form.work.value = d.work || ''; form.message.value = d.message || ''; form.arrive.value = d.arrive || '';
     form.querySelectorAll('input[name=status]').forEach(function(r){ r.checked = r.value === d.status; });
     lateField.hidden = d.status !== '늦참';
   }
@@ -725,7 +758,7 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
     var data = {
       name: form.name.value.trim(), phone: phone.value.trim(), major: form.major.value.trim(), year: sel.value,
       status: st ? st.value : '', arrive: st && st.value === '늦참' ? form.arrive.value : '',
-      message: form.message.value.trim(), website: form.website.value
+      work: form.work.value.trim(), message: form.message.value.trim(), website: form.website.value
     };
     var bad = !data.name ? ['이름을 적어 주세요.', 'f-name']
       : !/^01[016789]-?\d{3,4}-?\d{4}$/.test(data.phone) ? ['전화번호를 010-0000-0000 형식으로 적어 주세요.', 'f-phone']
@@ -752,8 +785,13 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:var(--cream-mute);mar
         $('doneTitle').textContent = L[0];
         $('doneMsg').textContent = L[1];
         var rows = [['이름', data.name], ['학번 · 전공', data.year + '학번 · ' + data.major], ['참석 여부', statusLabel(data.status) + (data.arrive ? ' (' + data.arrive + ')' : '')]];
+        if(data.work) rows.push(['직무 · 영역', data.work]);
         if(res.updated) rows.push(['안내', '이전 답장을 새 답장으로 바꿨어요']);
-        $('doneMeta').innerHTML = rows.map(function(r){ return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
+        var html = rows.map(function(r){ return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
+        if(C.account && (data.status === '참석 가능' || data.status === '늦참')){
+          html += '<dt>회비</dt><dd>' + esc(fee) + '<span class="acct">' + esc(C.account) + '</span><button type="button" class="copy light" data-copy="' + esc(C.account) + '">계좌 복사</button></dd>';
+        }
+        $('doneMeta').innerHTML = html;
         form.hidden = true; doneEl.hidden = false; onScroll();
         $('done').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
         if(!reduce && window.__leafBurst) window.__leafBurst();

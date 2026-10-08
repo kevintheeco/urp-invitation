@@ -7,7 +7,7 @@
 <title>홈커밍 답장함</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
 <script src="config.js"></script>
 <style>
 /* Layout: a paper ledger. Summary first (who is coming), then generations, then the list and the notes they left. */
@@ -17,7 +17,6 @@
   --yes:#4f7a3a; --late:#c9822f; --maybe:#7b6aa8; --no:#9a6b5b;
   --f-display:"Gowun Batang","Nanum Myeongjo",serif;
   --f-ui:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  --f-hand:"Nanum Pen Script","Gowun Dodum",cursive;
   --f-num:"Cormorant Garamond","Gowun Batang",serif;
   color-scheme:light;
 }
@@ -40,7 +39,7 @@ h1{font-family:var(--f-display);font-weight:700;font-size:26px;margin:0;line-hei
 
 /* gate */
 .gate{max-width:420px;margin:12vh auto 0;background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:30px 24px;text-align:center}
-.gate .hand{font-family:var(--f-hand);font-size:32px;margin:0 0 4px;color:var(--maple)}
+.gate .hand{font-family:var(--f-display);font-weight:700;font-size:24px;margin:0 0 6px;color:var(--maple)}
 .gate p{margin:0 0 18px;color:var(--ink-soft);font-size:14px;word-break:keep-all}
 .gate form{display:grid;gap:10px}
 .input{width:100%;min-height:46px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule);background:#fff;font-size:16px}
@@ -80,11 +79,13 @@ h1{font-family:var(--f-display);font-weight:700;font-size:26px;margin:0;line-hei
 .tools .input{flex:1 1 220px;min-height:42px;font-size:15px}
 .tools select.input{flex:0 0 auto;width:auto}
 .table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:#fff}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:900px}
 th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
-th{font-weight:400;font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);background:var(--paper);position:sticky;top:0}
+th{white-space:nowrap;font-weight:400;font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);background:var(--paper);position:sticky;top:0}
 tr:last-child td{border-bottom:0}
 td.num{font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+td.work{max-width:180px;word-break:keep-all}
+td{word-break:keep-all}
 td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:keep-all}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:12.5px;white-space:nowrap;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 35%,#fff)}
 .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
@@ -93,7 +94,7 @@ td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:kee
 .notes .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
 .note-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px;position:relative}
 .note-card p{margin:0 0 10px;font-family:var(--f-display);font-size:15px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}
-.note-card .by{font-family:var(--f-hand);font-size:22px;color:var(--ink-soft)}
+.note-card .by{font-family:var(--f-ui);font-size:13.5px;color:var(--ink-soft)}
 
 .c-yes{--c:var(--yes)}.c-late{--c:var(--late)}.c-maybe{--c:var(--maybe)}.c-no{--c:var(--no)}
 .status-line{font-size:12.5px;color:var(--ink-soft);margin-top:14px;text-align:right}
@@ -153,17 +154,18 @@ td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:kee
     <section class="panel list">
       <h2>답장 목록 <span id="listCount" style="font-family:var(--f-ui);font-weight:400;font-size:14px;color:var(--ink-soft)"></span></h2>
       <div class="tools">
-        <input class="input" id="q" type="search" placeholder="이름, 전공, 학번, 전화번호로 찾기" />
+        <input class="input" id="q" type="search" placeholder="이름, 전공, 직무·영역, 학번, 전화번호로 찾기" />
         <select class="input" id="sort">
           <option value="year">학번 오래된 순</option>
           <option value="yearDesc">학번 최근 순</option>
           <option value="recent">최근 답장 순</option>
+          <option value="work">직무 · 영역 순</option>
           <option value="name">이름 순</option>
         </select>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>이름</th><th>학번</th><th>전공</th><th>전화번호</th><th>참석 여부</th><th>남긴 말</th><th>답장 시각</th></tr></thead>
+          <thead><tr><th>이름</th><th>학번</th><th>전공</th><th>직무 · 영역</th><th>전화번호</th><th>참석 여부</th><th>남긴 말</th><th>답장 시각</th></tr></thead>
           <tbody id="tbody"></tbody>
         </table>
       </div>
@@ -200,12 +202,13 @@ td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:kee
   function setKey(k){ try{ k ? localStorage.setItem(KEY_STORE, k) : localStorage.removeItem(KEY_STORE); }catch(e){} }
 
   function demoRows(){
+    var works = ['목회 · 교회','','고등학교 교사 · 교육','','개발자 · IT','','','출판 편집 · 문화','연구원 · 과학'];
     var names = [['김은혜','82','신학','참석 가능','','그때 123호 바닥에 둘러앉아 밤새 기도하던 게 엊그제 같아요. 그 자리 아직 따뜻하죠?'],
       ['박소망','91','영문','늦참','오후 5시쯤',''],['이믿음','75','사학','참석 가능','','1978년 겨울, 난로 하나로 버티며 드린 예배를 이야기해 줄게요.'],
       ['최기쁨','05','경영','고민해보겠음','',''],['정다윗','13','전자공학','참석 가능','','후배들 보고 싶어요!'],
       ['한사랑','19','심리','불가능','','해외에 있어서 못 가지만 기도할게요.'],['윤요셉','23','컴퓨터공학','참석 가능','',''],
       ['오한나','88','국문','참석 가능','',''],['서여호수아','99','화학','늦참','오후 6시쯤','']];
-    return names.map(function(r,i){ return {name:r[0]+' (예시)', year:r[1], major:r[2], status:r[3], arrive:r[4], message:r[5], phone:'010-0000-000'+i, createdAt:'2026-10-0'+(1+i%8)+' 2'+(i%4)+':1'+i+':00', updatedAt:''}; });
+    return names.map(function(r,i){ return {name:r[0]+' (예시)', year:r[1], major:r[2], work:works[i], status:r[3], arrive:r[4], message:r[5], phone:'010-0000-000'+i, createdAt:'2026-10-0'+(1+i%8)+' 2'+(i%4)+':1'+i+':00', updatedAt:''}; });
   }
 
   function fetchRows(key){
@@ -269,25 +272,26 @@ td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:kee
     var list = rows.filter(function(r){
       if(filter && r.status !== filter) return false;
       if(!q) return true;
-      return [r.name, r.major, r.year, r.year + '학번', r.phone, r.message].join(' ').toLowerCase().indexOf(q) >= 0;
+      return [r.name, r.major, r.work, r.year, r.year + '학번', r.phone, r.message].join(' ').toLowerCase().indexOf(q) >= 0;
     });
     list.sort(function(a,b){
       if(sort === 'year') return fullYear(a.year) - fullYear(b.year) || a.name.localeCompare(b.name,'ko');
       if(sort === 'yearDesc') return fullYear(b.year) - fullYear(a.year) || a.name.localeCompare(b.name,'ko');
       if(sort === 'name') return a.name.localeCompare(b.name,'ko');
+      if(sort === 'work') return (a.work ? 0 : 1) - (b.work ? 0 : 1) || (a.work || '').localeCompare(b.work || '','ko') || fullYear(a.year) - fullYear(b.year);
       return (b.updatedAt || b.createdAt).localeCompare(a.updatedAt || a.createdAt);
     });
     $('listCount').textContent = list.length + '명' + (filter ? ' · ' + byV[filter].label + '만 보는 중' : '');
     $('tbody').innerHTML = list.length ? list.map(function(r){
       var s = byV[r.status] || {label:r.status, cls:''};
-      return '<tr><td><b>' + esc(r.name) + '</b></td><td class="num">' + esc(r.year) + '</td><td>' + esc(r.major) + '</td><td class="num">' + esc(r.phone) +
+      return '<tr><td><b>' + esc(r.name) + '</b></td><td class="num">' + esc(r.year) + '</td><td>' + esc(r.major) + '</td><td class="work">' + esc(r.work || '') + '</td><td class="num">' + esc(r.phone) +
         '</td><td><span class="pill ' + s.cls + '">' + esc(s.label) + '</span>' + (r.arrive ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:4px">' + esc(r.arrive) + '</div>' : '') +
         '</td><td class="msg">' + esc(r.message) + '</td><td class="num" style="font-size:12.5px;color:var(--ink-soft)">' + esc(r.updatedAt || r.createdAt) + (r.updatedAt ? '<br>(고침)' : '') + '</td></tr>';
-    }).join('') : '<tr><td colspan="7" class="empty">' + (rows.length ? '찾는 답장이 없어요.' : '아직 도착한 답장이 없어요. 초대장 링크를 보내면 여기에 하나씩 쌓여요.') + '</td></tr>';
+    }).join('') : '<tr><td colspan="8" class="empty">' + (rows.length ? '찾는 답장이 없어요.' : '아직 도착한 답장이 없어요. 초대장 링크를 보내면 여기에 하나씩 쌓여요.') + '</td></tr>';
 
     var notes = rows.filter(function(r){ return r.message; });
     $('wall').innerHTML = notes.length ? notes.map(function(r){
-      return '<div class="note-card"><p>' + esc(r.message) + '</p><div class="by">' + esc(r.year) + '학번 ' + esc(r.name) + '</div></div>';
+      return '<div class="note-card"><p>' + esc(r.message) + '</p><div class="by">' + esc(r.year) + '학번 ' + esc(r.name) + (r.work ? ' · ' + esc(r.work) : '') + '</div></div>';
     }).join('') : '<p class="empty" style="margin:0">남긴 말이 도착하면 여기에 모여요.</p>';
   }
 
@@ -301,8 +305,8 @@ td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:kee
   $('lock').addEventListener('click', function(){ setKey(''); clearInterval(timer); timer = null; rows = []; $('app').hidden = true; $('gate').hidden = false; $('key').value = ''; if(demo) location.search = ''; });
   $('gateForm').addEventListener('submit', function(e){ e.preventDefault(); var k = $('key').value.trim(); if(k) open(k); });
   $('csv').addEventListener('click', function(){
-    var head = ['이름','학번','전공','전화번호','참석여부','도착예정','남긴 말','접수시각','수정시각'];
-    var lines = [head].concat(rows.map(function(r){ return [r.name, r.year + '학번', r.major, r.phone, r.status, r.arrive, r.message, r.createdAt, r.updatedAt]; }))
+    var head = ['이름','학번','전공','직무·영역','전화번호','참석여부','도착예정','남긴 말','접수시각','수정시각'];
+    var lines = [head].concat(rows.map(function(r){ return [r.name, r.year + '학번', r.major, r.work || '', r.phone, r.status, r.arrive, r.message, r.createdAt, r.updatedAt]; }))
       .map(function(a){ return a.map(function(v){ return '"' + String(v == null ? '' : v).replace(/"/g,'""') + '"'; }).join(','); }).join('\r\n');
     var blob = new Blob(['﻿' + lines], {type:'text/csv;charset=utf-8'});
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '홈커밍-답장-' + new Date().toISOString().slice(0,10) + '.csv';
