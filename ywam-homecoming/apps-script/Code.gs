@@ -11,6 +11,10 @@
 // 응답 보기 페이지(responses.html)에 들어갈 때 쓰는 비밀번호. 꼭 바꿔 주세요.
 const ADMIN_KEY = 'change-me-123';
 
+// 시트에 붙은 스크립트(확장 프로그램 → Apps Script)라면 비워 두세요.
+// 따로 만든 스크립트라면 답장을 쌓을 구글 시트 주소의 /d/와 /edit 사이 ID를 넣습니다.
+const SHEET_ID = '';
+
 const SHEET_NAME = '응답';
 // 직무·영역은 나중에 추가된 열이라 맨 뒤(J열)에 둡니다. 이미 쌓인 답장의 열 순서가 바뀌지 않게요.
 const HEADERS = ['접수시각', '이름', '전화번호', '전공', '학번', '참석여부', '도착예정', '남긴 말', '수정시각', '직무·영역'];
@@ -78,10 +82,12 @@ function doGet(e) {
 }
 
 function sheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
   let sh = ss.getSheetByName(SHEET_NAME);
   if (!sh) {
-    sh = ss.insertSheet(SHEET_NAME);
+    // 새 시트의 빈 첫 탭이 있으면 그 탭을 '응답'으로 씁니다
+    const first = ss.getSheets()[0];
+    sh = first && first.getLastRow() === 0 ? first.setName(SHEET_NAME) : ss.insertSheet(SHEET_NAME);
     sh.setFrozenRows(1);
     sh.setColumnWidth(8, 320);
   }

@@ -354,6 +354,12 @@ textarea.input{min-height:100px;resize:vertical;line-height:1.7}
 @keyframes sheen{0%,60%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .submit[disabled]{opacity:.7;cursor:progress}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fee-note{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 12px;margin:-4px 0 18px;padding:14px 16px;border-radius:14px;background:rgba(123,30,43,.05);border:1px solid rgba(123,30,43,.14);font-family:var(--f-ui);color:var(--ink)}
+.fee-note .fee-top{display:flex;align-items:baseline;gap:10px}
+.fee-note .fee-lab{color:var(--wine);font-size:14px;letter-spacing:.08em}
+.fee-note b{font-weight:400;font-size:17px;color:var(--wine-deep)}
+.fee-note .fee-acct{grid-column:1 / -1;font-size:15.5px;line-height:1.5;word-break:keep-all}
+.fee-note .copy{margin:0}
 .privacy{font-family:var(--f-ui);font-size:13px;line-height:1.6;color:var(--ink-soft);margin:14px 0 0;text-align:center;word-break:keep-all}
 .already{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--f-ui);font-size:14px;color:var(--wine-deep);background:var(--rose);border-radius:12px;padding:12px 14px;margin-bottom:20px}
 .already button{font-family:var(--f-ui);font-size:13px;border:1px solid rgba(123,30,43,.35);background:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;color:var(--wine)}
@@ -570,6 +576,8 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
 
         <div class="hp" aria-hidden="true"><label for="f-web">웹사이트</label><input id="f-web" name="website" tabindex="-1" autocomplete="off" /></div>
 
+        <div class="fee-note" id="feeNote" hidden><span class="fee-top"><span class="fee-lab">회비</span><b>30,000원</b></span><button type="button" class="copy" id="feeCopy">계좌 복사</button><span class="fee-acct" id="feeAcct"></span></div>
+
         <p class="err" id="err" role="alert"></p>
         <button class="submit" id="submitBtn" type="submit">답장 보내기</button>
         <p class="privacy">남겨 주신 정보는 이번 홈커밍 준비와 연락에만 쓰고, 행사가 끝나면 지웁니다.</p>
@@ -691,6 +699,12 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
   var feeHtml = esc(fee);
   if(C.account){ feeHtml += '<small>' + esc(C.account) + ' <button type="button" class="copy" data-copy="' + esc(C.account) + '">계좌 복사</button></small>'; }
   $('feeVal').innerHTML = feeHtml;
+  if(C.account){
+    $('feeNote').hidden = false;
+    $('feeNote').querySelector('b').textContent = fee;
+    $('feeAcct').textContent = C.account;
+    $('feeCopy').setAttribute('data-copy', C.account);
+  }
   if(C.contact){ $('contactRow').hidden = false; $('contactVal').textContent = C.contact; }
   document.addEventListener('click', function(e){
     var b = e.target.closest && e.target.closest('[data-copy]'); if(!b) return;
