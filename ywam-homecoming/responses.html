@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>홈커밍 답장함</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<script src="config.js"></script>
+<style>
+/* Layout: a paper ledger. Summary first (who is coming), then generations, then the list and the notes they left. */
+:root{
+  --ground:#f3e8d6; --paper:#fbf5ea; --ink:#33251b; --ink-soft:#75604d; --rule:rgba(111,88,69,.18);
+  --maple:#b8462e; --amber:#eaa45b; --ginkgo:#e8c35a; --dusk:#1c130e;
+  --yes:#4f7a3a; --late:#c9822f; --maybe:#7b6aa8; --no:#9a6b5b;
+  --f-display:"Gowun Batang","Nanum Myeongjo",serif;
+  --f-ui:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-hand:"Nanum Pen Script","Gowun Dodum",cursive;
+  --f-num:"Cormorant Garamond","Gowun Batang",serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;font-variant-numeric:lining-nums;background:var(--ground);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--maple);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:18px;padding-block:calc(26px + env(safe-area-inset-top,0px)) 60px}
+
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.top .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--maple);margin:0 0 2px}
+h1{font-family:var(--f-display);font-weight:700;font-size:26px;margin:0;line-height:1.3}
+.top .sub{margin:2px 0 0;color:var(--ink-soft);font-size:13px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--ink-soft)}
+.btn.primary{background:var(--maple);border-color:var(--maple);color:#fff8ee}
+.demo-flag{display:inline-block;margin-left:8px;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--ginkgo);color:var(--ink);vertical-align:middle}
+
+/* gate */
+.gate{max-width:420px;margin:12vh auto 0;background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:30px 24px;text-align:center}
+.gate .hand{font-family:var(--f-hand);font-size:32px;margin:0 0 4px;color:var(--maple)}
+.gate p{margin:0 0 18px;color:var(--ink-soft);font-size:14px;word-break:keep-all}
+.gate form{display:grid;gap:10px}
+.input{width:100%;min-height:46px;padding:10px 14px;border-radius:10px;border:1px solid var(--rule);background:#fff;font-size:16px}
+.gate .err{color:var(--maple);font-size:13px;min-height:1em;margin:4px 0 0}
+
+/* summary */
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:20px}
+.summary{display:grid;grid-template-columns:1.3fr 2fr;gap:14px;margin-bottom:14px}
+.head-count .label{font-size:13px;color:var(--ink-soft)}
+.head-count .big{font-family:var(--f-num);font-weight:600;font-size:64px;line-height:1;margin:6px 0 4px;font-variant-numeric:lining-nums tabular-nums}
+.head-count .big small{font-family:var(--f-ui);font-size:16px;color:var(--ink-soft);margin-left:4px}
+.head-count .note{font-size:13px;color:var(--ink-soft);margin:0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{border-radius:12px;padding:12px 12px 10px;background:#fff;border:1px solid var(--rule);cursor:pointer;text-align:left;transition:box-shadow .2s,border-color .2s}
+.stat[aria-pressed="true"]{border-color:var(--c);box-shadow:0 0 0 2px var(--c) inset}
+.stat .k{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft)}
+.stat .k::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.stat .v{font-family:var(--f-num);font-weight:600;font-size:34px;line-height:1.1;font-variant-numeric:lining-nums tabular-nums}
+.bar{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--rule);margin-top:14px}
+.bar i{display:block;height:100%;transition:width .6s ease}
+
+.gens{margin-bottom:14px}
+.gens h2,.list h2,.notes h2{font-family:var(--f-display);font-size:18px;margin:0 0 12px}
+.gen-rows{display:grid;gap:8px}
+.gen{display:grid;grid-template-columns:64px 1fr 40px;align-items:center;gap:10px;font-size:13.5px}
+.gen .name{font-family:var(--f-num);font-weight:600;font-size:17px}
+.gen .track{display:flex;height:16px;border-radius:5px;overflow:hidden;background:rgba(111,88,69,.08)}
+.gen .track i{height:100%}
+.gen .n{text-align:right;font-variant-numeric:lining-nums tabular-nums;color:var(--ink-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12.5px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--c)}
+
+/* list */
+.list{margin-bottom:14px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tools .input{flex:1 1 220px;min-height:42px;font-size:15px}
+.tools select.input{flex:0 0 auto;width:auto}
+.table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:400;font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);background:var(--paper);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+td.msg{max-width:280px;color:var(--ink-soft);white-space:pre-wrap;word-break:keep-all}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:12.5px;white-space:nowrap;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 35%,#fff)}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.empty{padding:30px 16px;text-align:center;color:var(--ink-soft)}
+
+.notes .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.note-card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px;position:relative}
+.note-card p{margin:0 0 10px;font-family:var(--f-display);font-size:15px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}
+.note-card .by{font-family:var(--f-hand);font-size:22px;color:var(--ink-soft)}
+
+.c-yes{--c:var(--yes)}.c-late{--c:var(--late)}.c-maybe{--c:var(--maybe)}.c-no{--c:var(--no)}
+.status-line{font-size:12.5px;color:var(--ink-soft);margin-top:14px;text-align:right}
+
+@media (max-width:760px){
+  .summary{grid-template-columns:1fr}
+  .head-count .big{font-size:54px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="gate" id="gate">
+    <p class="hand">답장함</p>
+    <p>서강 예수전도단 홈커밍 준비팀만 볼 수 있어요.<br />Apps Script에 정해 둔 비밀번호를 넣어 주세요.</p>
+    <form id="gateForm">
+      <label for="key" class="sr" hidden>비밀번호</label>
+      <input class="input" id="key" type="password" autocomplete="current-password" placeholder="비밀번호" />
+      <button class="btn primary" type="submit" style="justify-content:center">열기</button>
+      <p class="err" id="gateErr" role="alert"></p>
+    </form>
+    <p style="margin:16px 0 0;font-size:12.5px"><a href="?demo" style="color:var(--ink-soft)">예시 데이터로 화면 미리 보기</a></p>
+  </section>
+
+  <div id="app" hidden>
+    <header class="top">
+      <div>
+        <p class="eyebrow">SOGANG YWAM HOMECOMING · 11.14</p>
+        <h1>홈커밍 답장함<span class="demo-flag" id="demoFlag" hidden>예시 데이터</span></h1>
+        <p class="sub" id="fetched"></p>
+      </div>
+      <div class="actions">
+        <button class="btn" id="refresh" type="button">새로고침</button>
+        <button class="btn" id="csv" type="button">엑셀(CSV) 받기</button>
+        <a class="btn" href="index.html" target="_blank" rel="noopener">초대장 보기</a>
+        <button class="btn" id="lock" type="button">잠그기</button>
+      </div>
+    </header>
+
+    <section class="summary">
+      <div class="panel head-count">
+        <div class="label">오는 사람 (참석 가능 + 늦참)</div>
+        <div class="big" id="coming">0<small>명</small></div>
+        <p class="note" id="feeNote"></p>
+        <div class="bar" id="bar" aria-hidden="true"></div>
+      </div>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section class="panel gens">
+      <h2>세대별 답장</h2>
+      <div class="gen-rows" id="genRows"></div>
+      <div class="legend"><span class="c-yes">참석 가능</span><span class="c-late">늦참</span><span class="c-maybe">고민해 볼게요</span><span class="c-no">불가능</span></div>
+    </section>
+
+    <section class="panel list">
+      <h2>답장 목록 <span id="listCount" style="font-family:var(--f-ui);font-weight:400;font-size:14px;color:var(--ink-soft)"></span></h2>
+      <div class="tools">
+        <input class="input" id="q" type="search" placeholder="이름, 전공, 학번, 전화번호로 찾기" />
+        <select class="input" id="sort">
+          <option value="year">학번 오래된 순</option>
+          <option value="yearDesc">학번 최근 순</option>
+          <option value="recent">최근 답장 순</option>
+          <option value="name">이름 순</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>이름</th><th>학번</th><th>전공</th><th>전화번호</th><th>참석 여부</th><th>남긴 말</th><th>답장 시각</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel notes">
+      <h2>재학생들에게 남긴 말</h2>
+      <div class="wall" id="wall"></div>
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var C = window.HOMECOMING || {};
+  var KEY_STORE = 'ywam-homecoming-admin-key';
+  var STATUSES = [
+    {v:'참석 가능', label:'참석 가능', cls:'c-yes', c:'var(--yes)'},
+    {v:'늦참', label:'늦참', cls:'c-late', c:'var(--late)'},
+    {v:'고민해보겠음', label:'고민해 볼게요', cls:'c-maybe', c:'var(--maybe)'},
+    {v:'불가능', label:'불가능', cls:'c-no', c:'var(--no)'}
+  ];
+  var byV = {}; STATUSES.forEach(function(s){ byV[s.v] = s; });
+  var demo = /(^|[?&])demo(=|&|$)/.test(location.search);
+  var rows = [], filter = '', timer = null;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function fullYear(y){ var n = parseInt(y,10); if(isNaN(n)) return 9999; return n >= 70 ? 1900 + n : 2000 + n; }
+  function getKey(){ try{ return localStorage.getItem(KEY_STORE) || ''; }catch(e){ return ''; } }
+  function setKey(k){ try{ k ? localStorage.setItem(KEY_STORE, k) : localStorage.removeItem(KEY_STORE); }catch(e){} }
+
+  function demoRows(){
+    var names = [['김은혜','82','신학','참석 가능','','그때 123호 바닥에 둘러앉아 밤새 기도하던 게 엊그제 같아요. 그 자리 아직 따뜻하죠?'],
+      ['박소망','91','영문','늦참','오후 5시쯤',''],['이믿음','75','사학','참석 가능','','1978년 겨울, 난로 하나로 버티며 드린 예배를 이야기해 줄게요.'],
+      ['최기쁨','05','경영','고민해보겠음','',''],['정다윗','13','전자공학','참석 가능','','후배들 보고 싶어요!'],
+      ['한사랑','19','심리','불가능','','해외에 있어서 못 가지만 기도할게요.'],['윤요셉','23','컴퓨터공학','참석 가능','',''],
+      ['오한나','88','국문','참석 가능','',''],['서여호수아','99','화학','늦참','오후 6시쯤','']];
+    return names.map(function(r,i){ return {name:r[0]+' (예시)', year:r[1], major:r[2], status:r[3], arrive:r[4], message:r[5], phone:'010-0000-000'+i, createdAt:'2026-10-0'+(1+i%8)+' 2'+(i%4)+':1'+i+':00', updatedAt:''}; });
+  }
+
+  function fetchRows(key){
+    if(demo) return Promise.resolve({ok:true, rows:demoRows(), fetchedAt:'예시'});
+    if(!C.endpoint) return Promise.reject(new Error('noendpoint'));
+    return fetch(C.endpoint + (C.endpoint.indexOf('?') < 0 ? '?' : '&') + 'key=' + encodeURIComponent(key), {cache:'no-store'})
+      .then(function(r){ return r.json(); });
+  }
+
+  function open(key){
+    $('gateErr').textContent = '';
+    return fetchRows(key).then(function(res){
+      if(!res || !res.ok){ throw new Error(res && res.error || 'fail'); }
+      if(!demo) setKey(key);
+      rows = res.rows || [];
+      $('gate').hidden = true; $('app').hidden = false; $('demoFlag').hidden = !demo;
+      $('fetched').textContent = demo ? '설정 전 미리 보기용 예시예요. 실제 답장이 아닙니다.' : '마지막으로 불러온 시각 ' + res.fetchedAt;
+      render();
+      if(!demo && !timer) timer = setInterval(function(){ refresh(true); }, 60000);
+    }).catch(function(e){
+      setKey('');
+      $('gate').hidden = false; $('app').hidden = true;
+      $('gateErr').textContent = e.message === 'noendpoint' ? 'config.js에 endpoint(웹 앱 주소)가 아직 비어 있어요. SETUP.md를 따라 연결해 주세요.'
+        : e.message === 'unauthorized' ? '비밀번호가 맞지 않아요. Apps Script의 ADMIN_KEY와 같은지 확인해 주세요.'
+        : '답장을 불러오지 못했어요. 인터넷 연결이나 웹 앱 배포 상태를 확인해 주세요.';
+    });
+  }
+  function refresh(quiet){
+    if(!quiet) $('statusLine').textContent = '불러오는 중…';
+    return open(getKey()).then(function(){ $('statusLine').textContent = ''; });
+  }
+
+  function render(){
+    var counts = {}; STATUSES.forEach(function(s){ counts[s.v] = 0; });
+    rows.forEach(function(r){ if(counts[r.status] != null) counts[r.status]++; });
+    var total = rows.length, coming = counts['참석 가능'] + counts['늦참'];
+    $('coming').innerHTML = coming + '<small>명</small>';
+    var fee = C.fee || 30000;
+    $('feeNote').textContent = '전체 답장 ' + total + '명 · 예상 회비 ' + (coming * fee).toLocaleString('ko-KR') + '원';
+    $('bar').innerHTML = STATUSES.map(function(s){ return '<i style="width:' + (total ? counts[s.v] / total * 100 : 0) + '%;background:' + s.c + '"></i>'; }).join('');
+    $('stats').innerHTML = STATUSES.map(function(s){
+      return '<button type="button" class="stat ' + s.cls + '" data-f="' + esc(s.v) + '" aria-pressed="' + (filter === s.v) + '"><span class="k">' + esc(s.label) + '</span><span class="v">' + counts[s.v] + '</span></button>';
+    }).join('');
+
+    // generations
+    var decades = [['70s',1970],['80s',1980],['90s',1990],['00s',2000],['10s',2010],['20s',2020]];
+    var max = 1, g = decades.map(function(d){
+      var c = {}; STATUSES.forEach(function(s){ c[s.v] = 0; });
+      rows.forEach(function(r){ var y = fullYear(r.year); if(y >= d[1] && y < d[1] + 10 && c[r.status] != null) c[r.status]++; });
+      var n = STATUSES.reduce(function(a,s){ return a + c[s.v]; }, 0); if(n > max) max = n;
+      return {name:d[0], c:c, n:n};
+    });
+    $('genRows').innerHTML = g.map(function(d){
+      return '<div class="gen"><span class="name">' + d.name + '</span><span class="track">' + STATUSES.map(function(s){
+        return d.c[s.v] ? '<i style="width:' + (d.c[s.v] / max * 100) + '%;background:' + s.c + '" title="' + esc(s.label) + ' ' + d.c[s.v] + '명"></i>' : '';
+      }).join('') + '</span><span class="n">' + d.n + '명</span></div>';
+    }).join('');
+
+    // list
+    var q = $('q').value.trim().toLowerCase(), sort = $('sort').value;
+    var list = rows.filter(function(r){
+      if(filter && r.status !== filter) return false;
+      if(!q) return true;
+      return [r.name, r.major, r.year, r.year + '학번', r.phone, r.message].join(' ').toLowerCase().indexOf(q) >= 0;
+    });
+    list.sort(function(a,b){
+      if(sort === 'year') return fullYear(a.year) - fullYear(b.year) || a.name.localeCompare(b.name,'ko');
+      if(sort === 'yearDesc') return fullYear(b.year) - fullYear(a.year) || a.name.localeCompare(b.name,'ko');
+      if(sort === 'name') return a.name.localeCompare(b.name,'ko');
+      return (b.updatedAt || b.createdAt).localeCompare(a.updatedAt || a.createdAt);
+    });
+    $('listCount').textContent = list.length + '명' + (filter ? ' · ' + byV[filter].label + '만 보는 중' : '');
+    $('tbody').innerHTML = list.length ? list.map(function(r){
+      var s = byV[r.status] || {label:r.status, cls:''};
+      return '<tr><td><b>' + esc(r.name) + '</b></td><td class="num">' + esc(r.year) + '</td><td>' + esc(r.major) + '</td><td class="num">' + esc(r.phone) +
+        '</td><td><span class="pill ' + s.cls + '">' + esc(s.label) + '</span>' + (r.arrive ? '<div style="font-size:12px;color:var(--ink-soft);margin-top:4px">' + esc(r.arrive) + '</div>' : '') +
+        '</td><td class="msg">' + esc(r.message) + '</td><td class="num" style="font-size:12.5px;color:var(--ink-soft)">' + esc(r.updatedAt || r.createdAt) + (r.updatedAt ? '<br>(고침)' : '') + '</td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty">' + (rows.length ? '찾는 답장이 없어요.' : '아직 도착한 답장이 없어요. 초대장 링크를 보내면 여기에 하나씩 쌓여요.') + '</td></tr>';
+
+    var notes = rows.filter(function(r){ return r.message; });
+    $('wall').innerHTML = notes.length ? notes.map(function(r){
+      return '<div class="note-card"><p>' + esc(r.message) + '</p><div class="by">' + esc(r.year) + '학번 ' + esc(r.name) + '</div></div>';
+    }).join('') : '<p class="empty" style="margin:0">남긴 말이 도착하면 여기에 모여요.</p>';
+  }
+
+  $('stats').addEventListener('click', function(e){
+    var b = e.target.closest('[data-f]'); if(!b) return;
+    filter = filter === b.getAttribute('data-f') ? '' : b.getAttribute('data-f'); render();
+  });
+  $('q').addEventListener('input', render);
+  $('sort').addEventListener('change', render);
+  $('refresh').addEventListener('click', function(){ refresh(false); });
+  $('lock').addEventListener('click', function(){ setKey(''); clearInterval(timer); timer = null; rows = []; $('app').hidden = true; $('gate').hidden = false; $('key').value = ''; if(demo) location.search = ''; });
+  $('gateForm').addEventListener('submit', function(e){ e.preventDefault(); var k = $('key').value.trim(); if(k) open(k); });
+  $('csv').addEventListener('click', function(){
+    var head = ['이름','학번','전공','전화번호','참석여부','도착예정','남긴 말','접수시각','수정시각'];
+    var lines = [head].concat(rows.map(function(r){ return [r.name, r.year + '학번', r.major, r.phone, r.status, r.arrive, r.message, r.createdAt, r.updatedAt]; }))
+      .map(function(a){ return a.map(function(v){ return '"' + String(v == null ? '' : v).replace(/"/g,'""') + '"'; }).join(','); }).join('\r\n');
+    var blob = new Blob(['﻿' + lines], {type:'text/csv;charset=utf-8'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '홈커밍-답장-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+
+  if(demo) open('');
+  else if(getKey()) open(getKey());
+})();
+</script>
+</body>
+</html>

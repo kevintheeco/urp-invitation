@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>서강 예수전도단 홈커밍</title>
+<meta name="description" content="주의 나라의 기쁨을 나누어 가지게 하사 주의 유산을 자랑하게 하소서 (시 106:5) · 2026년 11월 14일 토요일 오후 3시–8시" />
+<meta name="theme-color" content="#1c130e" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="서강 예수전도단 홈커밍 · 11월 14일 토요일" />
+<meta property="og:description" content="주의 나라의 기쁨을 나누어 가지게 하사 주의 유산을 자랑하게 하소서 (시 106:5)" />
+<meta property="og:image" content="https://kevintheeco.github.io/urp-invitation/ywam-homecoming/assets/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/sogang-autumn.jpg" />
+<script src="config.js"></script>
+<style>
+/* Layout: one narrow letter column floating over the campus at dusk; the photo stays fixed behind and darkens as you read. */
+:root{
+  --dusk:#1c130e;        /* walnut night, page ground */
+  --amber:#eaa45b;       /* sunset over the city */
+  --maple:#b8462e;       /* maple red */
+  --ginkgo:#e8c35a;      /* ginkgo yellow */
+  --paper:#f7eddc;       /* letter paper */
+  --paper-edge:#e9d9bd;
+  --ink:#3b2a1e;         /* letter ink */
+  --ink-soft:#6f5845;
+  --cream:#fbf1e1;       /* text on photo */
+  --cream-soft:rgba(251,241,225,.78);
+  --glass:rgba(28,19,14,.52);
+  --line:rgba(251,241,225,.22);
+
+  --f-display:"Gowun Batang","Nanum Myeongjo","Apple SD Gothic Neo",serif;
+  --f-body:"Gowun Batang","Nanum Myeongjo",serif;
+  --f-ui:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-hand:"Nanum Pen Script","Gowun Dodum",cursive;
+  --f-latin:"Cormorant Garamond","Gowun Batang",serif;
+
+  --veil:0;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--dusk);font-variant-numeric:lining-nums;color:var(--cream);
+  font-family:var(--f-body);font-size:16px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ginkgo);outline-offset:3px}
+
+/* ───────── fixed backdrop ───────── */
+.backdrop{position:fixed;inset:0;height:100lvh;z-index:0;overflow:hidden;pointer-events:none}
+.backdrop .photo{
+  position:absolute;inset:-4%;
+  background:url("assets/sogang-autumn.jpg") center 38%/cover no-repeat;
+  animation:settle 3.2s cubic-bezier(.2,.7,.2,1) both, drift 38s ease-in-out 3.2s infinite alternate;
+  will-change:transform;
+}
+@keyframes settle{from{transform:scale(1.16);filter:saturate(.6) brightness(.55)}to{transform:scale(1.04);filter:saturate(1) brightness(1)}}
+@keyframes drift{from{transform:scale(1.04) translate3d(0,0,0)}to{transform:scale(1.1) translate3d(-1.2%,-1.6%,0)}}
+.backdrop .tone{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(28,19,14,.38) 0%,rgba(28,19,14,.05) 30%,rgba(28,19,14,.55) 72%,rgba(28,19,14,.92) 100%),
+    radial-gradient(120% 70% at 50% 0%,rgba(234,164,91,.18),transparent 60%);
+}
+.backdrop .veil{position:absolute;inset:0;background:var(--dusk);opacity:calc(var(--veil) * .72)}
+#leaves{position:fixed;inset:0;width:100%;height:100lvh;z-index:1;pointer-events:none}
+
+main{position:relative;z-index:2}
+.col{width:100%;max-width:560px;margin:0 auto;padding-inline:20px}
+
+/* ───────── hero ───────── */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(26px + env(safe-area-inset-bottom,0px));
+}
+.hero-top{
+  display:flex;justify-content:space-between;gap:12px;
+  font-family:var(--f-latin);font-weight:600;letter-spacing:.32em;font-size:11.5px;color:var(--cream-soft);
+  text-transform:uppercase;animation:rise 1.2s .3s both;
+}
+.hero-main{padding-top:20vh}
+.kicker{font-family:var(--f-hand);font-size:27px;line-height:1.2;color:var(--ginkgo);margin:0 0 6px;animation:rise 1.1s 1.1s both}
+h1{margin:0;font-weight:400}
+h1 .en{
+  display:block;font-family:var(--f-latin);font-style:italic;font-weight:500;
+  font-size:clamp(58px,17vw,92px);line-height:.92;letter-spacing:-.01em;color:var(--cream);
+  text-shadow:0 4px 30px rgba(28,19,14,.45);
+}
+h1 .en span{display:inline-block;animation:letter 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1.3s + var(--i) * 70ms)}
+@keyframes letter{from{opacity:0;transform:translateY(.35em) rotate(4deg);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+h1 .ko{
+  display:block;margin-top:14px;font-family:var(--f-display);font-weight:700;
+  font-size:clamp(19px,5.2vw,23px);letter-spacing:.14em;color:var(--cream);animation:rise 1.2s 2.2s both;
+}
+.verse{margin:30px 0 0;padding:18px 0 0;border-top:1px solid var(--line);max-width:30em}
+.verse p{margin:0;font-family:var(--f-display);font-size:clamp(17px,4.6vw,20px);line-height:1.85;color:var(--cream);text-wrap:balance}
+.verse .w{display:inline-block;animation:word 1.3s ease both;animation-delay:calc(2.6s + var(--i) * 140ms)}
+@keyframes word{from{opacity:0;filter:blur(8px);transform:translateY(6px)}to{opacity:1;filter:blur(0);transform:none}}
+.verse cite{display:block;margin-top:8px;font-style:normal;font-family:var(--f-ui);font-size:13px;letter-spacing:.12em;color:var(--ginkgo);animation:rise 1s 4.4s both}
+.when{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;margin-top:28px;
+  font-family:var(--f-ui);font-size:15px;color:var(--cream-soft);animation:rise 1.2s 4.7s both;
+}
+.when b{font-family:var(--f-latin);font-weight:600;font-size:40px;line-height:1;color:var(--cream);letter-spacing:.02em}
+.cue{
+  align-self:center;display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:28px;
+  font-family:var(--f-ui);font-size:13px;letter-spacing:.14em;color:var(--cream-soft);text-decoration:none;
+  animation:rise 1s 5.2s both;
+}
+.cue i{width:1px;height:38px;background:linear-gradient(var(--cream-soft),transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ───────── reveal on scroll ───────── */
+.js .reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s ease,transform 1.2s cubic-bezier(.2,.75,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ───────── letter ───────── */
+.letter-wrap{padding-block:12vh 40px}
+.letter{
+  position:relative;color:var(--ink);
+  background:
+    repeating-linear-gradient(180deg,transparent 0 33px,rgba(111,88,69,.06) 33px 34px),
+    radial-gradient(140% 90% at 0% 0%,rgba(255,255,255,.55),transparent 55%),
+    linear-gradient(170deg,var(--paper),var(--paper-edge));
+  background-position:0 6px,0 0,0 0;
+  border-radius:3px;padding:62px 26px 40px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.6),0 2px 0 rgba(255,255,255,.4) inset;
+}
+.js .letter.reveal{transform:translateY(60px) rotate(-2.2deg)}
+.js .letter.reveal.in{transform:rotate(-.6deg)}
+.letter::before{ /* paper grain */
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.leaf-pin{position:absolute;top:-22px;left:26px;width:58px;transform:rotate(-18deg);filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.postmark{position:absolute;top:18px;right:14px;width:112px;height:112px;color:var(--maple);opacity:.82;transform:rotate(-12deg)}
+.js .postmark{opacity:0;transform:rotate(-12deg) scale(1.7)}
+.letter.in .postmark{animation:stamp .55s 1.2s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes stamp{from{opacity:0;transform:rotate(-12deg) scale(1.7)}to{opacity:.82;transform:rotate(-12deg) scale(1)}}
+.salute{font-family:var(--f-hand);font-size:30px;line-height:1.25;margin:0 0 22px;padding-right:96px;color:var(--ink);word-break:keep-all;text-wrap:balance}
+.para{margin:0 0 18px;font-size:16.5px;line-height:2.04;word-break:keep-all}
+.js .para{opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
+.letter.in .para{opacity:1;transform:none}
+.letter.in .para:nth-of-type(2){transition-delay:.5s}
+.letter.in .para:nth-of-type(3){transition-delay:1.1s}
+.letter.in .para:nth-of-type(4){transition-delay:1.7s}
+.letter.in .para:nth-of-type(5){transition-delay:2.3s}
+.letter.in .para:nth-of-type(6){transition-delay:2.9s}
+mark{
+  color:inherit;background:linear-gradient(transparent 58%,rgba(232,195,90,.62) 58% 92%,transparent 92%) no-repeat 0 0/0% 100%;
+  transition:background-size 1.3s cubic-bezier(.6,.1,.2,1);padding:0 1px;
+}
+.letter.in mark{background-size:100% 100%}
+.letter.in .para:nth-of-type(2) mark{transition-delay:1.3s}
+.letter.in .para:nth-of-type(3) mark{transition-delay:1.9s}
+.letter.in .para:nth-of-type(4) mark{transition-delay:2.5s}
+.letter.in .para:nth-of-type(5) mark{transition-delay:3.1s}
+.para.ask{font-weight:700}
+.sign{margin:30px 0 0;text-align:right;font-family:var(--f-hand);font-size:25px;line-height:1.35;color:var(--ink-soft)}
+.sign b{font-weight:400;color:var(--ink);font-size:28px}
+
+/* ───────── lineage ───────── */
+.lineage{padding-block:56px 30px;text-align:left}
+.eyebrow{font-family:var(--f-ui);font-size:12.5px;letter-spacing:.24em;color:var(--ginkgo);margin:0 0 10px}
+.lineage h2,.details h2,.rsvp h2{font-family:var(--f-display);font-weight:700;font-size:clamp(23px,6vw,28px);line-height:1.45;margin:0 0 22px;text-wrap:balance;word-break:keep-all}
+.gens{list-style:none;margin:0;padding:24px 0 0;display:grid;grid-template-columns:repeat(6,1fr);position:relative}
+.gens::before,.gens::after{content:"";position:absolute;top:30px;left:calc(100%/12);right:calc(100%/12);height:1px;background:var(--line)}
+.gens::after{background:linear-gradient(90deg,var(--maple),var(--amber),var(--ginkgo));transform:scaleX(0);transform-origin:left;transition:transform 2.4s cubic-bezier(.5,0,.2,1) .3s;height:2px;top:29.5px}
+.lineage.in .gens::after{transform:scaleX(1)}
+.gens li{display:flex;flex-direction:column;align-items:center;gap:12px;font-family:var(--f-latin);font-weight:600;font-size:17px;color:var(--cream-soft)}
+.gens li::before{content:"";width:13px;height:13px;border-radius:50%;background:var(--dusk);border:2px solid var(--cream-soft);position:relative;z-index:1;transition:background .4s,border-color .4s,transform .4s}
+.lineage.in .gens li::before{background:var(--c);border-color:var(--c);transform:scale(1.1)}
+.gens li:nth-child(1){--c:var(--maple)}.gens li:nth-child(2){--c:#c75d34}.gens li:nth-child(3){--c:#d67a3f}
+.gens li:nth-child(4){--c:var(--amber)}.gens li:nth-child(5){--c:#e9b553}.gens li:nth-child(6){--c:var(--ginkgo)}
+.lineage.in .gens li:nth-child(1)::before{transition-delay:.3s}.lineage.in .gens li:nth-child(2)::before{transition-delay:.75s}
+.lineage.in .gens li:nth-child(3)::before{transition-delay:1.2s}.lineage.in .gens li:nth-child(4)::before{transition-delay:1.65s}
+.lineage.in .gens li:nth-child(5)::before{transition-delay:2.1s}.lineage.in .gens li:nth-child(6)::before{transition-delay:2.55s}
+.gens small{font-family:var(--f-ui);font-weight:400;font-size:11px;color:var(--ginkgo);margin-top:-6px;white-space:nowrap}
+.lineage p.note{margin:26px 0 0;font-size:15.5px;line-height:1.95;color:var(--cream-soft);word-break:keep-all}
+
+/* ───────── details ───────── */
+.details{padding-block:40px 30px}
+.ticket{
+  background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;
+}
+.ticket .rows{display:grid}
+.ticket .row{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:18px 22px;border-bottom:1px dashed var(--line)}
+.ticket .lab{font-family:var(--f-ui);font-size:13px;letter-spacing:.12em;color:var(--ginkgo);padding-top:3px}
+.ticket .val{font-family:var(--f-display);font-size:17.5px;line-height:1.6;min-width:0;word-break:keep-all}
+.ticket .val small{display:block;font-family:var(--f-ui);font-size:13.5px;color:var(--cream-soft);margin-top:2px}
+.ticket .foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 22px;flex-wrap:wrap}
+.dday{font-family:var(--f-latin);font-weight:600;font-size:34px;line-height:1;color:var(--amber);font-variant-numeric:lining-nums tabular-nums}
+.dday small{display:block;font-family:var(--f-ui);font-weight:400;font-size:12px;letter-spacing:.1em;color:var(--cream-soft);margin-top:6px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;
+  font-family:var(--f-ui);font-size:15px;text-decoration:none;cursor:pointer;border:1px solid transparent;
+  transition:transform .2s,background .2s,box-shadow .2s;
+}
+.btn:active{transform:scale(.97)}
+.btn.ghost{border-color:var(--line);color:var(--cream);background:rgba(251,241,225,.06)}
+.btn.ghost:hover{background:rgba(251,241,225,.14)}
+.copy{margin-left:6px;font-family:var(--f-ui);font-size:12px;border:1px solid var(--line);background:transparent;border-radius:999px;padding:2px 10px;cursor:pointer;color:var(--cream-soft)}
+
+/* ───────── rsvp ───────── */
+.rsvp{padding-block:50px 30px}
+.rsvp .intro{font-size:15.5px;line-height:1.9;color:var(--cream-soft);margin:-8px 0 24px;word-break:keep-all}
+.card{
+  position:relative;color:var(--ink);border-radius:16px;padding:28px 22px 26px;
+  background:linear-gradient(175deg,var(--paper),var(--paper-edge));
+  box-shadow:0 30px 60px -24px rgba(0,0,0,.65);
+}
+.field{display:grid;gap:7px;margin-bottom:18px}
+.field label,.legend{font-family:var(--f-ui);font-size:14px;color:var(--ink-soft);letter-spacing:.02em}
+.field label em,.legend em{font-style:normal;color:var(--maple);margin-left:2px}
+.field label span.opt{color:var(--ink-soft);opacity:.7;font-size:12.5px;margin-left:4px}
+.input{
+  width:100%;min-height:50px;padding:12px 14px;border-radius:10px;border:1px solid rgba(111,88,69,.28);
+  background:rgba(255,255,255,.62);color:var(--ink);font-family:var(--f-ui);font-size:16px;
+  transition:border-color .2s,background .2s,box-shadow .2s;color-scheme:light;
+}
+.input::placeholder{color:rgba(111,88,69,.55)}
+.input:focus{outline:none;border-color:var(--maple);background:#fff;box-shadow:0 0 0 3px rgba(184,70,46,.14)}
+select.input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236f5845' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+textarea.input{min-height:96px;resize:vertical;line-height:1.7}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two .field{min-width:0}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 18px;border:0;padding:0}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;pointer-events:none}
+.choice label{
+  display:flex;flex-direction:column;gap:3px;height:100%;padding:14px 14px 13px;border-radius:12px;cursor:pointer;
+  border:1px solid rgba(111,88,69,.25);background:rgba(255,255,255,.5);transition:all .25s;
+}
+.choice b{font-family:var(--f-display);font-weight:700;font-size:16.5px;color:var(--ink);display:flex;align-items:center;gap:8px}
+.choice b::before{content:"";width:10px;height:10px;border-radius:50%;border:1.5px solid var(--dot);flex:none;transition:all .25s}
+.choice small{font-family:var(--f-ui);font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
+.choice input:checked + label{border-color:var(--dot);background:#fff;box-shadow:0 0 0 2px var(--dot) inset,0 8px 18px -10px var(--dot)}
+.choice input:checked + label b::before{background:var(--dot);box-shadow:0 0 0 3px rgba(255,255,255,.9) inset}
+.choice input:focus-visible + label{outline:2px solid var(--maple);outline-offset:2px}
+.choice.yes{--dot:#4f7a3a}.choice.late{--dot:#c9822f}.choice.maybe{--dot:#7b6aa8}.choice.no{--dot:#9a6b5b}
+.err{min-height:0;font-family:var(--f-ui);font-size:13px;color:var(--maple);margin:-10px 0 14px}
+.submit{
+  width:100%;min-height:56px;border:0;border-radius:14px;cursor:pointer;
+  background:linear-gradient(135deg,var(--maple),#a33a24);color:#fff8ee;font-family:var(--f-ui);font-size:17px;letter-spacing:.06em;
+  box-shadow:0 14px 28px -12px rgba(184,70,46,.8);position:relative;overflow:hidden;
+}
+.submit::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-100%);animation:sheen 4s ease-in-out 1s infinite}
+@keyframes sheen{0%,60%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.submit[disabled]{opacity:.7;cursor:progress}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.privacy{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-soft);opacity:.85;margin:14px 0 0;text-align:center;word-break:keep-all}
+.already{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13.5px;color:var(--ink-soft);background:rgba(232,195,90,.25);border-radius:10px;padding:10px 12px;margin-bottom:18px}
+
+/* success */
+.done{text-align:center;padding:12px 4px 6px}
+.done .seal{width:96px;height:96px;margin:0 auto 18px;animation:sealIn .9s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes sealIn{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+.done h3{font-family:var(--f-hand);font-weight:400;font-size:34px;line-height:1.25;margin:0 0 10px;color:var(--ink);animation:rise .8s .4s both}
+.done p{font-size:16px;line-height:1.9;margin:0 0 6px;color:var(--ink);word-break:keep-all;animation:rise .8s .6s both}
+.done .meta{font-family:var(--f-ui);font-size:13px;color:var(--ink-soft);animation:rise .8s .8s both}
+.done .btn{margin-top:18px;border-color:rgba(111,88,69,.3);color:var(--ink);background:transparent}
+
+footer{padding-block:50px calc(60px + env(safe-area-inset-bottom,0px));text-align:center}
+footer .hand{font-family:var(--f-hand);font-size:26px;color:var(--cream);margin:0}
+footer .small{font-family:var(--f-ui);font-size:12.5px;color:var(--cream-soft);margin:8px 0 0;letter-spacing:.06em}
+
+@media (min-width:720px){
+  .letter{padding:70px 48px 48px}
+  .hero-main{padding-top:24vh}
+}
+@media (max-width:360px){
+  .choices{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .gens small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .backdrop .photo{transform:scale(1.04)}
+  #leaves{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true"><div class="photo"></div><div class="tone"></div><div class="veil"></div></div>
+<canvas id="leaves" aria-hidden="true"></canvas>
+
+<main>
+  <!-- ═════ HERO ═════ -->
+  <header class="hero col">
+    <div class="hero-top"><span>Sogang YWAM</span><span>Since 1970s</span></div>
+    <div class="hero-main">
+      <p class="kicker">보고 싶은 얼굴들에게</p>
+      <h1>
+        <span class="en" id="titleEn" aria-label="Homecoming">Homecoming</span>
+        <span class="ko">서강 예수전도단 홈커밍</span>
+      </h1>
+      <blockquote class="verse">
+        <p id="verse">주의 나라의 기쁨을 나누어 가지게 하사<br />주의 유산을 자랑하게 하소서</p>
+        <cite>시편 106:5</cite>
+      </blockquote>
+      <div class="when"><b>11.14</b><span>토요일 · 오후 3시 – 8시</span></div>
+    </div>
+    <a class="cue" href="#letter">편지 펼쳐 보기<i></i></a>
+  </header>
+
+  <!-- ═════ LETTER ═════ -->
+  <section id="letter" class="letter-wrap col">
+    <article class="letter reveal">
+      <svg class="leaf-pin" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 60 C31 50 31 44 32 36 C22 38 8 30 6 14 C14 20 18 12 20 6 C24 14 28 10 32 4 C36 10 40 14 44 6 C46 12 50 20 58 14 C56 30 42 38 32 36" fill="#b8462e"/><path d="M32 60 L32 14 M32 36 L18 22 M32 36 L46 22 M32 30 L24 12 M32 30 L40 12" stroke="#7d2a19" stroke-width="1.2" fill="none" opacity=".6"/></svg>
+      <svg class="postmark" viewBox="0 0 120 120" aria-hidden="true" style="font-variant-numeric:lining-nums">
+        <defs><path id="pmc" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
+        <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="60" cy="60" r="33" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text font-family="Cormorant Garamond, serif" font-size="11.5" font-weight="600" letter-spacing="2.6" fill="currentColor"><textPath href="#pmc">EMMAUS HALL 123 · SOGANG YWAM ·</textPath></text>
+        <text x="60" y="56" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="17" font-weight="600" fill="currentColor">11.14</text>
+        <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" letter-spacing="1.5" fill="currentColor">2026</text>
+      </svg>
+
+      <p class="salute">사랑하는 서강 예수전도단 가족들에게</p>
+
+      <p class="para">어느덧 무더운 여름이 가고, 가을이 부쩍 찾아왔습니다.</p>
+      <p class="para">여전히 <mark>엠마오관 123호</mark>에는 공강 시간마다 옹기종기 모여 교제하고 예배하며, 찬양 소리가 울립니다. 캐비닛을 열어 보면 <mark>1970년대부터 50년 넘게</mark> 함께해 온 서강 예수전도단의 역사와 기도의 향기가 아직도 숨 쉬고 있습니다.</p>
+      <p class="para">이번 홈커밍에서는 아브라함과 이삭, 야곱으로 대대로 전해 내려온 믿음처럼, 세월마다 서강 예수전도단에 가득했던 하나님의 은혜와 <mark>믿음의 유산</mark>을 졸업생과 재학생이 함께 나누고, 하나님의 일하심을 찬양하려 합니다.</p>
+      <p class="para ask">재학생들에게 그 시절 <mark>하나님의 일하심과 고난, 그리고 은혜</mark>를 들려주세요.</p>
+      <p class="para">123호의 문은 늘 열려 있어요. 집에 오듯, 편하게 오세요.</p>
+
+      <p class="sign">2026년 가을, 엠마오관 123호에서<br /><b>서강 예수전도단 드림</b></p>
+    </article>
+  </section>
+
+  <!-- ═════ LINEAGE ═════ -->
+  <section class="lineage col reveal" id="lineage">
+    <p class="eyebrow">대대로 이어 온 믿음의 유산</p>
+    <h2>71학번부터 26학번까지,<br />한 방에 다시 모입니다</h2>
+    <ol class="gens" aria-label="세대">
+      <li>70s</li><li>80s</li><li>90s</li><li>00s</li><li>10s</li><li>20s<small>지금 123호</small></li>
+    </ol>
+    <p class="note">아브라함에서 이삭으로, 이삭에서 야곱으로 이어졌듯이 선배들이 심은 기도가 오늘의 123호를 지키고 있습니다. 그 이야기를 직접 들려주세요.</p>
+  </section>
+
+  <!-- ═════ DETAILS ═════ -->
+  <section class="details col reveal" id="details">
+    <p class="eyebrow">홈커밍 안내</p>
+    <h2>그날, 이렇게 모여요</h2>
+    <div class="ticket">
+      <div class="rows">
+        <div class="row"><span class="lab">일시</span><span class="val">2026년 11월 14일 토요일<small>오후 3시 – 8시</small></span></div>
+        <div class="row"><span class="lab">장소</span><span class="val" id="placeVal">서강대학교<small>세부 장소는 신청해 주신 분들께 따로 안내드려요</small></span></div>
+        <div class="row"><span class="lab">회비</span><span class="val" id="feeVal">30,000원</span></div>
+        <div class="row" id="contactRow" hidden><span class="lab">문의</span><span class="val" id="contactVal"></span></div>
+      </div>
+      <div class="foot">
+        <div class="dday" id="dday">D-37<small>집에 오는 날까지</small></div>
+        <a class="btn ghost" id="calBtn" href="#" target="_blank" rel="noopener">캘린더에 담기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ RSVP ═════ -->
+  <section class="rsvp col reveal" id="rsvp">
+    <p class="eyebrow">답장 보내기</p>
+    <h2>오실 수 있는지 알려 주세요</h2>
+    <p class="intro">준비하는 재학생들이 자리와 식사를 맞추려고 해요. 마음이 바뀌면 같은 전화번호로 다시 보내 주세요. 새 답장으로 고쳐집니다.</p>
+
+    <div class="card">
+      <form id="form" novalidate>
+        <div class="already" id="already" hidden><span id="alreadyText"></span><button type="button" class="copy" id="alreadyEdit" style="color:inherit;border-color:rgba(111,88,69,.3)">이어서 고치기</button></div>
+
+        <div class="field"><label for="f-name">이름<em>*</em></label><input class="input" id="f-name" name="name" autocomplete="name" placeholder="홍길동" maxlength="30" required /></div>
+        <div class="field"><label for="f-phone">전화번호<em>*</em></label><input class="input" id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" maxlength="13" required /></div>
+        <div class="two">
+          <div class="field"><label for="f-major">전공<em>*</em></label><input class="input" id="f-major" name="major" placeholder="예) 신학, 경영" maxlength="40" required /></div>
+          <div class="field"><label for="f-year">학번<em>*</em></label><select class="input" id="f-year" name="year" required><option value="">선택</option></select></div>
+        </div>
+
+        <div class="legend" id="lg-status">참석 여부<em>*</em></div>
+        <div class="choices" role="radiogroup" aria-labelledby="lg-status">
+          <div class="choice yes"><input type="radio" name="status" id="s-yes" value="참석 가능" /><label for="s-yes"><b>참석 가능</b><small>집에 갈게요</small></label></div>
+          <div class="choice late"><input type="radio" name="status" id="s-late" value="늦참" /><label for="s-late"><b>늦참</b><small>조금 늦더라도 갈게요</small></label></div>
+          <div class="choice maybe"><input type="radio" name="status" id="s-maybe" value="고민해보겠음" /><label for="s-maybe"><b>고민해 볼게요</b><small>기도해 보고 알려 줄게요</small></label></div>
+          <div class="choice no"><input type="radio" name="status" id="s-no" value="불가능" /><label for="s-no"><b>불가능</b><small>이번엔 마음만 보낼게요</small></label></div>
+        </div>
+
+        <div class="field" id="lateField" hidden>
+          <label for="f-arrive">도착 예정 시간 <span class="opt">선택</span></label>
+          <select class="input" id="f-arrive" name="arrive">
+            <option value="">잘 모르겠어요</option>
+            <option>오후 4시쯤</option><option>오후 5시쯤</option><option>오후 6시쯤</option><option>오후 7시 이후</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="f-msg">재학생들에게 남기고 싶은 말 <span class="opt">선택</span></label>
+          <textarea class="input" id="f-msg" name="message" maxlength="500" placeholder="그 시절 123호의 기억, 기도 제목, 응원 한마디"></textarea>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label for="f-web">웹사이트</label><input id="f-web" name="website" tabindex="-1" autocomplete="off" /></div>
+
+        <p class="err" id="err" role="alert"></p>
+        <button class="submit" id="submitBtn" type="submit">답장 보내기</button>
+        <p class="privacy">남겨 주신 정보는 이번 홈커밍 준비와 연락에만 쓰고, 행사가 끝나면 지웁니다.</p>
+      </form>
+
+      <div class="done" id="done" hidden aria-live="polite">
+        <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="44" fill="#b8462e"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="#8f3220" stroke-width="5" stroke-dasharray="3 5"/>
+          <circle cx="50" cy="50" r="31" fill="none" stroke="#f7d9b8" stroke-width="1.2" opacity=".7"/>
+          <text x="50" y="59" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="27" fill="#f7d9b8" style="font-variant-numeric:lining-nums">123</text>
+        </svg>
+        <h3 id="doneTitle">답장이 도착했어요</h3>
+        <p id="doneMsg"></p>
+        <p class="meta" id="doneMeta"></p>
+        <button type="button" class="btn" id="editBtn">답장 고치기</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="col">
+    <p class="hand">집에서 기다릴게요</p>
+    <p class="small">서강 예수전도단 · 엠마오관 123호</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var C = window.HOMECOMING || {};
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── split title & verse for motion ── */
+  var t = document.getElementById('titleEn');
+  t.innerHTML = t.textContent.split('').map(function(ch,i){return '<span aria-hidden="true" style="--i:'+i+'">'+ch+'</span>';}).join('');
+  var v = document.getElementById('verse'), n = 0;
+  v.innerHTML = v.innerHTML.split('<br>').map(function(line){
+    return line.trim().split(/\s+/).map(function(w){return '<span class="w" style="--i:'+(n++)+'">'+w+'</span>';}).join(' ');
+  }).join('<br>');
+
+  /* ── reveal on scroll ── */
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.18, rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  /* ── darken photo as you read ── */
+  var ticking = false;
+  function veil(){
+    var h = window.innerHeight || 1;
+    var p = Math.min(1, Math.max(0, (window.scrollY - h*0.35) / (h*0.9)));
+    root.style.setProperty('--veil', p.toFixed(3));
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(veil); } }, {passive:true});
+  veil();
+
+  /* ── details from config ── */
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  var place = C.place || '서강대학교';
+  document.getElementById('placeVal').innerHTML = esc(place) + '<small>' + esc(C.placeDetail || '세부 장소는 신청해 주신 분들께 따로 안내드려요') + '</small>';
+  var fee = (C.fee || 30000).toLocaleString('ko-KR') + '원';
+  var feeHtml = esc(fee);
+  if(C.account){ feeHtml += '<small>' + esc(C.account) + ' <button type="button" class="copy" data-copy="' + esc(C.account) + '">복사</button></small>'; }
+  document.getElementById('feeVal').innerHTML = feeHtml;
+  if(C.contact){ document.getElementById('contactRow').hidden = false; document.getElementById('contactVal').textContent = C.contact; }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('[data-copy]'); if(!b) return;
+    var txt = b.getAttribute('data-copy');
+    var ok = function(){ b.textContent = '복사됨'; setTimeout(function(){ b.textContent = '복사'; }, 1600); };
+    if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(ok, function(){}); }
+  });
+
+  /* ── D-day (KST) ── */
+  var date = C.date || '2026-11-14';
+  (function(){
+    var now = new Date(Date.now() + 9*3600e3); // KST wall clock
+    var today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    var p = date.split('-').map(Number), ev = Date.UTC(p[0], p[1]-1, p[2]);
+    var d = Math.round((ev - today) / 864e5), el = document.getElementById('dday');
+    el.innerHTML = (d > 0 ? 'D-' + d : d === 0 ? 'D-DAY' : '고마워요') + '<small>' + (d >= 0 ? '집에 오는 날까지' : '함께해 주셔서') + '</small>';
+  })();
+
+  /* ── calendar link ── */
+  var ymd = date.replace(/-/g,''), st = (C.start||'15:00').replace(':','') + '00', en = (C.end||'20:00').replace(':','') + '00';
+  document.getElementById('calBtn').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent('서강 예수전도단 홈커밍')
+    + '&dates=' + ymd + 'T' + st + '/' + ymd + 'T' + en + '&ctz=Asia/Seoul'
+    + '&location=' + encodeURIComponent(place + (C.placeDetail ? ' ' + C.placeDetail : ''))
+    + '&details=' + encodeURIComponent('주의 나라의 기쁨을 나누어 가지게 하사 주의 유산을 자랑하게 하소서 (시 106:5)\n회비 ' + fee);
+
+  /* ── 학번 options: 26 → 00 → 99 → 71 ── */
+  var sel = document.getElementById('f-year');
+  var groups = [['2020년대',26,20],['2010년대',19,10],['2000년대',9,0],['1990년대',99,90],['1980년대',89,80],['1970년대',79,71]];
+  groups.forEach(function(g){
+    var og = document.createElement('optgroup'); og.label = g[0];
+    for(var y=g[1]; y>=g[2]; y--){ var s = (y<10?'0':'')+y; var o = document.createElement('option'); o.value = s; o.textContent = s + '학번'; og.appendChild(o); }
+    sel.appendChild(og);
+  });
+
+  /* ── form ── */
+  var form = document.getElementById('form'), done = document.getElementById('done');
+  var phone = document.getElementById('f-phone'), err = document.getElementById('err'), btn = document.getElementById('submitBtn');
+  var lateField = document.getElementById('lateField');
+  phone.addEventListener('input', function(){
+    var d = phone.value.replace(/\D/g,'').slice(0,11), out = d;
+    if(d.length > 3 && d.length <= 7) out = d.slice(0,3) + '-' + d.slice(3);
+    else if(d.length > 7) out = d.slice(0,3) + '-' + d.slice(3, d.length === 10 ? 6 : 7) + '-' + d.slice(d.length === 10 ? 6 : 7);
+    phone.value = out;
+  });
+  form.addEventListener('change', function(e){
+    if(e.target.name === 'status') lateField.hidden = e.target.value !== '늦참';
+  });
+
+  var KEY = 'ywam-homecoming-2026';
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ return null; } }
+  function save(d){ try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){} }
+  function fill(d){
+    if(!d) return;
+    form.name.value = d.name || ''; phone.value = d.phone || ''; form.major.value = d.major || '';
+    sel.value = d.year || ''; form.message.value = d.message || ''; form.arrive.value = d.arrive || '';
+    form.querySelectorAll('input[name=status]').forEach(function(r){ r.checked = r.value === d.status; });
+    lateField.hidden = d.status !== '늦참';
+  }
+  var prev = load();
+  if(prev){
+    document.getElementById('already').hidden = false;
+    document.getElementById('alreadyText').textContent = prev.name + '님, 이미 "' + statusLabel(prev.status) + '"(으)로 답장해 주셨어요.';
+    document.getElementById('alreadyEdit').addEventListener('click', function(){ fill(prev); document.getElementById('already').hidden = true; });
+  }
+  function statusLabel(s){ return s === '고민해보겠음' ? '고민해 볼게요' : s; }
+
+  var LINES = {
+    '참석 가능': ['집에서 기다릴게요', '11월 14일 오후 3시, 123호 가족들이 문 앞에서 반겨 드릴게요.'],
+    '늦참': ['늦어도 괜찮아요', '자리 하나 꼭 비워 둘게요. 조심히 오세요.'],
+    '고민해보겠음': ['기도하며 정해 주세요', '마음이 정해지면 같은 전화번호로 다시 답장해 주세요. 새 답장으로 바뀌어요.'],
+    '불가능': ['마음은 받았어요', '이번엔 아쉽지만 기도로 함께해 주세요. 남겨 주신 말은 재학생들에게 꼭 전할게요.']
+  };
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.textContent = '';
+    var st = form.querySelector('input[name=status]:checked');
+    var data = {
+      name: form.name.value.trim(), phone: phone.value.trim(), major: form.major.value.trim(), year: sel.value,
+      status: st ? st.value : '', arrive: st && st.value === '늦참' ? form.arrive.value : '',
+      message: form.message.value.trim(), website: form.website.value
+    };
+    var bad = !data.name ? ['이름을 적어 주세요.', 'f-name']
+      : !/^01[016789]-?\d{3,4}-?\d{4}$/.test(data.phone) ? ['전화번호를 010-0000-0000 형식으로 적어 주세요.', 'f-phone']
+      : !data.major ? ['전공을 적어 주세요.', 'f-major']
+      : !data.year ? ['학번을 골라 주세요.', 'f-year']
+      : !data.status ? ['참석 여부를 골라 주세요.', 's-yes'] : null;
+    if(bad){ err.textContent = bad[0]; document.getElementById(bad[1]).focus(); return; }
+    if(!C.endpoint){ err.textContent = '아직 답장 받을 곳이 연결되지 않았어요. 준비팀에 이 화면을 알려 주세요.'; return; }
+
+    btn.disabled = true; btn.textContent = '보내는 중…';
+    fetch(C.endpoint, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data) })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(!res || !res.ok) throw new Error(res && res.error || 'fail');
+        delete data.website; save(data);
+        var L = LINES[data.status];
+        document.getElementById('doneTitle').textContent = L[0];
+        document.getElementById('doneMsg').textContent = data.name + '님의 답장이 123호에 잘 도착했어요. ' + L[1];
+        document.getElementById('doneMeta').textContent = data.year + '학번 · ' + data.major + ' · ' + statusLabel(data.status) + (data.arrive ? ' (' + data.arrive + ')' : '') + (res.updated ? ' · 이전 답장을 고쳤어요' : '');
+        form.hidden = true; done.hidden = false;
+        done.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
+        if(!reduce && window.__leafBurst) window.__leafBurst();
+      })
+      .catch(function(){ err.textContent = '답장을 보내지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; })
+      .then(function(){ btn.disabled = false; btn.textContent = '답장 보내기'; });
+  });
+  document.getElementById('editBtn').addEventListener('click', function(){
+    fill(load()); document.getElementById('already').hidden = true;
+    done.hidden = true; form.hidden = false; form.name.focus();
+  });
+
+  /* ── falling leaves ── */
+  if(reduce) return;
+  var cv = document.getElementById('leaves'), cx = cv.getContext('2d');
+  var W, H, dpr, leaves = [], COLORS = ['#e8c35a','#e9b553','#eaa45b','#d67a3f','#c75d34','#b8462e','#9c3a24'];
+  function size(){ dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W*dpr; cv.height = H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); }
+  function make(top){
+    var ginkgo = Math.random() < .45;
+    return { x: Math.random()*W, y: top ? -30 - Math.random()*H*.5 : Math.random()*H, s: 7 + Math.random()*9,
+      vy: .35 + Math.random()*.6, sway: 18 + Math.random()*30, ph: Math.random()*6.28, fr: .006 + Math.random()*.01,
+      r: Math.random()*6.28, vr: (Math.random()-.5)*.03, flip: Math.random()*6.28,
+      c: ginkgo ? COLORS[Math.floor(Math.random()*3)] : COLORS[3 + Math.floor(Math.random()*4)], g: ginkgo, a: .55 + Math.random()*.4 };
+  }
+  function drawLeaf(l){
+    cx.save(); cx.translate(l.x + Math.sin(l.ph)*l.sway, l.y); cx.rotate(l.r); cx.scale(Math.cos(l.flip), 1);
+    cx.globalAlpha = l.a; cx.fillStyle = l.c; cx.beginPath();
+    var s = l.s;
+    if(l.g){ // ginkgo fan
+      cx.moveTo(0, s*.9); cx.lineTo(0, 0);
+      cx.quadraticCurveTo(-s*1.1, -s*.2, -s*.9, -s*.95);
+      cx.quadraticCurveTo(-s*.4, -s*1.25, -s*.05, -s*.9);
+      cx.lineTo(0, -s*.55); cx.lineTo(s*.05, -s*.9);
+      cx.quadraticCurveTo(s*.4, -s*1.25, s*.9, -s*.95);
+      cx.quadraticCurveTo(s*1.1, -s*.2, 0, 0);
+      cx.fill(); cx.strokeStyle = l.c; cx.lineWidth = .9; cx.beginPath(); cx.moveTo(0,0); cx.lineTo(0, s*.9); cx.stroke();
+    } else { // maple
+      var pts = [[0,-1.1],[.22,-.55],[.62,-.78],[.48,-.28],[1,-.1],[.5,.15],[.62,.55],[.15,.32],[0,.62],[-.15,.32],[-.62,.55],[-.5,.15],[-1,-.1],[-.48,-.28],[-.62,-.78],[-.22,-.55]];
+      cx.moveTo(pts[0][0]*s, pts[0][1]*s);
+      for(var i=1;i<pts.length;i++) cx.lineTo(pts[i][0]*s, pts[i][1]*s);
+      cx.closePath(); cx.fill();
+      cx.strokeStyle = l.c; cx.lineWidth = .9; cx.beginPath(); cx.moveTo(0,.62*s); cx.lineTo(0, 1.05*s); cx.stroke();
+    }
+    cx.restore();
+  }
+  function count(){ return W < 500 ? 16 : 28; }
+  size(); for(var i=0;i<count();i++) leaves.push(make(false));
+  window.addEventListener('resize', function(){ size(); });
+  window.__leafBurst = function(){ for(var i=0;i<22;i++){ var l = make(true); l.vy *= 1.6; leaves.push(l); } };
+  var last = performance.now();
+  (function tick(now){
+    var dt = Math.min(3, (now - last) / 16.67); last = now;
+    cx.clearRect(0,0,W,H);
+    for(var i=leaves.length-1;i>=0;i--){
+      var l = leaves[i];
+      l.y += l.vy*dt; l.ph += l.fr*dt; l.r += l.vr*dt; l.flip += .02*dt;
+      if(l.y > H + 30){ if(leaves.length > count()) leaves.splice(i,1); else leaves[i] = make(true); continue; }
+      drawLeaf(l);
+    }
+    requestAnimationFrame(tick);
+  })(last);
+})();
+</script>
+</body>
+</html>
