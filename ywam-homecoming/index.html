@@ -835,8 +835,12 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
     if(C.endpoint){
       return fetch(C.endpoint, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data) })
         .then(function(r){ return r.json(); })
-        .then(function(res){ if(!res || !res.ok) throw new Error(res && res.error || 'fail'); return res; });
+        .then(function(res){ if(!res || !res.ok) throw new Error(res && res.error || 'fail'); return res; })
+        .catch(function(e){ if(C.email && !(e && e.message === 'invalid')) return sendMail(data); throw e; }); // never lose a reply if the sheet is unreachable
     }
+    return sendMail(data);
+  }
+  function sendMail(data){
     var mail = {
       _subject: '[홈커밍 답장] ' + data.name + ' · ' + data.year + '학번 · ' + statusLabel(data.status),
       _template: 'table', _captcha: 'false',
