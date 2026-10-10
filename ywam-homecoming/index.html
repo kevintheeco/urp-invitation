@@ -805,13 +805,11 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
       return;
     }
     btn.before(err);
-    if(!C.endpoint){ err.textContent = '아직 답장 받을 곳이 연결되지 않았어요. 준비팀에 이 화면을 알려 주세요.'; return; }
+    if(!C.endpoint && !C.email){ err.textContent = '아직 답장 받을 곳이 연결되지 않았어요. 준비팀에 이 화면을 알려 주세요.'; return; }
 
     btn.disabled = true; btn.textContent = '보내는 중…';
-    fetch(C.endpoint, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data) })
-      .then(function(r){ return r.json(); })
+    send(data)
       .then(function(res){
-        if(!res || !res.ok) throw new Error(res && res.error || 'fail');
         delete data.website; save(data);
         var L = LINES[data.status];
         $('doneTitle').textContent = L[0];
@@ -831,6 +829,28 @@ footer .small{font-family:var(--f-ui);font-size:13px;color:rgba(255,250,242,.72)
       .catch(function(){ err.textContent = '답장을 보내지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; })
       .then(function(){ btn.disabled = false; btn.textContent = '답장 보내기'; });
   });
+  // Google Sheet (Apps Script) when connected; until then each reply is emailed to the team through FormSubmit
+  function send(data){
+    if(data.website) return Promise.resolve({ok:true, updated:false}); // spam bot filled the hidden field
+    if(C.endpoint){
+      return fetch(C.endpoint, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(data) })
+        .then(function(r){ return r.json(); })
+        .then(function(res){ if(!res || !res.ok) throw new Error(res && res.error || 'fail'); return res; });
+    }
+    var mail = {
+      _subject: '[홈커밍 답장] ' + data.name + ' · ' + data.year + '학번 · ' + statusLabel(data.status),
+      _template: 'table', _captcha: 'false',
+      '이름': data.name, '전화번호': data.phone, '전공': data.major, '학번': data.year + '학번',
+      '참석 여부': statusLabel(data.status), '도착 예정': data.arrive || '-',
+      '직무·영역': data.work || '-', '남긴 말': data.message || '-',
+      '보낸 시각': new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul'})
+    };
+    return fetch('https://formsubmit.co/ajax/' + encodeURIComponent(C.email), {
+      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(mail)
+    }).then(function(r){ return r.json(); })
+      .then(function(res){ if(!res || String(res.success) !== 'true') throw new Error(res && res.message || 'fail'); return {ok:true, updated:false}; });
+  }
+
   $('editBtn').addEventListener('click', function(){
     fill(load()); $('already').hidden = true;
     doneEl.hidden = true; form.hidden = false; onScroll(); form.name.focus();

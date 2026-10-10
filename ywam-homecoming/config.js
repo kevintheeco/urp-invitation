@@ -6,6 +6,9 @@ window.HOMECOMING = {
   // Google Apps Script 웹 앱 주소 (SETUP.md 2단계에서 복사한 주소를 붙여넣으세요)
   endpoint: '',
 
+  // endpoint가 비어 있는 동안에는 답장이 이 메일로 한 통씩 옵니다 (FormSubmit, 첫 답장 때 오는 확인 메일에서 한 번 활성화)
+  email: 'soomin.kim@urpedu.com',
+
   date: '2026-11-14',
   start: '15:00',
   end: '20:00',
